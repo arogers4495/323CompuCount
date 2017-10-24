@@ -62,7 +62,8 @@ Auston - 6 hours]]></notes>
             </task>
         </task>
         <task id="5" name="Sprint 1" color="#8cb6ce" meeting="false" start="2017-10-10" duration="8" complete="0" expand="true">
-            <notes><![CDATA[Auston - 5 hours]]></notes>
+            <notes><![CDATA[Auston - 5 hours
+Josh-Login-4hrs]]></notes>
         </task>
     </tasks>
     <resources/>
