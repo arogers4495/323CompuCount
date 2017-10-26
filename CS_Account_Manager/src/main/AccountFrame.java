@@ -12,7 +12,8 @@ public class AccountFrame extends JFrame {
  public AccountFrame(String name) {
   aFrame = new JFrame("CS-AccountManager");
   aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+  AccountsFile mainFile = new AccountsFile();// this is the main database that will store the account members and their
+                                             // information
   accountView = new ViewAccountMember();
   aFrame.getContentPane().add(cl.Show("1"));
   aFrame.pack();
