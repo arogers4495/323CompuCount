@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 
 import java.util.ArrayList;
 
-
 public class CreateMemberPanel extends JPanel {
 
  private JLabel firstNameLabel, lastNameLabel;
@@ -24,13 +23,17 @@ public class CreateMemberPanel extends JPanel {
  private String firstName, lastName;
 
  ArrayList<AccountMember> myList = new ArrayList<AccountMember>();
+
+ public void createAccount(AccountMember NewMember) {
+
+ }
+
  public CreateMemberPanel() {
 
   firstNameLabel = new JLabel("First Name:");
   lastNameLabel = new JLabel("Last Name:");
   firstNameTField = new JTextField(10);
   lastNameTField = new JTextField(10);
-
 
   submit = new JButton("Submit");
   home = new JButton("Home");
@@ -67,28 +70,24 @@ public class CreateMemberPanel extends JPanel {
 
  }
 
- private class ButtonListener implements ActionListener
- {
-   public void actionPerformed(ActionEvent event)
-   {
-     String firstName, lastName;
+ private class ButtonListener implements ActionListener {
+  public void actionPerformed(ActionEvent event) {
+   String firstName, lastName;
 
-     firstName = firstNameTField.getText();
-     lastName = lastNameTField.getText();
+   firstName = firstNameTField.getText();
+   lastName = lastNameTField.getText();
 
-     if (event.getSource() == home)
-     System.out.println("home");
-     else if (event.getSource() == submit)
-     {
-          if (firstName.equals("") || lastName.equals(""))
-              {
-                JOptionPane.showMessageDialog(null,"Please enter your First and last name.");
-              }
-     System.out.println("submit");
-     AccountMember myMember = new AccountMember(firstName);
-     myList.add(myMember);
+   if (event.getSource() == home)
+    System.out.println("home");
+   else if (event.getSource() == submit) {
+    if (firstName.equals("") || lastName.equals("")) {
+     JOptionPane.showMessageDialog(null, "Please enter your First and last name.");
+    }
+    System.out.println("submit");
+    AccountMember myMember = new AccountMember(firstName);
+    myList.add(myMember);
    }
-   }
+  }
  }
 
 }

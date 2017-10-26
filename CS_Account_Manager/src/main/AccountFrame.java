@@ -8,10 +8,11 @@ public class AccountFrame extends JFrame {
  public LoginPanel Lpanel;
  public ViewAccountMember accountView;
  public Clayout cl = new Clayout();
+
  public AccountFrame(String name) {
   aFrame = new JFrame("CS-AccountManager");
   aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  
+
   accountView = new ViewAccountMember();
   aFrame.getContentPane().add(cl.Show("1"));
   aFrame.pack();
@@ -28,7 +29,7 @@ public class AccountFrame extends JFrame {
 
   @Override
   public void actionPerformed(ActionEvent arg0) {
-      
+
    String checkUser = Lpanel.unameTField.getText();
    String checkPass = Lpanel.pwdTField.getText();
    if (checkUser.equals(Lpanel.usernameActual) && checkPass.equals(Lpanel.passwordActual)) {

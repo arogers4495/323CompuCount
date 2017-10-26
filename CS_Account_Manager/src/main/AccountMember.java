@@ -1,25 +1,69 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 public class AccountMember {
 
- private String name;
+ public String firstName, lastName, email, phone, description;
+ protected File transactions;
+
+ public String getLastName() {
+  return lastName;
+ }
+
+ public static void createTransactionsFile() {
+ }
+
+ public void setLastName(String lastName) {
+  this.lastName = lastName;
+ }
+
+ public String getEmail() {
+  return email;
+ }
+
+ public void setEmail(String email) {
+  this.email = email;
+ }
+
+ public String getPhone() {
+  return phone;
+ }
+
+ public void setPhone(String phone) {
+  this.phone = phone;
+ }
+
+ public String getDescription() {
+  return description;
+ }
+
+ public void setDescription(String description) {
+  this.description = description;
+ }
+
  private double total;
 
  public AccountMember(String name) {
 
-  this.name = name;
+  this.firstName = name;
   this.total = 0;
 
  }
 
- public void setName(String name) {
+ public void setFirstName(String name) {
 
-  this.name = name;
+  this.firstName = name;
 
  }
 
- public String getName() {
+ public String getFirstName() {
 
-  return this.name;
+  return this.firstName;
 
  }
 
