@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class AccountsFile {
- public ArrayList<AccountMember> AccountMembers;
- public BufferedWriter writer;
- public File mainFile;
+ private ArrayList<AccountMember> AccountMembers;
+ private BufferedWriter writer;
+ private File mainFile;
 
  public AccountsFile() throws IOException {
   mainFile = new File("./Members");
@@ -22,13 +22,18 @@ public class AccountsFile {
   AccountMembers.add(member);
  }
 
- public void addMember(String member) throws IOException {
-
-  writer.write(member);
+ public void addMember(String name) throws IOException {
+  writer.write(name);
   writer.newLine();
   writer.flush();
+  AccountMember member = new AccountMember(name);
+  addToArrayList(member);
  }
 
  public static void main(String[] args) throws IOException {
+  AccountsFile newFile = new AccountsFile();
+  for (AccountMember m : newFile.AccountMembers) {
+   System.out.println(m.firstName);
+  }
  }
 }
