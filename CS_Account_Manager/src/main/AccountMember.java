@@ -48,9 +48,10 @@ public class AccountMember {
 
  private double total;
 
- public AccountMember(String name) {
+ public AccountMember(String firstName, String lastName) {
 
-  this.firstName = name;
+  this.firstName = firstName;
+  this.lastName = lastName;
   this.total = 0;
 
  }

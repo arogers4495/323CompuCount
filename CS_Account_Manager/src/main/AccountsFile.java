@@ -18,22 +18,37 @@ public class AccountsFile {
   AccountMembers = new ArrayList<AccountMember>();
  }
 
- public void addToArrayList(AccountMember member) {
+ private void addToArrayList(AccountMember member) {
   AccountMembers.add(member);
  }
 
- public void addMember(String name) throws IOException {
-  writer.write(name);
+ private void createNewFile(AccountMember member) throws IOException {
+  File memberFile = new File("./" + member.lastName + "_" + member.firstName);// creates a file with the member's last
+                                                                              // and then first name
+  if (memberFile.createNewFile()) {
+   System.out.println("Successfully created a new file");
+  }
+  FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
+  BufferedWriter memberWriter = new BufferedWriter(fileWriter);
+  memberWriter.write(member.firstName + " " + member.lastName + "\tAccount Balance:\t");
+  memberWriter.close();
+
+ }
+
+ public void addMember(String firstName, String lastName) throws IOException {
+  AccountMember member = new AccountMember(firstName, lastName);
+  addToArrayList(member);
+  createNewFile(member);
+  writer.write(firstName + " " + lastName + "\tAccount Balance:\t");
   writer.newLine();
   writer.flush();
-  AccountMember member = new AccountMember(name);
-  addToArrayList(member);
  }
 
  public static void main(String[] args) throws IOException {
   AccountsFile newFile = new AccountsFile();
+  newFile.addMember("John", "Smith");
   for (AccountMember m : newFile.AccountMembers) {
-   System.out.println(m.firstName);
+   System.out.println(m.firstName + " " + m.lastName);
   }
  }
 }
