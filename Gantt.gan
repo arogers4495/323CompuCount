@@ -2,13 +2,13 @@
     <description/>
     <view zooming-state="default:7" id="gantt-chart">
         <field id="tpd3" name="Name" width="264" order="0"/>
-        <field id="tpd4" name="Begin date" width="120" order="1"/>
-        <field id="tpd5" name="End date" width="105" order="2"/>
+        <field id="tpd4" name="Begin date" width="121" order="1"/>
+        <field id="tpd5" name="End date" width="106" order="2"/>
         <field id="tpc0" name="Group Member" width="163" order="3"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="209" order="0"/>
-        <field id="1" name="Default role" width="85" order="1"/>
+        <field id="0" name="Name" width="210" order="0"/>
+        <field id="1" name="Default role" width="86" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -74,11 +74,12 @@ Seth - CreateMemberPanel - 5 hours]]></notes>
             <task id="19" name="task_2" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc0" value="Josh"/>
             </task>
-            <task id="20" name="task_3" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
-                <customproperty taskproperty-id="tpc0" value="Auston"/>
-            </task>
             <task id="21" name="task_4" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc0" value="Ali"/>
+            </task>
+            <task id="23" name="Created function to add individuals to the account files" color="#8cb6ce" meeting="false" start="2017-10-30" duration="1" complete="0" expand="true">
+                <notes><![CDATA[1 hour-Auston]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Auston"/>
             </task>
         </task>
     </tasks>
