@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 
@@ -9,7 +10,7 @@ public class AccountFrame extends JFrame {
  public ViewAccountMember accountView;
  public Clayout cl = new Clayout();
 
- public AccountFrame(String name) {
+ public AccountFrame(String name) throws IOException {
   aFrame = new JFrame("CS-AccountManager");
   aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   AccountsFile mainFile = new AccountsFile();// this is the main database that will store the account members and their
@@ -40,7 +41,7 @@ public class AccountFrame extends JFrame {
 
  }
 
- public static void main(String[] args) {
+ public static void main(String[] args) throws IOException {
   AccountFrame acct = new AccountFrame("Test");
  }
 }
