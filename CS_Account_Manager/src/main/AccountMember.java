@@ -48,7 +48,7 @@ public class AccountMember {
 
  public double total;
 
- public AccountMember(String firstName, String lastName, String email, String phone, String description) {
+ public AccountMember(String firstName, String lastName) {
 
   this.firstName = firstName;
   this.lastName = lastName;
