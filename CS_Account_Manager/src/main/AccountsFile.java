@@ -51,8 +51,9 @@ public class AccountsFile {
   member.total += amount;
  }
 
- public void addMember(String firstName, String lastName) throws IOException {
-  AccountMember member = new AccountMember(firstName, lastName);
+ public void addMember(String firstName, String lastName, String email, String phone, String description)
+   throws IOException {
+  AccountMember member = new AccountMember(firstName, lastName, email, phone, description);
   addToArrayList(member);
   createNewFile(member);
   writer.write(firstName + " " + lastName + "\tAccount Balance:\t" + money.format(member.total));
@@ -61,11 +62,5 @@ public class AccountsFile {
  }
 
  public static void main(String[] args) throws IOException {
-  AccountsFile newFile = new AccountsFile();
-  newFile.addMember("John", "Smith");
-  newFile.deposit(AccountMembers.get(0), 1000);
-  for (AccountMember m : newFile.AccountMembers) {
-   System.out.println(m.firstName + " " + m.lastName + "\t" + money.format(m.total));
-  }
  }
 }
