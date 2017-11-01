@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 public class CreateMemberPanel extends JPanel {
 
- private JLabel firstNameLabel, lastNameLabel;
- private JTextField firstNameTField, lastNameTField;
+ private JLabel firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel;
+ private JTextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  private JButton submit, home;
- private String firstName, lastName;
+ private String firstName, lastName, phoneNum, email, description;
 
- ArrayList<AccountMember> myList = new ArrayList<AccountMember>();
+ //ArrayList<AccountMember> myList = new ArrayList<AccountMember>();
 
  public void createAccount(AccountMember NewMember) {
 
@@ -108,15 +108,35 @@ public class CreateMemberPanel extends JPanel {
    description = descriptionTField.getText();
 
 
-   if (event.getSource() == home)
+   if (event.getSource() == home){
     System.out.println("home");
-   else if (event.getSource() == submit) {
-    if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("") || description.equals("")){
-     JOptionPane.showMessageDialog(null, "Please complete ALL fields");
+  }
+   if (event.getSource() == submit) {
+     if(firstName.equals("")){
+       firstNameTField.setBackground(Color.red);
+     }
+     if(lastName.equals("")){
+       lastNameTField.setBackground(Color.red);
+     }
+     if(phoneNum.equals("")){
+       phoneNumTField.setBackground(Color.red);
+     }
+     if(email.equals("")){
+       emailTField.setBackground(Color.red);
+     }
+     if(description.equals("")){
+       descriptionTField.setBackground(Color.red);
+     }
+     if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("") || description.equals("")){
+      JOptionPane.showMessageDialog(null, "Please complete ALL fields");
     }
-    System.out.println("submit");
+    else{
+      System.out.println("submit");
+
+
     AccountMember myMember = new AccountMember(firstName);
-    myList.add(myMember);
+    //myList.add(myMember);
+  }
    }
   }
  }
