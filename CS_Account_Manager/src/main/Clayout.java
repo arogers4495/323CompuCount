@@ -1,33 +1,39 @@
 import java.awt.CardLayout;
-import java.awt.Component;
 
 import javax.swing.JPanel;
 
 public class Clayout {
     
     private CardLayout cl;
-    private JPanel container = new JPanel();
-    
+    private JPanel container;
+    private String panel;
     public Clayout() {
         
-        LoginPanel loginp = new LoginPanel();
-        HomePanel home = new HomePanel();
-        CreateMemberPanel cmPanel = new CreateMemberPanel();
-        ViewAccountMember vaMember = new ViewAccountMember();
-        
-        container.setLayout(cl);
-        
-        container.add(loginp, "1");
-        container.add(home, "2");
-        container.add(cmPanel, "3");
-        container.add(vaMember, "4");
+        cl = new CardLayout();
+        container = new JPanel();
+        container.setLayout(cl);      
         
     }
     
-    public Component Show(String num) {
+    public JPanel Show(){
         
-         cl.show(container, num);
+        cl.show(container, panel);
+        return container;
         
     }
+    
+    public void changePanel(String name) {
+        
+        panel = name;
+       cl.show(container, panel);
+        
+    }    
+    
+    public void AddPanel(JPanel newPanel, String name) {
+        
+        container.add(newPanel, name);
+        
+    }
+    
 
 }

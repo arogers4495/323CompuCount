@@ -13,35 +13,14 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
-public class HomePanel extends JFrame {
-	
-	private JPanel contentPane;
-    
-	
-	public static void main(String[] args ) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					HomePanel frame = new HomePanel();
-					
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
-	protected JButton View_Accounts, Add_Account, View_Transaction, Logout;
-	public HomePanel() {
+public class HomePanel extends JPanel {
 		
-		setTitle("CS-AccountManager");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setPreferredSize(new Dimension(300,300));
-		this.pack();
-		this.setVisible(true);
-		this.setLayout(new BorderLayout());
+	protected JButton View_Accounts, Add_Account, View_Transaction, Logout;
+	private Clayout cl;
+	
+	public HomePanel(Clayout cl) {
+		
+		this.cl = cl;
 		GridLayout grid = new GridLayout(5,1);
 		
 		JPanel panelLayout = new JPanel(grid);
@@ -51,7 +30,7 @@ public class HomePanel extends JFrame {
 		JPanel LO_Panel = new JPanel();
 
 		
-		View_Accounts = new JButton("Voew Accounts");
+		View_Accounts = new JButton("View Accounts");
 		Add_Account = new JButton("Add Account");
 		View_Transaction = new JButton("View Transactions");
 		Logout = new JButton("Log out");
@@ -96,6 +75,18 @@ public class HomePanel extends JFrame {
 			if (argo0.getSource() == Logout ) 
 			{
 			System.exit(0);
+			}
+			
+			if (argo0.getSource() == View_Accounts) {
+			    
+			    cl.changePanel("View Accounts");
+			    
+			}
+			
+			if (argo0.getSource() == Add_Account) {
+			    
+			    cl.changePanel("Create Member");
+			    
 			}
 			
 		}

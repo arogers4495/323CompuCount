@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -16,18 +17,20 @@ public class LoginPanel extends JPanel {
  protected JTextField unameTField, pwdTField;
  protected JButton login;
  protected String usernameInput, passwordInput, usernameActual, passwordActual;
- public boolean match;
+ private Clayout cl;
+ 
+ public LoginPanel(Clayout cl) {
 
- public LoginPanel() {
-
+  this.cl = cl;
   unameLabel = new JLabel("Username: ");
   pwdLabel = new JLabel("Password: ");
   login = new JButton("Login");
   unameTField = new JTextField("", 10);
   pwdTField = new JTextField("", 10);
+  
   // username and password for testing purposes
-  usernameActual = "user";
-  passwordActual = "pass";
+  usernameActual = "csadmin";
+  passwordActual = "csci323";
   setPreferredSize(new Dimension(300, 300));
   setBackground(Color.WHITE);
 
@@ -58,7 +61,18 @@ public class LoginPanel extends JPanel {
 
   @Override
   public void actionPerformed(ActionEvent arg0) {
-  }
+  
+      String uname = unameTField.getText();
+      String pwd = pwdTField.getText();
 
+      if(uname.equals(usernameActual) && pwd.equals(passwordActual)) {
+      
+          cl.changePanel("Home");
+          System.out.println("Access Granted!");
+                    
+      }
+  
+ }
  }
 }
+

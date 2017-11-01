@@ -13,8 +13,11 @@ public class ViewAccountMember extends JPanel {
  private JLabel displayName;
  private JButton homeButton, deleteAccount;
  public JFrame mainFrame, warning;
-
- public ViewAccountMember() {
+ private Clayout cl;
+ 
+ public ViewAccountMember(Clayout cl) {
+     
+     this.cl = cl;
   member = new AccountMember("John Smith");// initializes a new member
   displayName = new JLabel(member.getName());// sets the label text to the member's name
   homeButton = new JButton("Log Out");// initializes the Log Out button
@@ -77,13 +80,4 @@ public class ViewAccountMember extends JPanel {
   }
  }
 
- // the main method below is for unit testing
- public static void main(String[] args) {
-  JFrame testFrame = new JFrame();
-  ViewAccountMember x = new ViewAccountMember();
-  testFrame.getContentPane().add(x);
-  testFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  testFrame.setVisible(true);
-  testFrame.pack();
- }
 }
