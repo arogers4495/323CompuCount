@@ -23,12 +23,6 @@ public class CreateMemberPanel extends JPanel {
  private JButton submit, home;
  private String firstName, lastName, phoneNum, email, description;
 
- //ArrayList<AccountMember> myList = new ArrayList<AccountMember>();
-
- public void createAccount(AccountMember NewMember) {
-
- }
-
  public CreateMemberPanel() {
 
   firstNameLabel = new JLabel("First Name:");
@@ -94,7 +88,6 @@ public class CreateMemberPanel extends JPanel {
 
   hButtonPanel.add(home);
   panelLayout.add(hButtonPanel);
-
  }
 
  private class ButtonListener implements ActionListener {
@@ -132,13 +125,10 @@ public class CreateMemberPanel extends JPanel {
     }
     else{
       System.out.println("submit");
-
-
-    AccountMember myMember = new AccountMember(firstName);
-    //myList.add(myMember);
-  }
+      AccountMember myMember = new AccountMember(firstName);
+      //myList.add(myMember);
+    }
    }
   }
  }
-
 }
