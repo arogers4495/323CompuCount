@@ -84,7 +84,7 @@ public class CreateMemberPanel extends JPanel {
      JOptionPane.showMessageDialog(null, "Please enter your First and last name.");
     }
     System.out.println("submit");
-    AccountMember myMember = new AccountMember(firstName, lastName);
+    AccountMember myMember = new AccountMember(firstName);
     myList.add(myMember);
    }
   }
