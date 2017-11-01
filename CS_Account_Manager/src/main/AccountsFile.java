@@ -53,7 +53,7 @@ public class AccountsFile {
 
  public void addMember(String firstName, String lastName, String email, String phone, String description)
    throws IOException {
-  AccountMember member = new AccountMember(firstName, lastName);
+  AccountMember member = new AccountMember(firstName, lastName, email, phone, description);
   addToArrayList(member);
   createNewFile(member);
   writer.write(firstName + " " + lastName + "\tAccount Balance:\t" + money.format(member.total));

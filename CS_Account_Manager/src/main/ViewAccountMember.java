@@ -15,7 +15,6 @@ public class ViewAccountMember extends JPanel {
  public JFrame mainFrame, warning;
 
  public ViewAccountMember() {
-  member = new AccountMember("John");// initializes a new member
   displayName = new JLabel(member.getLastName());// sets the label text to the member's name
   homeButton = new JButton("Log Out");// initializes the Log Out button
   deleteAccount = new JButton("Delete Account");// initializes the Delete Account button

@@ -57,7 +57,6 @@ public class CreateMemberPanel extends JPanel {
   JPanel emailPanel = new JPanel();
   JPanel descriptionPanel = new JPanel();
 
-
   JPanel sButtonPanel = new JPanel();
   JPanel hButtonPanel = new JPanel();
 
@@ -100,33 +99,31 @@ public class CreateMemberPanel extends JPanel {
    email = emailTField.getText();
    description = descriptionTField.getText();
 
-
-   if (event.getSource() == home){
+   if (event.getSource() == home) {
     System.out.println("home");
-  }
+   }
    if (event.getSource() == submit) {
-     if(firstName.equals("")){
-       firstNameTField.setBackground(Color.red);
-     }
-     if(lastName.equals("")){
-       lastNameTField.setBackground(Color.red);
-     }
-     if(phoneNum.equals("")){
-       phoneNumTField.setBackground(Color.red);
-     }
-     if(email.equals("")){
-       emailTField.setBackground(Color.red);
-     }
-     if(description.equals("")){
-       descriptionTField.setBackground(Color.red);
-     }
-     if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("") || description.equals("")){
-      JOptionPane.showMessageDialog(null, "Please complete ALL fields");
+    if (firstName.equals("")) {
+     firstNameTField.setBackground(Color.red);
     }
-    else{
-      System.out.println("submit");
-      AccountMember myMember = new AccountMember(firstName);
-      //myList.add(myMember);
+    if (lastName.equals("")) {
+     lastNameTField.setBackground(Color.red);
+    }
+    if (phoneNum.equals("")) {
+     phoneNumTField.setBackground(Color.red);
+    }
+    if (email.equals("")) {
+     emailTField.setBackground(Color.red);
+    }
+    if (description.equals("")) {
+     descriptionTField.setBackground(Color.red);
+    }
+    if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("")
+      || description.equals("")) {
+     JOptionPane.showMessageDialog(null, "Please complete ALL fields");
+    } else {
+     System.out.println("submit");
+     AccountMember myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
     }
    }
   }
