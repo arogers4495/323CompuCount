@@ -46,7 +46,7 @@ public class AccountMember {
   this.description = description;
  }
 
- private double total;
+ public double total;
 
  public AccountMember(String firstName, String lastName) {
 
