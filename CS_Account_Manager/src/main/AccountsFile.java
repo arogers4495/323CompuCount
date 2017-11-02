@@ -22,12 +22,11 @@ public class AccountsFile {
   AccountMembers.add(member);
  }
 
- public void addMember(String name) throws IOException {
-  writer.write(name);
+ public void addMember(AccountMember name) throws IOException {
+  writer.write(name.firstName);
   writer.newLine();
   writer.flush();
-  AccountMember member = new AccountMember(name);
-  addToArrayList(member);
+  addToArrayList(name);
  }
 
  public static void main(String[] args) throws IOException {

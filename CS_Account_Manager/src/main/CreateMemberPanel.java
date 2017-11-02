@@ -1,4 +1,5 @@
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 import javax.swing.*;
@@ -23,6 +24,7 @@ public class CreateMemberPanel extends JPanel {
  private JButton submit, home;
  private String firstName, lastName, phoneNum, email, description;
  private Clayout cl;
+ public AccountsFile af;
  public CreateMemberPanel(Clayout cl) {
   
   this.cl = cl;
@@ -127,7 +129,12 @@ public class CreateMemberPanel extends JPanel {
     else{
       System.out.println("submit");
       AccountMember myMember = new AccountMember(firstName);
-      //myList.add(myMember);
+      try {
+        af.addMember(myMember);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
     }
    }
   }
