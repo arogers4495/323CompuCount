@@ -1,20 +1,22 @@
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class LoginPanel extends JPanel {
 
  private JLabel unameLabel, pwdLabel;
- protected JTextField unameTField, pwdTField;
+ protected JTextField unameTField;
+ protected JPasswordField pwdField;
  protected JButton login;
  protected String usernameInput, passwordInput, usernameActual, passwordActual;
  private Clayout cl;
@@ -26,7 +28,7 @@ public class LoginPanel extends JPanel {
   pwdLabel = new JLabel("Password: ");
   login = new JButton("Login");
   unameTField = new JTextField("", 10);
-  pwdTField = new JTextField("", 10);
+  pwdField = new JPasswordField("", 10);
   
   // username and password for testing purposes
   usernameActual = "csadmin";
@@ -47,29 +49,43 @@ public class LoginPanel extends JPanel {
   panelLayout.add(uNamePanel);
 
   pwdPanel.add(pwdLabel);
-  pwdPanel.add(pwdTField);
+  pwdPanel.add(pwdField);
   panelLayout.add(pwdPanel);
 
   lButtonPanel.add(login);
   panelLayout.add(lButtonPanel);
 
-  login.addActionListener(new textListen());
+  login.addActionListener(new ButtonListener());
 
  }
 
- private class textListen implements ActionListener {
+ private class ButtonListener implements ActionListener {
 
   @Override
-  public void actionPerformed(ActionEvent arg0) {
+  public void actionPerformed(ActionEvent event) {
   
       String uname = unameTField.getText();
-      String pwd = pwdTField.getText();
-
-      if(uname.equals(usernameActual) && pwd.equals(passwordActual)) {
+      char[] pwd = pwdField.getPassword();
       
-          cl.ChangePanel("Home");
-          System.out.println("Access Granted!");
-                    
+      if(event.getSource() == login) {
+          if(uname.equals(usernameActual) && pwd.equals(passwordActual.toCharArray())) {
+              
+              cl.ChangePanel("Home");
+              System.out.println("Access Granted!");
+          }
+          else
+              JOptionPane.showMessageDialog(null, "Username or Password is Incorrect!");
+          
+          if(uname.equals(null) || uname.equals("")) {
+              
+              unameTField.setBackground(Color.red);
+          }
+          
+          if(pwd.equals(null) || pwd.equals("")) {
+              
+              pwdField.setBackground(Color.red);
+              
+          }
       }
   
  }
