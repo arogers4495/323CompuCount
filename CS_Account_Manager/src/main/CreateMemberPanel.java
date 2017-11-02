@@ -24,10 +24,12 @@ public class CreateMemberPanel extends JPanel {
  private JButton submit, home;
  private String firstName, lastName, phoneNum, email, description;
  private Clayout cl;
- public AccountsFile mainFile;
+
+ public AccountsFile af;
 
  public CreateMemberPanel(Clayout cl) throws IOException {
-  mainFile = new AccountsFile();
+  af = new AccountsFile();
+
   this.cl = cl;
   firstNameLabel = new JLabel("First Name:");
   lastNameLabel = new JLabel("Last Name:");
@@ -116,6 +118,7 @@ public class CreateMemberPanel extends JPanel {
     if (phoneNum.equals("")) {
      phoneNumTField.setBackground(Color.red);
     }
+
     if (email.equals("")) {
      emailTField.setBackground(Color.red);
     }
@@ -129,13 +132,14 @@ public class CreateMemberPanel extends JPanel {
      System.out.println("submit");
      AccountMember myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
      try {
-      mainFile.addMember(myMember);
+      af.addMember(myMember);
      } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
      }
     }
+
    }
+
   }
  }
 }

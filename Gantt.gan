@@ -2,13 +2,13 @@
     <description/>
     <view zooming-state="default:7" id="gantt-chart">
         <field id="tpd3" name="Name" width="263" order="0"/>
-        <field id="tpd4" name="Begin date" width="121" order="1"/>
-        <field id="tpd5" name="End date" width="106" order="2"/>
+        <field id="tpd4" name="Begin date" width="122" order="1"/>
+        <field id="tpd5" name="End date" width="107" order="2"/>
         <field id="tpc0" name="Group Member" width="162" order="3"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="209" order="0"/>
-        <field id="1" name="Default role" width="85" order="1"/>
+        <field id="0" name="Name" width="210" order="0"/>
+        <field id="1" name="Default role" width="86" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -72,7 +72,10 @@ Seth - CreateMemberPanel - 5 hours]]></notes>
                 <notes><![CDATA[4 hours]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Seth"/>
             </task>
-            <task id="19" name="task_2" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
+            <task id="19" name="CardLayout/Color" color="#8cb6ce" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
+                <notes><![CDATA[CardLayout working 7hrs
+Astriks for pwd 1hrs
+red when username is not found or pwd is incorrect 2hr]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Josh"/>
             </task>
             <task id="21" name="task_4" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
