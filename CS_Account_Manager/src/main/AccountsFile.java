@@ -51,12 +51,10 @@ public class AccountsFile {
   member.total += amount;
  }
 
- public void addMember(String firstName, String lastName, String email, String phone, String description)
-   throws IOException {
-  AccountMember member = new AccountMember(firstName, lastName, email, phone, description);
+ public void addMember(AccountMember member) throws IOException {
   addToArrayList(member);
   createNewFile(member);
-  writer.write(firstName + " " + lastName + "\tAccount Balance:\t" + money.format(member.total));
+  writer.write(member.firstName + " " + member.lastName + "\tAccount Balance:\t" + money.format(member.total));
   writer.newLine();
   writer.flush();
  }

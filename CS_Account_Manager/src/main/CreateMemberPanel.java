@@ -129,7 +129,7 @@ public class CreateMemberPanel extends JPanel {
      System.out.println("submit");
      AccountMember myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
      try {
-      mainFile.addMember(firstName, lastName, email, phoneNum, description);
+      mainFile.addMember(myMember);
      } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
