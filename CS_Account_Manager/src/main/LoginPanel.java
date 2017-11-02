@@ -5,6 +5,8 @@ import java.awt.Event;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,7 +20,8 @@ public class LoginPanel extends JPanel {
  protected JTextField unameTField;
  protected JPasswordField pwdField;
  protected JButton login;
- protected String usernameInput, passwordInput, usernameActual, passwordActual;
+ protected String usernameInput, passwordInput, usernameActual;
+ private char[] passwordActual = {'c', 's', 'c', 'i', '3', '2', '3'};
  private Clayout cl;
  
  public LoginPanel(Clayout cl) {
@@ -32,7 +35,6 @@ public class LoginPanel extends JPanel {
   
   // username and password for testing purposes
   usernameActual = "csadmin";
-  passwordActual = "csci323";
   setPreferredSize(new Dimension(300, 300));
   setBackground(Color.WHITE);
 
@@ -68,7 +70,7 @@ public class LoginPanel extends JPanel {
       char[] pwd = pwdField.getPassword();
       
       if(event.getSource() == login) {
-          if(uname.equals(usernameActual) && pwd.equals(passwordActual.toCharArray())) {
+          if(uname.equals(usernameActual) && Arrays.equals(pwd, passwordActual)) {
               
               cl.ChangePanel("Home");
               System.out.println("Access Granted!");
@@ -76,12 +78,12 @@ public class LoginPanel extends JPanel {
           else
               JOptionPane.showMessageDialog(null, "Username or Password is Incorrect!");
           
-          if(uname.equals(null) || uname.equals("")) {
+          if(!uname.equals(usernameActual)) {
               
               unameTField.setBackground(Color.red);
           }
           
-          if(pwd.equals(null) || pwd.equals("")) {
+          if(!Arrays.equals(pwd, passwordActual)) {
               
               pwdField.setBackground(Color.red);
               
