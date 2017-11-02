@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javax.swing.JFrame;
 
 public class AccountFrame extends JFrame {
@@ -10,7 +12,7 @@ public class AccountFrame extends JFrame {
 
  private static Clayout cl = new Clayout();
 
- public static void main(String[] args) {
+ public static void main(String[] args) throws IOException {
 
   accountView = new ViewAccountMember(cl);
   Lpanel = new LoginPanel(cl);

@@ -68,7 +68,7 @@ public class LoginPanel extends JPanel {
       char[] pwd = pwdField.getPassword();
       
       if(event.getSource() == login) {
-          if(uname.equals(usernameActual) && pwd.equals(passwordActual.toCharArray())) {
+    if (uname.equals(usernameActual) && pwd.equals(passwordActual.toCharArray())) {
               
               cl.ChangePanel("Home");
               System.out.println("Access Granted!");

@@ -1,4 +1,5 @@
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.*;
 import javax.swing.*;
@@ -23,9 +24,10 @@ public class CreateMemberPanel extends JPanel {
  private JButton submit, home;
  private String firstName, lastName, phoneNum, email, description;
  private Clayout cl;
+ public AccountsFile mainFile;
 
- public CreateMemberPanel(Clayout cl) {
-
+ public CreateMemberPanel(Clayout cl) throws IOException {
+  mainFile = new AccountsFile();
   this.cl = cl;
   firstNameLabel = new JLabel("First Name:");
   lastNameLabel = new JLabel("Last Name:");
@@ -126,6 +128,12 @@ public class CreateMemberPanel extends JPanel {
     } else {
      System.out.println("submit");
      AccountMember myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
+     try {
+      mainFile.addMember(firstName, lastName, email, phoneNum, description);
+     } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+     }
     }
    }
   }
