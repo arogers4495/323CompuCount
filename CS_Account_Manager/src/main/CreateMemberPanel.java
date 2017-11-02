@@ -22,9 +22,10 @@ public class CreateMemberPanel extends JPanel {
  private JTextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  private JButton submit, home;
  private String firstName, lastName, phoneNum, email, description;
-
- public CreateMemberPanel() {
-
+ private Clayout cl;
+ public CreateMemberPanel(Clayout cl) {
+  
+  this.cl = cl;
   firstNameLabel = new JLabel("First Name:");
   lastNameLabel = new JLabel("Last Name:");
   phoneNumLabel = new JLabel("Phone Number:");
@@ -99,9 +100,16 @@ public class CreateMemberPanel extends JPanel {
    email = emailTField.getText();
    description = descriptionTField.getText();
 
+<<<<<<< HEAD
    if (event.getSource() == home) {
     System.out.println("home");
    }
+=======
+
+   if (event.getSource() == home){
+    cl.ChangePanel("Home");
+  }
+>>>>>>> 44a57b98d95680e64e3ee6d2bdf2285ed9c04ea1
    if (event.getSource() == submit) {
     if (firstName.equals("")) {
      firstNameTField.setBackground(Color.red);

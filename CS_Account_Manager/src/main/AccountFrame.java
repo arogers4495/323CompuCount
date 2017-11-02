@@ -1,47 +1,34 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
-
 import javax.swing.JFrame;
 
 public class AccountFrame extends JFrame {
- public JFrame aFrame;
- public LoginPanel Lpanel;
- public ViewAccountMember accountView;
- public Clayout cl = new Clayout();
 
- public AccountFrame(String name) throws IOException {
+ private static JFrame aFrame;
+ private static LoginPanel Lpanel;
+ private static ViewAccountMember accountView;
+ private static HomePanel homePanel;
+ private static CreateMemberPanel cmPanel;
+
+ private static Clayout cl = new Clayout();
+
+ public static void main(String[] args) {
+
+  accountView = new ViewAccountMember(cl);
+  Lpanel = new LoginPanel(cl);
+  homePanel = new HomePanel(cl);
+  cmPanel = new CreateMemberPanel(cl);
+
+  cl.AddPanel(Lpanel, "Login");
+  cl.AddPanel(homePanel, "Home");
+  cl.AddPanel(accountView, "Account Member");
+  cl.AddPanel(cmPanel, "Create Member");
+
   aFrame = new JFrame("CS-AccountManager");
+
   aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  AccountsFile mainFile = new AccountsFile();// this is the main database that will store the account members and their
-                                             // information
-  accountView = new ViewAccountMember();
-  aFrame.getContentPane().add(cl.Show("1"));
+  aFrame.getContentPane().add(cl.Show());
   aFrame.pack();
   aFrame.setVisible(true);
-  aFrame.getContentPane().add(accountView);
-  accountView.setVisible(false);
-  Lpanel.login.addActionListener(new login());
-  // the method below checks for a username/password match; if they match, the
-  // initial view will replace the login panel
 
  }
 
- private class login implements ActionListener {
-
-  @Override
-  public void actionPerformed(ActionEvent arg0) {
-
-   String checkUser = Lpanel.unameTField.getText();
-   String checkPass = Lpanel.pwdTField.getText();
-   if (checkUser.equals(Lpanel.usernameActual) && checkPass.equals(Lpanel.passwordActual)) {
-    cl.Show("2");
-   }
-  }
-
- }
-
- public static void main(String[] args) throws IOException {
-  AccountFrame acct = new AccountFrame("Test");
- }
 }
