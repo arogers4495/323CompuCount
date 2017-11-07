@@ -66,7 +66,7 @@ Auston - 6 hours]]></notes>
 Josh-Login-4hrs
 Seth - CreateMemberPanel - 5 hours]]></notes>
         </task>
-        <task id="8" name="Sprint 2" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
+        <task id="8" name="Sprint 2" meeting="false" start="2017-10-24" duration="6" complete="0" expand="false">
             <customproperty taskproperty-id="tpc0" value=""/>
             <task id="18" name="Create/Color/Add" color="#8cb6ce" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
                 <notes><![CDATA[4 hours]]></notes>
@@ -84,6 +84,20 @@ red when username is not found or pwd is incorrect 2hr]]></notes>
             <task id="23" name="Created function to add individuals to the account files" color="#8cb6ce" meeting="false" start="2017-10-30" duration="1" complete="0" expand="true">
                 <notes><![CDATA[1 hour-Auston]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Auston"/>
+            </task>
+        </task>
+        <task id="24" name="Sprint 3" meeting="false" start="2017-10-02" duration="1" complete="0" expand="true">
+            <task id="25" name="Cosmic design" color="#8cb6ce" meeting="false" start="2017-10-02" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
+            </task>
+            <task id="27" name="Panle connection" color="#8cb6ce" meeting="false" start="2017-10-02" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
+            </task>
+            <task id="29" name="Meet with Robin" color="#8cb6ce" meeting="false" start="2017-10-02" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
+            </task>
+            <task id="31" name="Testing and feedback" meeting="false" start="2017-10-02" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
             </task>
         </task>
     </tasks>
