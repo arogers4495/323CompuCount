@@ -65,7 +65,6 @@ public class LoginPanel extends JPanel {
 
   @Override
   public void actionPerformed(ActionEvent event) {
-<<<<<<< HEAD
 
    String uname = unameTField.getText();
    char[] pwd = pwdField.getPassword();
@@ -90,32 +89,6 @@ public class LoginPanel extends JPanel {
     }
    }
 
-  }=======
+  }
 
-  String uname = unameTField.getText();
-  char[] pwd = pwdField.getPassword();
-
-  if(event.getSource()==login)
-  {
-          if(uname.equals(usernameActual) && Arrays.equals(pwd, passwordActual)) {
-              
-              cl.ChangePanel("Home");
-              System.out.println("Access Granted!");
-          }
-          else
-              JOptionPane.showMessageDialog(null, "Username or Password is Incorrect!");
-          
-          if(!uname.equals(usernameActual)) {
-              
-              unameTField.setBackground(Color.red);
-          }
-          
-          if(!Arrays.equals(pwd, passwordActual)) {
-              
-              pwdField.setBackground(Color.red);
-              
-          }
-      }
-
- }>>>>>>>d34e782166bab328ea7495981203849e076dbf06
 }}
