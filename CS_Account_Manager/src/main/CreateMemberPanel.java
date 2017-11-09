@@ -54,7 +54,7 @@ public class CreateMemberPanel extends JPanel {
   setBackground(Color.WHITE);
 
   this.setLayout(new BorderLayout());
-  GridLayout grid = new GridLayout(1, 1);
+  GridLayout grid = new GridLayout(7, 1);
   JPanel panelLayout = new JPanel(grid);
 
   JPanel firstNamePanel = new JPanel();
