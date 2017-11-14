@@ -64,5 +64,6 @@ public class AccountsFile {
  // Static method that will populate the ArrayList on startup
 
  public static void main(String[] args) throws IOException {
+  AccountsFile mainFile = new AccountsFile();
  }
 }
