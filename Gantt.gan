@@ -99,7 +99,11 @@ red when username is not found or pwd is incorrect 2hr]]></notes>
                 <notes><![CDATA[6 hours]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Seth"/>
             </task>
-            <task id="41" name="Meet with Robin" meeting="false" start="2017-11-03" duration="1" complete="0" expand="true">
+            <task id="41" name="Meet with Robin" color="#8cb6ce" meeting="false" start="2017-11-03" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Robin requests for next sprint 
+background 
+icon 
+remember password and username ]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Ali"/>
             </task>
         </task>
