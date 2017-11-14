@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="4 Guys" company="" webLink="http://" view-date="2017-10-01" view-index="0" gantt-divider-location="658" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="4 Guys" company="" webLink="http://" view-date="2017-09-24" view-index="0" gantt-divider-location="658" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:7" id="gantt-chart">
-        <field id="tpd3" name="Name" width="263" order="0"/>
-        <field id="tpd4" name="Begin date" width="122" order="1"/>
-        <field id="tpd5" name="End date" width="107" order="2"/>
-        <field id="tpc0" name="Group Member" width="162" order="3"/>
+        <field id="tpd3" name="Name" width="262" order="0"/>
+        <field id="tpd4" name="Begin date" width="123" order="1"/>
+        <field id="tpd5" name="End date" width="108" order="2"/>
+        <field id="tpc0" name="Group Member" width="161" order="3"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -66,7 +66,7 @@ Auston - 6 hours]]></notes>
 Josh-Login-4hrs
 Seth - CreateMemberPanel - 5 hours]]></notes>
         </task>
-        <task id="8" name="Sprint 2" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
+        <task id="8" name="Sprint 2" meeting="false" start="2017-10-24" duration="6" complete="0" expand="false">
             <customproperty taskproperty-id="tpc0" value=""/>
             <task id="18" name="Create/Color/Add" color="#8cb6ce" meeting="false" start="2017-10-24" duration="6" complete="0" expand="true">
                 <notes><![CDATA[4 hours]]></notes>
@@ -84,6 +84,21 @@ red when username is not found or pwd is incorrect 2hr]]></notes>
             <task id="23" name="Created function to add individuals to the account files" color="#8cb6ce" meeting="false" start="2017-10-30" duration="1" complete="0" expand="true">
                 <notes><![CDATA[1 hour-Auston]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Auston"/>
+            </task>
+        </task>
+        <task id="34" name="Sprint 3" color="#8cb6ce" meeting="false" start="2017-11-02" duration="9" complete="0" expand="true">
+            <task id="37" name="Cosmic design" color="#8cb6ce" meeting="false" start="2017-11-10" duration="3" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
+            </task>
+            <task id="38" name="Panle connection" color="#8cb6ce" meeting="false" start="2017-11-02" duration="7" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
+            </task>
+            <task id="40" name="Transactions/JavaFX" color="#8cb6ce" meeting="false" start="2017-11-02" duration="9" complete="0" expand="true">
+                <notes><![CDATA[6 hours]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Seth"/>
+            </task>
+            <task id="41" name="Meet with Robin" meeting="false" start="2017-11-03" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
             </task>
         </task>
     </tasks>

@@ -26,8 +26,8 @@ public class AccountsFile {
  }
 
  private void createNewFile(AccountMember member) throws IOException {
-  File memberFile = new File("./" + member.lastName + "_" + member.firstName);// creates a file with the member's last
-                                                                              // and then first name
+  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  // creates a file with the member's last and then first name
   if (memberFile.createNewFile()) {
    System.out.println("Successfully created a new file");
   }
@@ -42,6 +42,8 @@ public class AccountsFile {
   File memberFile = new File("./" + member.lastName + "_" + member.firstName);
   FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
  }
+
+ // Update the account transactions file with withdrawals and deposits
 
  public void withdraw(AccountMember member, double amount) {
   member.total -= amount;
@@ -59,6 +61,9 @@ public class AccountsFile {
   writer.flush();
  }
 
+ // Static method that will populate the ArrayList on startup
+
  public static void main(String[] args) throws IOException {
+  AccountsFile mainFile = new AccountsFile();
  }
 }
