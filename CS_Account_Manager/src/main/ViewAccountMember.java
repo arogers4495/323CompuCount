@@ -148,6 +148,15 @@ public class ViewAccountMember {
          }
      });
      
+     deleteAccount.setOnAction((event) -> {
+         if(event.getSource() == homeButton) {
+             
+             ;
+             
+         }
+     });
+
+     
      Scene ViewMemberScene = new Scene(bp, 800, 500);
      
      return ViewMemberScene;

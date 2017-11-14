@@ -17,6 +17,7 @@ public class HomePanel {
 	private Label name, total, poweredBy;
 	private ViewAccountMember vam;
 	private LoginPanel lp = new LoginPanel();
+	private CreateMemberPanel cmp = new CreateMemberPanel();
 	public HomePanel() {
 		
 	    vam = new ViewAccountMember();
@@ -44,11 +45,21 @@ public class HomePanel {
         grid.add(name, 0, 1);
         grid.add(viewAccount, 2, 1);
         grid.add(total, 1, 1);
+        grid.add(addAccount, 1, 2);
         
         viewAccount.setOnAction((event) -> {
             if(event.getSource() == viewAccount) {
                 
                 window.setScene(vam.ViewMemberScene(window));
+                    
+                }
+               
+        });
+        
+        addAccount.setOnAction((event) -> {
+            if(event.getSource() == addAccount) {
+                
+                window.setScene(cmp.CreateMemberScene(window));
                     
                 }
                
