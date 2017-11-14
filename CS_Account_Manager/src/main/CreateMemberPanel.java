@@ -1,145 +1,103 @@
-import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
-import java.awt.*;
-import javax.swing.*;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.JOptionPane;
 
 import java.util.ArrayList;
 
-public class CreateMemberPanel extends JPanel {
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
- private JLabel firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel;
- private JTextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
- private JButton submit, home;
+public class CreateMemberPanel  {
+
+ private Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel;
+ private TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
+ private Button submit, home;
  private String firstName, lastName, phoneNum, email, description;
- private Clayout cl;
-
+ private HomePanel hp;
  public AccountsFile af;
 
- public CreateMemberPanel(Clayout cl) throws IOException {
-  af = new AccountsFile();
+ public CreateMemberPanel() {
 
-  this.cl = cl;
-  firstNameLabel = new JLabel("First Name:");
-  lastNameLabel = new JLabel("Last Name:");
-  phoneNumLabel = new JLabel("Phone Number:");
-  emailLabel = new JLabel("Email:");
-  descriptionLabel = new JLabel("Description:");
+  firstNameLabel = new Label("First Name:");
+  lastNameLabel = new Label("Last Name:");
+  phoneNumLabel = new Label("Phone Number:");
+  emailLabel = new Label("Email:");
+  descriptionLabel = new Label("Description:");
 
-  firstNameTField = new JTextField(10);
-  lastNameTField = new JTextField(10);
-  phoneNumTField = new JTextField(10);
-  emailTField = new JTextField(10);
-  descriptionTField = new JTextField(10);
+  firstNameTField = new TextField();
+  lastNameTField = new TextField();
+  phoneNumTField = new TextField();
+  emailTField = new TextField();
+  descriptionTField = new TextField();
 
-  submit = new JButton("Submit");
-  home = new JButton("Home");
+  submit = new Button("Submit");
+  home = new Button("Home");
 
-  ButtonListener listener = new ButtonListener();
-  submit.addActionListener(listener);
-  home.addActionListener(listener);
-
-  setPreferredSize(new Dimension(500, 500));
-  setBackground(Color.WHITE);
-
-  this.setLayout(new BorderLayout());
-  GridLayout grid = new GridLayout(1, 1);
-  JPanel panelLayout = new JPanel(grid);
-
-  JPanel firstNamePanel = new JPanel();
-  JPanel lastNamePanel = new JPanel();
-  JPanel phoneNumPanel = new JPanel();
-  JPanel emailPanel = new JPanel();
-  JPanel descriptionPanel = new JPanel();
-
-  JPanel sButtonPanel = new JPanel();
-  JPanel hButtonPanel = new JPanel();
-
-  this.add(panelLayout, BorderLayout.CENTER);
-
-  firstNamePanel.add(firstNameLabel);
-  firstNamePanel.add(firstNameTField);
-  panelLayout.add(firstNamePanel);
-
-  lastNamePanel.add(lastNameLabel);
-  lastNamePanel.add(lastNameTField);
-  panelLayout.add(lastNamePanel);
-
-  phoneNumPanel.add(phoneNumLabel);
-  phoneNumPanel.add(phoneNumTField);
-  panelLayout.add(phoneNumPanel);
-
-  emailPanel.add(emailLabel);
-  emailPanel.add(emailTField);
-  panelLayout.add(emailPanel);
-
-  descriptionPanel.add(descriptionLabel);
-  descriptionPanel.add(descriptionTField);
-  panelLayout.add(descriptionPanel);
-
-  sButtonPanel.add(submit);
-  panelLayout.add(sButtonPanel);
-
-  hButtonPanel.add(home);
-  panelLayout.add(hButtonPanel);
+  
+ }
+ 
+ public Scene CMScene(Stage window) {
+     
+     GridPane grid = new GridPane();
+     grid.setAlignment(Pos.CENTER);
+     grid.setHgap(10);
+     grid.setVgap(10);
+     grid.setPadding(new Insets(25, 25, 25, 25));
+     
+     grid.add(firstNameLabel, 0, 1);
+     grid.add(lastNameLabel, 0, 2);
+     grid.add(phoneNumLabel, 0, 3);
+     grid.add(emailLabel, 0, 4);
+     grid.add(descriptionLabel, 0, 5);
+     
+     grid.add(firstNameTField, 1, 1);
+     grid.add(lastNameTField, 1, 2);
+     grid.add(phoneNumTField, 1, 3);
+     grid.add(emailTField, 1, 4);
+     grid.add(descriptionTField, 1, 5);
+     
+     HBox hbBtn1 = new HBox(10);
+     hbBtn1.setAlignment(Pos.TOP_LEFT);
+     hbBtn1.getChildren().add(home);
+     grid.add(hbBtn1, 0, 0);
+     
+     HBox hbBtn = new HBox(10);
+     hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+     hbBtn.getChildren().add(submit);
+     grid.add(hbBtn, 2, 6);
+     
+     home.setOnAction((event) -> {
+         hp = new HomePanel();
+         
+         if(event.getSource() == home){
+             
+             window.setScene(hp.HomeScene(window));
+             
+         }
+         
+     });
+     
+     submit.setOnAction((event) -> {
+         
+         if(event.getSource() == submit){
+             
+             if(firstNameTField.getText().equals(null) || lastNameTField.getText().equals(null) || phoneNumTField.getText().equals(null) || emailTField.getText().equals(null) || descriptionTField.getText().equals(null)){
+                 
+             }
+             
+         }
+         
+     });
+     
+     Scene CMScene = new Scene(grid, 500, 500);
+     
+     return CMScene;
  }
 
- private class ButtonListener implements ActionListener {
-  public void actionPerformed(ActionEvent event) {
-   String firstName, lastName, phoneNum, email, description;
 
-   firstName = firstNameTField.getText();
-   lastName = lastNameTField.getText();
-   phoneNum = phoneNumTField.getText();
-   email = emailTField.getText();
-   description = descriptionTField.getText();
-
-   if (event.getSource() == home) {
-    cl.ChangePanel("Home");
-   }
-   if (event.getSource() == submit) {
-    if (firstName.equals("")) {
-     firstNameTField.setBackground(Color.red);
-    }
-    if (lastName.equals("")) {
-     lastNameTField.setBackground(Color.red);
-    }
-    if (phoneNum.equals("")) {
-     phoneNumTField.setBackground(Color.red);
-    }
-
-    if (email.equals("")) {
-     emailTField.setBackground(Color.red);
-    }
-    if (description.equals("")) {
-     descriptionTField.setBackground(Color.red);
-    }
-    if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("")
-      || description.equals("")) {
-     JOptionPane.showMessageDialog(null, "Please complete ALL fields");
-    } else {
-     System.out.println("submit");
-     AccountMember myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
-     try {
-      af.addMember(myMember);
-     } catch (IOException e) {
-      e.printStackTrace();
-     }
-    }
-
-   }
-
-  }
- }
 }

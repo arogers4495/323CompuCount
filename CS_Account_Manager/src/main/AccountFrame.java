@@ -2,35 +2,33 @@ import java.io.IOException;
 
 import javax.swing.JFrame;
 
-public class AccountFrame extends JFrame {
+import javafx.application.Application;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
- private static JFrame aFrame;
- private static LoginPanel Lpanel;
- private static ViewAccountMember accountView;
- private static HomePanel homePanel;
- private static CreateMemberPanel cmPanel;
-
- private static Clayout cl = new Clayout();
+public class AccountFrame extends Application {
 
  public static void main(String[] args) throws IOException {
 
-  accountView = new ViewAccountMember(cl);
-  Lpanel = new LoginPanel(cl);
-  homePanel = new HomePanel(cl);
-  cmPanel = new CreateMemberPanel(cl);
-
-  cl.AddPanel(Lpanel, "Login");
-  cl.AddPanel(homePanel, "Home");
-  cl.AddPanel(accountView, "Account Member");
-  cl.AddPanel(cmPanel, "Create Member");
-
-  aFrame = new JFrame("CS-AccountManager");
-
-  aFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-  aFrame.getContentPane().add(cl.Show());
-  aFrame.pack();
-  aFrame.setVisible(true);
+  launch(args);
 
  }
+
+@Override
+public void start(Stage window) throws Exception {
+    
+    LoginPanel lp = new LoginPanel();
+    CreateMemberPanel cmp = new CreateMemberPanel();
+    HomePanel hp = new HomePanel();
+    ViewAccountMember vam = new ViewAccountMember();
+    
+    window.setTitle("CS AccountManager");
+    window.setScene(lp.LoginScene(window));
+    window.show();
+    
+}
 
 }

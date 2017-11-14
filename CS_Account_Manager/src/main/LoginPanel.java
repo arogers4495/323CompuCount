@@ -1,94 +1,91 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Event;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
-public class LoginPanel extends JPanel {
+public class LoginPanel {
 
- private JLabel unameLabel, pwdLabel;
- protected JTextField unameTField;
- protected JPasswordField pwdField;
- protected JButton login;
- protected String usernameInput, passwordInput, usernameActual;
- private char[] passwordActual = { 'c', 's', 'c', 'i', '3', '2', '3' };
- private Clayout cl;
+    Label unameLabel, poweredBy;
+    Label pwdLabel;
+    TextField unameTField;
+    PasswordField pwdField;
+    Button login;
+    String usernameInput;
+    String passwordInput;
+    String usernameActual;
+    String passwordActual = "csci323";
+    HomePanel hp;
+    
+public LoginPanel(){
+    
+}
 
- public LoginPanel(Clayout cl) {
+public Scene LoginScene(Stage window){
+    
+    unameLabel = new Label("Username: ");
+    pwdLabel = new Label("Password: ");
+    login = new Button("Login");
+    unameTField = new TextField();
+    pwdField = new PasswordField();
+    poweredBy = new Label("Powered By 4Guys");
+    
+    hp = new HomePanel();
+    
+    // username and password for testing purposes
+    usernameActual = "csadmin";
+    
+    BorderPane bp = new BorderPane();
+    
+    
+    
+    GridPane grid = new GridPane();
+    grid.setAlignment(Pos.CENTER);
+    grid.setHgap(10);
+    grid.setVgap(10);
+    grid.setPadding(new Insets(25, 25, 25, 25));
 
-  this.cl = cl;
-  unameLabel = new JLabel("Username: ");
-  pwdLabel = new JLabel("Password: ");
-  login = new JButton("Login");
-  unameTField = new JTextField("", 10);
-  pwdField = new JPasswordField("", 10);
+    
+    grid.add(unameLabel, 0, 1);
+    grid.add(unameTField, 1, 1);
+    grid.add(pwdLabel, 0, 2);
+    grid.add(pwdField, 1, 2);
+    
+    HBox hbBtn = new HBox(10);
+    hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+    hbBtn.getChildren().add(login);
+    grid.add(hbBtn, 1, 4);   
+    
+    bp.setCenter(grid);
+    bp.setBottom(poweredBy);
+    
+    Scene loginScene = new Scene(bp, 500, 250);
+    
+    login.setOnAction((event) -> {
+        if(event.getSource() == login) {
+            
+            String uname = unameTField.getText();
+            String pwd = pwdField.getText();
+            
+            if(uname.equals(usernameActual) && pwd.equals(passwordActual)) {
+                
+                window.setScene(hp.HomeScene(window));
+                
+            }
+            
+        }
+    });
+    
+    return loginScene;
+    
+}
 
-  // username and password for testing purposes
-  usernameActual = "csadmin";
-  setPreferredSize(new Dimension(300, 300));
-  setBackground(Color.WHITE);
-
-  this.setLayout(new BorderLayout());
-  GridLayout grid = new GridLayout(4, 1);
-  JPanel panelLayout = new JPanel(grid);
-  JPanel uNamePanel = new JPanel();
-  JPanel pwdPanel = new JPanel();
-  JPanel lButtonPanel = new JPanel();
-
-  this.add(panelLayout, BorderLayout.CENTER);
-  uNamePanel.add(unameLabel);
-  uNamePanel.add(unameTField);
-  panelLayout.add(uNamePanel);
-
-  pwdPanel.add(pwdLabel);
-  pwdPanel.add(pwdField);
-  panelLayout.add(pwdPanel);
-
-  lButtonPanel.add(login);
-  panelLayout.add(lButtonPanel);
-
-  login.addActionListener(new ButtonListener());
-
- }
-
- private class ButtonListener implements ActionListener {
-
-  @Override
-  public void actionPerformed(ActionEvent event) {
-
-   String uname = unameTField.getText();
-   char[] pwd = pwdField.getPassword();
-
-   if (event.getSource() == login) {
-    if (uname.equals(usernameActual) && Arrays.equals(pwd, passwordActual)) {
-
-     cl.ChangePanel("Home");
-     System.out.println("Access Granted!");
-    } else
-     JOptionPane.showMessageDialog(null, "Username or Password is Incorrect!");
-
-    if (uname.equals(null) || uname.equals("")) {
-
-     unameTField.setBackground(Color.red);
-    }
-
-    if (pwd.equals(null) || pwd.equals("")) {
-
-     pwdField.setBackground(Color.red);
-
-    }
-   }
-
-  }
-
-}}
+}

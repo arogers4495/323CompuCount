@@ -36,4 +36,9 @@ public class Account {
 
  }
 
+public AccountMember[] getMembersArray() {
+    
+    return member;
+}
+
 }

@@ -1,36 +1,28 @@
-import java.awt.CardLayout;
-
-import javax.swing.JPanel;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 
 public class Clayout {
 
- private CardLayout cl;
- private JPanel container = new JPanel();
-
+ private Scene[] container;
+ private int index;
  public Clayout() {
      
-     cl = new CardLayout();
-     container.setLayout(cl);
      
-     
+     index = 0;
+
  }
  
- public JPanel Show() {
+ public Scene Show(int scene) {
      
-     return container;
+     return container[scene];
      
  }
 
- public void AddPanel(JPanel panel, String name) {
+ public void AddPanel(Scene scene) {
 
-     container.add(panel, name);
-    
+     container[index] = scene;
+     index++;
+     container = new Scene[index];
 }
- 
- public void ChangePanel(String name){
-     
-     cl.show(container, name);
-     
- }
 
 }
