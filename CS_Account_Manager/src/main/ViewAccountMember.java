@@ -38,7 +38,7 @@ public class ViewAccountMember {
  public ViewAccountMember() {
  
 
-  member = new AccountMember("Jake", "Anderson", "janderson152481@gmail.com", "406-626-1873", "Student");
+  member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "406-626-1873", "Student");
   
   displayName = new Label("Name:   " + member.getFirstName() + member.getLastName());// sets the label text to the member's name
   displayEmail = new Label("Email:   " + member.getEmail());
