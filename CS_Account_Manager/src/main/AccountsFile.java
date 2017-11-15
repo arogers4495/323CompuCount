@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+//Testing
 public class AccountsFile {
  private static ArrayList<AccountMember> AccountMembers;
  private BufferedWriter writer;
@@ -65,5 +66,6 @@ public class AccountsFile {
 
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
+
  }
 }
