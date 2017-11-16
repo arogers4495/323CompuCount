@@ -10,6 +10,7 @@ public class AccountMember {
 
  public String firstName, lastName, email, phone, description;
  protected File transactions;
+ public double total;
 
  public String getLastName() {
   return lastName;
@@ -46,8 +47,6 @@ public class AccountMember {
   this.description = description;
  }
 
- public double total;
-
  public AccountMember(String firstName, String lastName, String email, String phone, String description) {
 
   this.firstName = firstName;
@@ -56,6 +55,19 @@ public class AccountMember {
   this.phone = phone;
   this.description = description;
   this.total = 0;
+
+ }
+
+ // second constructor allows account to be instantiated with an amount already
+ // in it
+ public AccountMember(String firstName, String lastName, String email, String phone, String description, double total) {
+
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.email = email;
+  this.phone = phone;
+  this.description = description;
+  this.total = total;
 
  }
 
