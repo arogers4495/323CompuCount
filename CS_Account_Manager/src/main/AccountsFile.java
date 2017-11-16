@@ -88,9 +88,12 @@ public class AccountsFile {
     + member.firstName + " " + member.lastName;
   updateMemberFile(member, updateMessage);
   Scanner memberScan = new Scanner(new File("./" + member.lastName + "_" + member.firstName)).useDelimiter("\t");
-  while (!memberScan.next().equals(Double.class))
-   localTotal = memberScan.nextDouble();
-  System.out.println(localTotal);
+  while (memberScan.hasNextLine()) {
+   String line = memberScan.nextLine();
+   Scanner lineScan = new Scanner(line).useDelimiter("\t");
+   while (lineScan.hasNext()) {
+   }
+  }
  }
 
  public void deposit(AccountMember member, double amount) {
