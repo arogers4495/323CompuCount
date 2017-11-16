@@ -29,8 +29,19 @@ public class AccountsFile {
   writer = new BufferedWriter(fileWriter);
   AccountMembers = new ArrayList<AccountMember>();
   Scanner mainFileScanner = new Scanner(mainFile);
-  while (mainFileScanner.hasNextLine()) {
 
+  while (mainFileScanner.hasNextLine()) {
+   AccountMember member = new AccountMember(null, null, null, null, null);
+   String line = mainFileScanner.nextLine();
+   Scanner lineScan = new Scanner(line).useDelimiter("\t");
+   while (lineScan.hasNext()) {
+    member.firstName = lineScan.next();
+    member.lastName = lineScan.next();
+    member.email = lineScan.next();
+    member.phone = lineScan.next();
+    member.description = lineScan.next();
+    AccountMembers.add(member);
+   }
   }
   money = NumberFormat.getCurrencyInstance();
   date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -48,8 +59,8 @@ public class AccountsFile {
   }
   FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
   BufferedWriter memberWriter = new BufferedWriter(fileWriter);
-  memberWriter.write(member.firstName + " " + member.lastName + "\temail: " + member.email + "\tAccount Balance:\t"
-    + money.format(member.total));
+  memberWriter.write(
+    member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t" + member.description);
   memberWriter.close();
 
  }
@@ -76,7 +87,8 @@ public class AccountsFile {
  public void addMember(AccountMember member) throws IOException {
   addToArrayList(member);
   createNewFile(member);
-  writer.write(member.firstName + " " + member.lastName + "\tAccount Balance:\t" + money.format(member.total));
+  writer.write(
+    member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t" + member.description);
   writer.newLine();
   writer.flush();
  }
@@ -85,9 +97,8 @@ public class AccountsFile {
 
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
-  AccountMember member = AccountMembers.get(0);
-  System.out.println(member.firstName);
-  mainFile.updateMemberFile(member, "totally new String");
-
+  AccountMember member = new AccountMember("Auston", "Rogers", "@", "123-456-7890", "Description");
+  for (AccountMember m : mainFile.AccountMembers)
+   System.out.println(m.toString());
  }
 }

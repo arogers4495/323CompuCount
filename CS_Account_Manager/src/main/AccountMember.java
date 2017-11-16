@@ -76,4 +76,8 @@ public class AccountMember {
   return total;
  }
 
+ public String toString() {
+  return firstName + " " + lastName + " " + email + " " + phone + " " + description;
+ }
+
 }
