@@ -10,7 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -22,8 +21,8 @@ public class ViewAccountMember {
  private AccountMember member;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy;
  private Button homeButton, deleteAccount, logout;
- private Image profile;
- private final TableView table = new TableView();
+ @SuppressWarnings("rawtypes")
+private final TableView table = new TableView();
  private final ObservableList<Object> data =
          FXCollections.observableArrayList(
                  new Transaction("11/01/2017", "Student Payment", "350.00"),
@@ -51,7 +50,8 @@ public class ViewAccountMember {
 
  } 
 
- public Scene ViewMemberScene(Stage window) {
+ @SuppressWarnings({ "unchecked", "rawtypes" })
+public Scene ViewMemberScene(Stage window) {
      
      final Label label = new Label("Transactions");
      label.setFont(new Font("Arial", 20));
