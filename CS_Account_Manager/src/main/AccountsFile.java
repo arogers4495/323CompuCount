@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class AccountsFile {
   // AccountsFile.AccountMembers with that data
   writer = new BufferedWriter(fileWriter);
   AccountMembers = new ArrayList<AccountMember>();
+  date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
   Scanner mainFileScanner = new Scanner(mainFile);
 
   while (mainFileScanner.hasNextLine()) {
@@ -65,11 +67,12 @@ public class AccountsFile {
 
  }
 
- public void updateMemberFile(AccountMember member, String newText) throws IOException {
+ private void updateMemberFile(AccountMember member, String newText) throws IOException {
   File memberFile = new File("./" + member.lastName + "_" + member.firstName);
   FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath(), true);
   BufferedWriter memberWriter = new BufferedWriter(fileWriter);
-  memberWriter.write(" " + newText);
+  memberWriter.newLine();
+  memberWriter.write(newText);
   memberWriter.flush();
   memberWriter.close();
  }
@@ -78,10 +81,15 @@ public class AccountsFile {
 
  public void withdraw(AccountMember member, double amount) throws IOException {
   member.total -= amount;
+  LocalDate today = LocalDate.now();
+  String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
+    + member.firstName + " " + member.lastName;
+  updateMemberFile(member, updateMessage);
  }
 
  public void deposit(AccountMember member, double amount) {
   member.total += amount;
+
  }
 
  public void addMember(AccountMember member) throws IOException {
@@ -97,7 +105,7 @@ public class AccountsFile {
 
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
-  AccountMember member = new AccountMember("Auston", "Rogers", "@", "123-456-7890", "Description");
+  mainFile.withdraw(mainFile.AccountMembers.get(0), 1000);
   for (AccountMember m : mainFile.AccountMembers)
    System.out.println(m.toString());
  }
