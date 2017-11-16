@@ -3,7 +3,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class AccountFrame extends Application {
- protected static AccountsFile mainFile;
+ protected AccountsFile mainFile;
 
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();

@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 //Testing
 public class AccountsFile {
- private ArrayList<AccountMember> AccountMembers;
- private BufferedWriter writer;
+ private static ArrayList<AccountMember> AccountMembers;
+ private static BufferedWriter writer;
  private FileWriter memberFileWriter;
  private File mainFile;
  public static NumberFormat money;
@@ -50,11 +50,11 @@ public class AccountsFile {
   date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
  }
 
- private void addToArrayList(AccountMember member) {
+ private static void addToArrayList(AccountMember member) {
   AccountMembers.add(member);
  }
 
- private void createNewFile(AccountMember member) throws IOException {
+ private static void createNewFile(AccountMember member) throws IOException {
   File memberFile = new File("./" + member.lastName + "_" + member.firstName);
   // creates a file with the member's last and then first name
   if (memberFile.createNewFile()) {
@@ -101,7 +101,7 @@ public class AccountsFile {
 
  }
 
- public void addMember(AccountMember member) throws IOException {
+ public static void addMember(AccountMember member) throws IOException {
   addToArrayList(member);
   createNewFile(member);
   writer.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
