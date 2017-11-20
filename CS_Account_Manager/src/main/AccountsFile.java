@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-//Testing
 public class AccountsFile {
  private static ArrayList<AccountMember> AccountMembers;
  private static BufferedWriter writer;
@@ -81,19 +80,42 @@ public class AccountsFile {
  // Update the account transactions file with withdrawals and deposits
 
  public static void withdraw(AccountMember member, double amount) throws IOException {
+  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  FileWriter w = null;
   member.total -= amount;
+
+  w = new FileWriter("./" + member.lastName + "_" + member.firstName);
+
   double localTotal = 0;
+
   LocalDate today = LocalDate.now();
+
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
     + member.firstName + " " + member.lastName;
-  updateMemberFile(member, updateMessage);
-  Scanner memberScan = new Scanner(new File("./" + member.lastName + "_" + member.firstName)).useDelimiter("\t");
+
+  Scanner memberScan = new Scanner(memberFile).useDelimiter("\t");
+
   while (memberScan.hasNextLine()) {
+
    String line = memberScan.nextLine();
+
    Scanner lineScan = new Scanner(line).useDelimiter("\t");
-   while (lineScan.hasNext()) {
+
+   for (int i = 0; i < 6 && lineScan.hasNext(); i++) {
+
+    String e = lineScan.next();
+
+    w.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
+      + member.description + "\t" + member.total);
+
+    System.out.println(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
+      + member.description + "\t" + member.total);
+
    }
+   break;
   }
+  w.flush();
+  updateMemberFile(member, updateMessage);
  }
 
  public void deposit(AccountMember member, double amount) {
@@ -114,7 +136,6 @@ public class AccountsFile {
   AccountsFile mainFile = new AccountsFile();
   // mainFile.addMember(new AccountMember("Auston", "Rogers", "A@l.com",
   // "406-111-1111", "Description", 400));
-  withdraw(mainFile.AccountMembers.get(0), 0);
-
+  withdraw(AccountMembers.get(0), 100);
  }
 }
