@@ -36,6 +36,7 @@ public class AccountsFile {
    String line = mainFileScanner.nextLine();
    Scanner lineScan = new Scanner(line).useDelimiter("\t");
    while (lineScan.hasNext()) {
+    member.index = lineScan.nextInt();
     member.firstName = lineScan.next();
     member.lastName = lineScan.next();
     member.email = lineScan.next();
@@ -47,6 +48,8 @@ public class AccountsFile {
   }
   money = NumberFormat.getCurrencyInstance();
   date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+  for (AccountMember m : AccountMembers)
+   System.out.println(m.toString() + "\n");
  }
 
  private static void addToArrayList(AccountMember member) {
@@ -58,13 +61,12 @@ public class AccountsFile {
   // creates a file with the member's last and then first name
   if (memberFile.createNewFile()) {
    System.out.println("Successfully created a new file");
+   FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
+   BufferedWriter memberWriter = new BufferedWriter(fileWriter);
+   memberWriter.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
+     + member.description + "\t" + member.total);
+   memberWriter.close();
   }
-  FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
-  BufferedWriter memberWriter = new BufferedWriter(fileWriter);
-  memberWriter.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
-    + member.description + "\t" + member.total);
-  memberWriter.close();
-
  }
 
  private static void updateMemberFile(AccountMember member, String newText) throws IOException {
@@ -80,41 +82,16 @@ public class AccountsFile {
  // Update the account transactions file with withdrawals and deposits
 
  public static void withdraw(AccountMember member, double amount) throws IOException {
-  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  File memberFile = AccountMember.getMemberFile(member);
+  File mainFile = new File("./Members");
   FileWriter w = null;
   member.total -= amount;
-
-  w = new FileWriter("./" + member.lastName + "_" + member.firstName);
-
-  double localTotal = 0;
-
+  w = new FileWriter(memberFile, true);
   LocalDate today = LocalDate.now();
-
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
     + member.firstName + " " + member.lastName;
-
-  Scanner memberScan = new Scanner(memberFile).useDelimiter("\t");
-
-  while (memberScan.hasNextLine()) {
-
-   String line = memberScan.nextLine();
-
-   Scanner lineScan = new Scanner(line).useDelimiter("\t");
-
-   for (int i = 0; i < 6 && lineScan.hasNext(); i++) {
-
-    String e = lineScan.next();
-
-    w.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
-      + member.description + "\t" + member.total);
-
-    System.out.println(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
-      + member.description + "\t" + member.total);
-
-   }
-   break;
-  }
-  w.flush();
+  w.write(updateMessage);
+  w.close();
   updateMemberFile(member, updateMessage);
  }
 
@@ -124,18 +101,28 @@ public class AccountsFile {
  }
 
  public static void addMember(AccountMember member) throws IOException {
-  addToArrayList(member);
-  createNewFile(member);
-  writer.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
-    + member.description + "\t" + member.total);
-  writer.newLine();
-  writer.flush();
+  boolean memberExists = false;
+  for (AccountMember m : AccountMembers)
+   if (m.equals(member))
+    memberExists = true;
+   else
+    memberExists = false;
+  if (memberExists = false) {
+   member.index = AccountMembers.size();
+   addToArrayList(member);
+   createNewFile(member);
+   writer.write(member.index + "\t" + member.firstName + "\t" + member.lastName + "\t" + member.email + "\t"
+     + member.phone + "\t" + member.description + "\t" + member.total);
+   writer.newLine();
+   writer.flush();
+  } else
+   System.out.println("This account already exists.");
  }
 
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
-  // mainFile.addMember(new AccountMember("Auston", "Rogers", "A@l.com",
-  // "406-111-1111", "Description", 400));
-  withdraw(AccountMembers.get(0), 100);
+  addMember(new AccountMember("Auston", "Rogers", "A@l.com", "406-111-1111", "Description", 400));
+  AccountMember m = mainFile.AccountMembers.get(0);
+  withdraw(m, 10);
  }
 }

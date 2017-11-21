@@ -11,9 +11,15 @@ public class AccountMember {
  public String firstName, lastName, email, phone, description;
  protected File transactions;
  public double total;
+ public int index;
 
  public String getLastName() {
   return lastName;
+ }
+
+ public static File getMemberFile(AccountMember member) {
+  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  return memberFile;
  }
 
  public static void createTransactionsFile() {
@@ -89,7 +95,15 @@ public class AccountMember {
  }
 
  public String toString() {
-  return firstName + " " + lastName + " " + email + " " + phone + " " + description;
+  return index + "\t" + firstName + "\t" + lastName + "\t" + email + "\t" + phone + "\t" + description;
  }
 
+ public boolean equals(AccountMember member) {
+  if (firstName.equals(member.firstName) && lastName.equals(member.lastName) && email.equals(member.email)
+    && phone.equals(member.phone) && description.equals(member.description))
+   return true;
+  else
+   return false;
+
+ }
 }
