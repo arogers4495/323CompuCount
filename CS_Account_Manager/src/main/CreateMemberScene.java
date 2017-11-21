@@ -1,3 +1,4 @@
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,13 +13,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
-public class CreateMemberPanel {
+public class CreateMemberScene extends Scene {
 
   Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel;
   TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
   Button home, submit, logout;
-  private LoginPanel lp = new LoginPanel();
-  public CreateMemberPanel(){
+  public CreateMemberScene(){
+      
+      
 
 }
 
@@ -88,7 +90,7 @@ public class CreateMemberPanel {
     logout.setOnAction((event) -> {
         if(event.getSource() == logout) {
             
-            window.setScene(lp.LoginScene(window));
+            
             
         }
     });

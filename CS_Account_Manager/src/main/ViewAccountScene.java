@@ -17,24 +17,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class ViewAccountMember {
+public class ViewAccountScene {
  private AccountMember member;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy;
  private Button homeButton, deleteAccount, logout;
- @SuppressWarnings("rawtypes")
-private final TableView table = new TableView();
- private final ObservableList<Object> data =
-         FXCollections.observableArrayList(
-                 new Transaction("11/01/2017", "Student Payment", "350.00"),
-                 new Transaction("11/11/2017", "Donation", "450.00"),
-                 new Transaction("10/12/2017", "Donation", "50.00"),
-                 new Transaction("09/11/2017", "Student Payment", "150.00"),
-                 new Transaction("11/10/2017", "Student Payment", "25.00"));
- private LoginPanel lp = new LoginPanel();
- private HomePanel hp;
- final HBox hb = new HBox();
  
- public ViewAccountMember() {
+ @SuppressWarnings("rawtypes")
+ private final TableView table = new TableView();
+ private final ObservableList<Object> data;
+ final HBox hb = new HBox();
+
+ public ViewAccountScene() {
  
 
   member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "406-626-1873", "Student");
