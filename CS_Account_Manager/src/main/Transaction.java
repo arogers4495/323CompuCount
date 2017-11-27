@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+
 import javafx.beans.property.SimpleStringProperty;
 
 public class Transaction {
@@ -6,8 +8,8 @@ public class Transaction {
     private final SimpleStringProperty lastName;
     private final SimpleStringProperty email;
 
-    Transaction(String Date, String description, String amount) {
-        this.firstName = new SimpleStringProperty(Date);
+    Transaction(LocalDate localDate, String description, String amount) {
+        this.firstName = new SimpleStringProperty(localDate.toString());
         this.lastName = new SimpleStringProperty(description);
         this.email = new SimpleStringProperty(amount);
     }

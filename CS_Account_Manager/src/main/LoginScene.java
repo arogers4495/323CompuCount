@@ -24,14 +24,16 @@ public class LoginScene {
     String passwordInput;
     String usernameActual;
     String passwordActual = "csci323";
-    
-public LoginScene() {
-    
-    
-}
 
-public Scene LoginScene(){
     
+    public LoginScene() {
+    
+        
+    
+    }
+
+    public Scene LoginScene(){
+        
     unameLabel = new Label("Username: ");
     pwdLabel = new Label("Password: ");
     login = new Button("Login");
@@ -72,7 +74,7 @@ public Scene LoginScene(){
             
             if(uname.equals(usernameActual) && pwd.equals(passwordActual)) {
                 
-                
+                SceneController.ShowHome();
                 
             }
             

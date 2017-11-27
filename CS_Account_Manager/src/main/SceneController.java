@@ -1,16 +1,14 @@
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class SceneController {
 
-    private LoginScene ls;
-    private HomeScene hs;
-    private ViewAccountScene vas;
-    private CreateMemberScene cms;
-    private Anchor
-
+    private static LoginScene ls;
+    private static HomeScene hs;
+    private static ViewAccountScene vas;
+    private static CreateMemberScene cms;
+    private static Stage window;
     
-    public SceneController(Stage primaryStage) {
+    public SceneController() {
         
         ls = new LoginScene();
         hs = new HomeScene();
@@ -19,14 +17,30 @@ public class SceneController {
         
     }
 
-    public Scene Show() {
+    public static void ShowHome() {
         
-        return hs.HomeScene();
+        window.setScene(hs.HomeScene());
     }
 
-    public Scene ShowLogin() {
+    public static void ShowLogin() {
         
-        return ls.LoginScene();
+       window.setScene(ls.LoginScene());
+    }
+    
+    public static void ShowViewAccountScene() {
+        
+        window.setScene(vas.ViewMemberScene());
+     }
+    
+    public static void ShowCreateMember() {
+        
+        window.setScene(cms.CreateMemberScene());
+     }
+    
+    public static void setStage(Stage primaryStage) {
+        
+        window = primaryStage;
+        
     }
 
 }

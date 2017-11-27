@@ -2,6 +2,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.scene.control.TextField;
@@ -13,7 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
-public class CreateMemberScene extends Scene {
+public class CreateMemberScene{
 
   Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel;
   TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
@@ -24,8 +25,8 @@ public class CreateMemberScene extends Scene {
 
 }
 
-  public Scene CreateMemberScene(Stage window){
-
+  public Scene CreateMemberScene(){
+      
       firstNameLabel = new Label("First Name:");
       lastNameLabel = new Label("Last Name:");
       phoneNumLabel = new Label("Phone Number:");
