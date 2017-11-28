@@ -124,7 +124,7 @@ public class AccountsFile {
    else
     memberExists = false;
   }
-  if (memberExists == false) {
+  if (memberExists == true) {
    member.index = AccountMembers.size();
    addToArrayList(member);
    createNewFile(member);

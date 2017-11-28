@@ -10,13 +10,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
 public class LoginScene {
 
     Label unameLabel;
-    Label pwdLabel;
+    Label pwdLabel, lPrompt;
     TextField unameTField;
     PasswordField pwdField;
     Button login;
@@ -33,7 +35,8 @@ public class LoginScene {
     }
 
     public Scene LoginScene(){
-        
+    
+    lPrompt = new Label("");
     unameLabel = new Label("Username: ");
     pwdLabel = new Label("Password: ");
     login = new Button("Login");
@@ -51,7 +54,7 @@ public class LoginScene {
     grid.setVgap(10);
     grid.setPadding(new Insets(25, 25, 25, 25));
 
-    
+    grid.add(lPrompt, 1, 0);
     grid.add(unameLabel, 0, 1);
     grid.add(unameTField, 1, 1);
     grid.add(pwdLabel, 0, 2);
@@ -75,6 +78,15 @@ public class LoginScene {
             if(uname.equals(usernameActual) && pwd.equals(passwordActual)) {
                 
                 SceneController.ShowHome();
+                
+            }
+            else {
+                
+                lPrompt.setText("*All Fields Required!");
+                lPrompt.setFont(Font.font ("Verdana", 12));
+                lPrompt.setTextFill(Paint.valueOf("RED"));
+                unameTField.clear();
+                pwdField.clear();
                 
             }
             

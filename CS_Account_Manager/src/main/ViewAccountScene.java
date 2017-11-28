@@ -38,7 +38,7 @@ public class ViewAccountScene {
  @SuppressWarnings("rawtypes")
  private final TableView table = new TableView();
  private final ObservableList<Transaction> data;
- final HBox hb = new HBox();
+ final HBox hb;
 
  @SuppressWarnings({ "unchecked", "rawtypes" })
 public ViewAccountScene() {
@@ -52,6 +52,7 @@ public ViewAccountScene() {
   
      member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "4066261873", "Student");
      
+     hb = new HBox();
   
   displayName = new Label("Name:   " + member.getFirstName() + member.getLastName());// sets the label text to the member's name
   displayEmail = new Label("Email:   " + member.getEmail());
@@ -71,6 +72,7 @@ public ViewAccountScene() {
   typeCol = new TableColumn("Type");
   WithdrawlDepositCol = new TableColumn("Deposit/Withdrawl");
 
+  hb.getChildren().addAll(addButton, labelTotal);
   table.getColumns().addAll(descriptionCol, amountCol, dateCol, typeCol, WithdrawlDepositCol);
   
  } 
@@ -109,7 +111,7 @@ public Scene ViewMemberScene() {
      table.setItems(data);
      
 
-     hb.getChildren().addAll(addButton, labelTotal);
+     
      hb.setSpacing(3);
 
      final VBox vbox = new VBox();
@@ -225,6 +227,8 @@ public Scene ViewMemberScene() {
                          total = total + Integer.parseInt(amount.getText());
                          
                          labelTotal.setText("Total: " + total);
+                         
+                         
                          
                      }
                      else{
