@@ -7,6 +7,11 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+
 import javax.swing.JOptionPane;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,7 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 public class CreateMemberPanel {
 
  String firstName, lastName, email, phoneNum, description;
- Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel;
+ Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel, poweredBy;
  TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  Button home, submit, logout;
  private LoginPanel lp = new LoginPanel();
@@ -29,6 +34,10 @@ public class CreateMemberPanel {
  }
 
  public Scene CreateMemberScene(Stage window) {
+
+  BorderPane bp = new BorderPane();
+
+  poweredBy = new Label("Powered By 4Guys");
 
   firstNameLabel = new Label("First Name:");
   lastNameLabel = new Label("Last Name:");
@@ -46,15 +55,29 @@ public class CreateMemberPanel {
   logout = new Button("Logout");
   submit = new Button("Submit");
 
-  VBox space = new VBox();
-  HBox layout1 = new HBox(50, firstNameLabel, firstNameTField);
-  HBox layout2 = new HBox(50, lastNameLabel, lastNameTField);
-  HBox layout3 = new HBox(24, phoneNumLabel, phoneNumTField);
-  HBox layout4 = new HBox(83, emailLabel, emailTField);
-  HBox layout5 = new HBox(45, descriptionLabel, descriptionTField);
-  HBox layout6 = new HBox(55, home, submit, logout);
 
-  VBox layout = new VBox(20, space, layout1, layout2, layout3, layout4, layout5, layout6);
+
+  GridPane grid = new GridPane();
+  grid.setAlignment(Pos.CENTER);
+  grid.setHgap(10);
+  grid.setVgap(10);
+  grid.setPadding(new Insets(5, 5, 5, 5));
+
+
+  grid.add(firstNameLabel, 0, 0);
+  grid.add(firstNameTField, 1, 0);
+  grid.add(lastNameLabel, 0, 1);
+  grid.add(lastNameTField, 1, 1);
+  grid.add(emailLabel, 0, 2);
+  grid.add(emailTField, 1, 2);
+  grid.add(phoneNumLabel, 0, 3);
+  grid.add(phoneNumTField, 1, 3);
+  grid.add(descriptionLabel, 0, 4);
+  grid.add(descriptionTField, 1, 4);
+
+  grid.add(home, 0, 6);
+  grid.add(submit, 1, 6);
+  grid.add(logout, 2, 6);
 
   submit.setOnAction((event) -> {
    if (event.getSource() == submit) {
@@ -116,7 +139,10 @@ public class CreateMemberPanel {
    }
   });
 
-  Scene createMember = new Scene(layout, 400, 400);
+  bp.setCenter(grid);
+  bp.setBottom(poweredBy);
+
+  Scene createMember = new Scene(bp, 400, 400);
 
   return createMember;
  }
