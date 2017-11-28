@@ -84,12 +84,14 @@ public class AccountsFile {
  public static void withdraw(AccountMember member, double amount) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   File mainFile = new File("./Members");
-  FileWriter w = null;
+  FileWriter fW = null;
   member.total -= amount;
-  w = new FileWriter(memberFile, true);
+  fW = new FileWriter(memberFile, true);
+  BufferedWriter w = new BufferedWriter(fW);
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
     + member.firstName + " " + member.lastName;
+  w.newLine();
   w.write(updateMessage);
   w.close();
   updateMemberFile(member, updateMessage);
