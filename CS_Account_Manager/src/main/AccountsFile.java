@@ -1,5 +1,6 @@
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
@@ -97,10 +98,12 @@ public class AccountsFile {
   mBW.newLine();
   mBW.write(updateMessage);
   mBW.flush();
+  Transaction t = new Transaction(today.toString(), member.description, "" + amount);
  }
 
- public static void deposit(AccountMember member, double amount) throws IOException {
+ public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
+  double amount = Double.parseDouble(t.getAmount());
   member.total += amount;
   FileWriter fW = new FileWriter(mainFile);
   FileWriter mW = new FileWriter(memberFile, true);
@@ -142,6 +145,20 @@ public class AccountsFile {
   AccountMembers.remove(member);
  }
 
+ public static String getTransactions(File memberFile) throws FileNotFoundException {
+  Scanner memberFileScan = new Scanner(memberFile);
+  String rVal = null;
+  while (memberFileScan.hasNextLine()) {
+   String line = memberFileScan.nextLine();
+   Scanner lineScan = new Scanner(line);
+   while (lineScan.hasNext()) {
+    rVal = lineScan.next();
+   }
+  }
+  return rVal;
+ }
+
  public static void main(String[] args) throws IOException {
+
  }
 }
