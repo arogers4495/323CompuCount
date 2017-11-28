@@ -1,38 +1,58 @@
+import java.time.LocalDate;
+
 import javafx.beans.property.SimpleStringProperty;
 
 public class Transaction {
+    
+    private SimpleStringProperty amount, type, WithdrawlDeposit , description, date;
 
-    private final SimpleStringProperty firstName;
-    private final SimpleStringProperty lastName;
-    private final SimpleStringProperty email;
-
-    Transaction(String Date, String description, String amount) {
-        this.firstName = new SimpleStringProperty(Date);
-        this.lastName = new SimpleStringProperty(description);
-        this.email = new SimpleStringProperty(amount);
+    Transaction(LocalDate localDate, String description, String amount, String type, String inOrOut) {
+        
+        this.date = new SimpleStringProperty(localDate.toString());
+        this.description = new SimpleStringProperty(description);
+        this.amount = new SimpleStringProperty(amount);
+        this.type = new SimpleStringProperty(type);
+        this.WithdrawlDeposit = new SimpleStringProperty(inOrOut);
+        
     }
 
     public String getDate() {
-        return firstName.get();
+        return date.get();
     }
 
-    public void setDate(String fName) {
-        firstName.set(fName);
+    public void setDate(String date) {
+        this.date.set(date);
     }
 
     public String getDescription() {
-        return lastName.get();
+        return description.get();
     }
 
     public void setDescription(String fName) {
-        lastName.set(fName);
+        description.set(fName);
     }
 
     public String getAmount() {
-        return email.get();
+        return amount.get();
     }
 
-    public void setAmount(String fName) {
-        email.set(fName);
+    public void setAmount(String money) {
+        amount.set(money);
+    }
+
+    public String getWithdrawlDeposit() {
+        return WithdrawlDeposit.get();
+    }
+
+    public void setWithdrawlDeposit(String inORout) {
+        this.WithdrawlDeposit.set(inORout);
+    }
+
+    public String getType() {
+        return type.get();
+    }
+
+    public void setType(String type) {
+        this.type.set(type);
     }
 }

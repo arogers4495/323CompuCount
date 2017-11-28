@@ -1,5 +1,6 @@
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,13 +10,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
-public class LoginPanel {
+public class LoginScene {
 
-    Label unameLabel, poweredBy;
-    Label pwdLabel;
+    Label unameLabel;
+    Label pwdLabel, lPrompt;
     TextField unameTField;
     PasswordField pwdField;
     Button login;
@@ -23,29 +26,27 @@ public class LoginPanel {
     String passwordInput;
     String usernameActual;
     String passwordActual = "csci323";
-    HomePanel hp;
-    
-public LoginPanel(){
-    
-}
 
-public Scene LoginScene(Stage window){
     
+    public LoginScene() {
+    
+        
+    
+    }
+
+    public Scene LoginScene(){
+    
+    lPrompt = new Label("");
     unameLabel = new Label("Username: ");
     pwdLabel = new Label("Password: ");
     login = new Button("Login");
     unameTField = new TextField();
     pwdField = new PasswordField();
-    poweredBy = new Label("Powered By 4Guys");
-    
-    hp = new HomePanel();
     
     // username and password for testing purposes
     usernameActual = "csadmin";
     
     BorderPane bp = new BorderPane();
-    
-    
     
     GridPane grid = new GridPane();
     grid.setAlignment(Pos.CENTER);
@@ -53,7 +54,7 @@ public Scene LoginScene(Stage window){
     grid.setVgap(10);
     grid.setPadding(new Insets(25, 25, 25, 25));
 
-    
+    grid.add(lPrompt, 1, 0);
     grid.add(unameLabel, 0, 1);
     grid.add(unameTField, 1, 1);
     grid.add(pwdLabel, 0, 2);
@@ -65,7 +66,6 @@ public Scene LoginScene(Stage window){
     grid.add(hbBtn, 1, 4);   
     
     bp.setCenter(grid);
-    bp.setBottom(poweredBy);
     
     Scene loginScene = new Scene(bp, 500, 250);
     
@@ -77,7 +77,16 @@ public Scene LoginScene(Stage window){
             
             if(uname.equals(usernameActual) && pwd.equals(passwordActual)) {
                 
-                window.setScene(hp.HomeScene(window));
+                SceneController.ShowHome();
+                
+            }
+            else {
+                
+                lPrompt.setText("*All Fields Required!");
+                lPrompt.setFont(Font.font ("Verdana", 12));
+                lPrompt.setTextFill(Paint.valueOf("RED"));
+                unameTField.clear();
+                pwdField.clear();
                 
             }
             
