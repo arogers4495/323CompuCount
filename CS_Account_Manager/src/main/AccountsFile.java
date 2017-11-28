@@ -16,7 +16,7 @@ public class AccountsFile {
  private static ArrayList<AccountMember> AccountMembers;
  private static BufferedWriter writer;
  private FileWriter memberFileWriter;
- private File mainFile;
+ private static File mainFile;
  public static NumberFormat money;
  public static DateTimeFormatter date;
  public static LocalDateTime now;
@@ -24,8 +24,6 @@ public class AccountsFile {
  public AccountsFile() throws IOException {
   mainFile = new File("./Members");
   FileWriter fileWriter = new FileWriter(mainFile.getAbsolutePath(), true);
-  // read in .txt file with all members, then populate the
-  // AccountsFile.AccountMembers with that data
   writer = new BufferedWriter(fileWriter);
   AccountMembers = new ArrayList<AccountMember>();
   date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
@@ -83,48 +81,67 @@ public class AccountsFile {
 
  public static void withdraw(AccountMember member, double amount) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
-  File mainFile = new File("./Members");
-  FileWriter fW = null;
   member.total -= amount;
-  fW = new FileWriter(memberFile, true);
+  FileWriter fW = new FileWriter(mainFile);
+  FileWriter mW = new FileWriter(memberFile, true);
+  BufferedWriter mBW = new BufferedWriter(mW);
   BufferedWriter w = new BufferedWriter(fW);
+  for (AccountMember m : AccountMembers) {
+   w.write(m.toString());
+   w.newLine();
+  }
+  w.flush();
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
-    + member.firstName + " " + member.lastName;
-  w.newLine();
-  w.write(updateMessage);
-  w.close();
-  updateMemberFile(member, updateMessage);
+    + member.firstName + " " + member.lastName + ";\t" + money.format(member.total) + " remaining";
+  mBW.newLine();
+  mBW.write(updateMessage);
+  mBW.flush();
  }
 
- public void deposit(AccountMember member, double amount) {
+ public static void deposit(AccountMember member, double amount) throws IOException {
+  File memberFile = AccountMember.getMemberFile(member);
   member.total += amount;
-
+  FileWriter fW = new FileWriter(mainFile);
+  FileWriter mW = new FileWriter(memberFile, true);
+  BufferedWriter mBW = new BufferedWriter(mW);
+  BufferedWriter w = new BufferedWriter(fW);
+  for (AccountMember m : AccountMembers) {
+   w.write(m.toString());
+   w.newLine();
+  }
+  w.flush();
+  LocalDate today = LocalDate.now();
+  String updateMessage = date.format(today) + "\t" + money.format(amount) + " deposited into the account of "
+    + member.firstName + " " + member.lastName + ";\t" + money.format(member.total) + " remaining";
+  mBW.newLine();
+  mBW.write(updateMessage);
+  mBW.flush();
  }
 
  public static void addMember(AccountMember member) throws IOException {
   boolean memberExists = false;
-  for (AccountMember m : AccountMembers)
+  for (AccountMember m : AccountMembers) {
    if (m.equals(member))
     memberExists = true;
    else
     memberExists = false;
-  if (memberExists = false) {
+  }
+  if (memberExists == false) {
    member.index = AccountMembers.size();
    addToArrayList(member);
    createNewFile(member);
-   writer.write(member.index + "\t" + member.firstName + "\t" + member.lastName + "\t" + member.email + "\t"
-     + member.phone + "\t" + member.description + "\t" + member.total);
+   writer.write(member.toString());
    writer.newLine();
    writer.flush();
   } else
    System.out.println("This account already exists.");
  }
 
+ public static void deleteMember(AccountMember member) {
+  AccountMembers.remove(member);
+ }
+
  public static void main(String[] args) throws IOException {
-  AccountsFile mainFile = new AccountsFile();
-  addMember(new AccountMember("Auston", "Rogers", "A@l.com", "406-111-1111", "Description", 400));
-  AccountMember m = mainFile.AccountMembers.get(0);
-  withdraw(m, 10);
  }
 }

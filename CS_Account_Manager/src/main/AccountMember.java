@@ -95,7 +95,7 @@ public class AccountMember {
  }
 
  public String toString() {
-  return index + "\t" + firstName + "\t" + lastName + "\t" + email + "\t" + phone + "\t" + description;
+  return index + "\t" + firstName + "\t" + lastName + "\t" + email + "\t" + phone + "\t" + description + "\t" + total;
  }
 
  public boolean equals(AccountMember member) {
