@@ -2,11 +2,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Scanner;
-import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -127,6 +124,7 @@ public class AccountsFile {
    else
     memberExists = false;
   }
+
   if (memberExists == false) {
    member.index = AccountMembers.size();
    addToArrayList(member);
