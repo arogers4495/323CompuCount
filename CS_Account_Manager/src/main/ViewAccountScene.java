@@ -1,13 +1,12 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,33 +16,38 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
-import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 
 public class ViewAccountScene {
+    
+    int total;
  private AccountMember member;
  private Transaction trans;
- private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy;
- private Button homeButton, deleteAccount, logout, home, addButton;
+ private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel, labelTotal;
+ private Button logout, home, addButton;
  private BorderPane bpane;
  private HBox hbox, hbox1;
  private BorderListener bl;
+ LocalDate localDate;
  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
- LocalDate localDate = LocalDate.now();
- 
+ TableColumn<Transaction, String> dateCol, descriptionCol, amountCol, typeCol, WithdrawlDepositCol;
  
  @SuppressWarnings("rawtypes")
  private final TableView table = new TableView();
  private final ObservableList<Transaction> data;
  final HBox hb = new HBox();
 
- public ViewAccountScene() {
+ @SuppressWarnings({ "unchecked", "rawtypes" })
+public ViewAccountScene() {
  
+     dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+     localDate = LocalDate.now();
      
      data = FXCollections.observableArrayList(
-             trans = new Transaction(localDate, "Student", "1000")
+             trans = new Transaction(localDate, "Student", "1000", "Card", "Withdrawl")
          );
   
      member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "4066261873", "Student");
@@ -53,61 +57,66 @@ public class ViewAccountScene {
   displayEmail = new Label("Email:   " + member.getEmail());
   displayPhone = new Label("Phone#:   " + member.getPhone());
   displayDescription = new Label("Desctiption:   " + member.getDescription());
-  homeButton = new Button("Home");// initializes the Log Out button
-  deleteAccount = new Button("Delete Account");// initializes the Delete Account butt
   poweredBy = new Label("Powered By 4Guys");
   logout = new Button("Logout");
-  addButton = new Button("Add Transactoin");
+  addButton = new Button("Add Transaction");
+  total = Integer.parseInt(trans.getAmount());
+  labelTotal = new Label("Total: "  + total);
+  
+  transactionLabel = new Label("Transactions");
+  dateCol = new TableColumn("Date");
+  descriptionCol = new TableColumn("Description");
+  amountCol = new TableColumn("Amount");
+  typeCol = new TableColumn("Type");
+  WithdrawlDepositCol = new TableColumn("Deposit/Withdrawl");
+
+  table.getColumns().addAll(descriptionCol, amountCol, dateCol, typeCol, WithdrawlDepositCol);
   
  } 
 
- @SuppressWarnings({ "unchecked", "rawtypes" })
+ @SuppressWarnings({ "unchecked" })
 public Scene ViewMemberScene() {
+
      
-     final Label label = new Label("Transactions");
-     label.setFont(new Font("Arial", 20));
+     transactionLabel.setFont(new Font("Arial", 20));
 
      table.setEditable(true);
 
-     TableColumn firstNameCol = new TableColumn("Date");
-     firstNameCol.setMinWidth(100);
-     firstNameCol.setCellValueFactory(
+     
+     dateCol.setMinWidth(99);
+     dateCol.setCellValueFactory(
              new PropertyValueFactory<>("Date"));
 
-     TableColumn lastNameCol = new TableColumn("Description");
-     lastNameCol.setMinWidth(100);
-     lastNameCol.setCellValueFactory(
+     
+     descriptionCol.setMinWidth(100);
+     descriptionCol.setCellValueFactory(
              new PropertyValueFactory<>("Description"));
 
-     TableColumn emailCol = new TableColumn("Amount");
-     emailCol.setMinWidth(200);
-     emailCol.setCellValueFactory(
+     
+     amountCol.setMinWidth(100);
+     amountCol.setCellValueFactory(
              new PropertyValueFactory<>("Amount"));
-
+     
+     typeCol.setMinWidth(99);
+     typeCol.setCellValueFactory(
+             new PropertyValueFactory<>("Type"));
+     
+     WithdrawlDepositCol.setMinWidth(150);
+     WithdrawlDepositCol.setCellValueFactory(
+             new PropertyValueFactory<>("WithdrawlDeposit"));
+     
      table.setItems(data);
-     table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
-
-     final TextField addDate = new TextField();
-     addDate.setPromptText("Date");
-     addDate.setMaxWidth(firstNameCol.getPrefWidth());
      
-     final TextField addDescription = new TextField();
-     addDescription.setMaxWidth(lastNameCol.getPrefWidth());
-     addDescription.setPromptText("Description");
-     
-     final TextField addAmount = new TextField();
-     addAmount.setMaxWidth(emailCol.getPrefWidth());
-     addAmount.setPromptText("Amount");
 
-     hb.getChildren().add(addButton);
+     hb.getChildren().addAll(addButton, labelTotal);
      hb.setSpacing(3);
 
      final VBox vbox = new VBox();
      vbox.setSpacing(5);
      vbox.setPadding(new Insets(10, 0, 0, 10));
-     vbox.getChildren().addAll(label, table, addButton);
+     vbox.getChildren().addAll(transactionLabel, table, hb);
      
-     table.setMaxSize(410, 200);
+     table.setMaxSize(550, 220);
      
      BorderPane bp = new BorderPane();
      
@@ -122,7 +131,6 @@ public Scene ViewMemberScene() {
      grid.add(displayEmail, 0, 2);
      grid.add(displayPhone, 0 , 3);
      grid.add(displayDescription, 0, 4);
-     grid.add(deleteAccount, 0, 6);
      
      bp.setLeft(grid);
      bp.setCenter(vbox);
@@ -153,43 +161,6 @@ public Scene ViewMemberScene() {
      bpane.setCenter(bp);
      
      
-
-     
-     deleteAccount.setOnAction((event) -> {
-         if(event.getSource() == deleteAccount) {
-             
-             Stage popupwindow=new Stage();
-             
-             popupwindow.initModality(Modality.APPLICATION_MODAL);
-             popupwindow.setTitle("Delete Account!");
-                   
-                   
-             Label label1= new Label("Are You Sure!");
-                   
-                  
-             Button button1= new Button("Delete Account!");
-                  
-                  
-             button1.setOnAction(e -> popupwindow.close());
-                  
-                  
-
-             VBox layout= new VBox(10);
-                  
-                   
-             layout.getChildren().addAll(label1, button1);
-                   
-             layout.setAlignment(Pos.CENTER);
-                   
-             Scene scene1= new Scene(layout, 300, 250);
-                   
-             popupwindow.setScene(scene1);
-                   
-             popupwindow.showAndWait();;
-             
-         }
-     });
-     
      addButton.setOnAction((event) -> {
          if(event.getSource() == addButton) {
              
@@ -198,33 +169,85 @@ public Scene ViewMemberScene() {
              popupwindow.initModality(Modality.APPLICATION_MODAL);
              popupwindow.setTitle("Add Transaction");                   
                   
-             Button button1= new Button("Enter");
+             Button button1 = new Button("Enter");
+             
+             Label lPrompt = new Label();
+             Label lAmount = new Label("Amount");
+             Label labelType = new Label("Type");
+             Label labelInorOut = new Label("Withdrawl/Deposit");
+             Label lDescription = new Label("Description");
+             
              TextField amount = new TextField();
-             TextField description = new TextField();    
+             TextField description = new TextField();  
+             
+             ComboBox<String> typeBox = new ComboBox<String>();
+             typeBox.getItems().addAll("Card","Cash","Check");
+             typeBox.setEditable(true);
+             
+             ComboBox<String> dwBox = new ComboBox<String>();
+             dwBox.getItems().addAll("Withdrawl","Deposit");
+             dwBox.setEditable(true);
+             
+             
              button1.setOnAction(e -> {                 
                  
-                 data.add(new Transaction(
+                 if(amount.getText().trim().isEmpty() || description.getText().trim().isEmpty()) {
+                     
+                     lPrompt.setText("*All Fields Required!");
+                     lPrompt.setFont(Font.font ("Verdana", 12));
+                     lPrompt.setTextFill(Paint.valueOf("RED"));
+                     amount.clear();
+                     description.clear();
+                         
+                 }
+                 else {
+                     
+                     data.add(new Transaction(
                          
                          localDate,
                          description.getText(),
-                         amount.getText()
+                         amount.getText(),
+                         typeBox.getSelectionModel().getSelectedItem().toString(),
+                         dwBox.getSelectionModel().getSelectedItem().toString()
                          
-                         
-                 ));
-             popupwindow.close();
+                             ));
+                     total = total + Integer.parseInt(amount.getText());
+                     
+                     labelTotal.setText("Total: " + total);
+                     
+                     popupwindow.close();
+                     
+                 }
+                 
+             
              
              });
                   
                   
 
-             VBox layout= new VBox(10);
-                  
+             GridPane grid1 = new GridPane();
+             grid1.setAlignment(Pos.CENTER);
+             grid1.setHgap(10);
+             grid1.setVgap(10);
+             grid1.setPadding(new Insets(25, 25, 25, 25));
+             
+             grid1.add(lPrompt, 1, 0);
+             grid1.add(lAmount, 0, 1);
+             grid1.add(amount, 1, 1);
+             grid1.add(lDescription, 0, 2);
+             grid1.add(description, 1, 2);
+             grid1.add(labelType, 0, 3);
+             grid1.add(typeBox , 1, 3);
+             grid1.add(labelInorOut , 0, 4);
+             grid1.add(dwBox , 1, 4);
+             
+             HBox hbBtn = new HBox(10);
+             hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+             hbBtn.getChildren().add(button1);
+             grid1.add(hbBtn, 1, 5);
+             
                    
-             layout.getChildren().addAll(button1);
-                   
-             layout.setAlignment(Pos.CENTER);
-                   
-             Scene scene1= new Scene(layout, 300, 250);
+             Scene scene1= new Scene(grid1, 400, 250);
                    
              popupwindow.setScene(scene1);
                    
@@ -234,7 +257,7 @@ public Scene ViewMemberScene() {
      });
 
      
-     Scene ViewMemberScene = new Scene(bpane, 800, 400);
+     Scene ViewMemberScene = new Scene(bpane, 900, 400);
      
      return ViewMemberScene;
      
