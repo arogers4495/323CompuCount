@@ -47,7 +47,7 @@ public ViewAccountScene() {
      localDate = LocalDate.now();
      
      data = FXCollections.observableArrayList(
-             trans = new Transaction(localDate, "Student", "1000", "Card", "Withdrawl")
+             trans = new Transaction(localDate, "Student", "1000", "Card", "Deposit")
          );
   
      member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "4066261873", "Student");
@@ -62,6 +62,7 @@ public ViewAccountScene() {
   addButton = new Button("Add Transaction");
   total = Integer.parseInt(trans.getAmount());
   labelTotal = new Label("Total: "  + total);
+  labelTotal.setFont(Font.font ("Verdana", 14));
   
   transactionLabel = new Label("Transactions");
   dateCol = new TableColumn("Date");
@@ -176,9 +177,14 @@ public Scene ViewMemberScene() {
              Label labelType = new Label("Type");
              Label labelInorOut = new Label("Withdrawl/Deposit");
              Label lDescription = new Label("Description");
+             Label code = new Label("Code");
              
              TextField amount = new TextField();
-             TextField description = new TextField();  
+             TextField description = new TextField(); 
+             
+             ComboBox<String> codeBox = new ComboBox<String>();
+             codeBox.getItems().addAll("MAF654845","KTO987856","HJT12478555");
+             codeBox.setEditable(true);
              
              ComboBox<String> typeBox = new ComboBox<String>();
              typeBox.getItems().addAll("Card","Cash","Check");
@@ -205,15 +211,32 @@ public Scene ViewMemberScene() {
                      data.add(new Transaction(
                          
                          localDate,
-                         description.getText(),
+                         codeBox.getSelectionModel().getSelectedItem().toString() + " " + description.getText(),
                          amount.getText(),
                          typeBox.getSelectionModel().getSelectedItem().toString(),
                          dwBox.getSelectionModel().getSelectedItem().toString()
                          
                              ));
-                     total = total + Integer.parseInt(amount.getText());
                      
-                     labelTotal.setText("Total: " + total);
+                     
+                     
+                     if(dwBox.getSelectionModel().getSelectedItem() == "Deposit"){
+                         
+                         total = total + Integer.parseInt(amount.getText());
+                         
+                         labelTotal.setText("Total: " + total);
+                         
+                     }
+                     else{
+                         
+                         total = total - Integer.parseInt(amount.getText());
+                         
+                         labelTotal.setText("Total: " + total);
+                         
+                     }
+                     
+                     
+                     
                      
                      popupwindow.close();
                      
@@ -236,15 +259,17 @@ public Scene ViewMemberScene() {
              grid1.add(amount, 1, 1);
              grid1.add(lDescription, 0, 2);
              grid1.add(description, 1, 2);
-             grid1.add(labelType, 0, 3);
-             grid1.add(typeBox , 1, 3);
-             grid1.add(labelInorOut , 0, 4);
-             grid1.add(dwBox , 1, 4);
+             grid1.add(code, 0, 3);
+             grid1.add(codeBox, 1, 3);
+             grid1.add(labelType, 0, 4);
+             grid1.add(typeBox , 1, 4);
+             grid1.add(labelInorOut , 0, 5);
+             grid1.add(dwBox , 1, 5);
              
              HBox hbBtn = new HBox(10);
              hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
              hbBtn.getChildren().add(button1);
-             grid1.add(hbBtn, 1, 5);
+             grid1.add(hbBtn, 1, 6);
              
                    
              Scene scene1= new Scene(grid1, 400, 250);
