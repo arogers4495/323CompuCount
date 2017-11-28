@@ -10,9 +10,16 @@ public class AccountMember {
 
  public String firstName, lastName, email, phone, description;
  protected File transactions;
+ public double total;
+ public int index;
 
  public String getLastName() {
   return lastName;
+ }
+
+ public static File getMemberFile(AccountMember member) {
+  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  return memberFile;
  }
 
  public static void createTransactionsFile() {
@@ -46,8 +53,6 @@ public class AccountMember {
   this.description = description;
  }
 
- public double total;
-
  public AccountMember(String firstName, String lastName, String email, String phone, String description) {
 
   this.firstName = firstName;
@@ -56,6 +61,19 @@ public class AccountMember {
   this.phone = phone;
   this.description = description;
   this.total = 0;
+
+ }
+
+ // second constructor allows account to be instantiated with an amount already
+ // in it
+ public AccountMember(String firstName, String lastName, String email, String phone, String description, double total) {
+
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.email = email;
+  this.phone = phone;
+  this.description = description;
+  this.total = total;
 
  }
 
@@ -77,7 +95,14 @@ public class AccountMember {
  }
 
  public String toString() {
-  return firstName + " " + lastName + " " + email + " " + phone + " " + description;
+  return index + "\t" + firstName + "\t" + lastName + "\t" + email + "\t" + phone + "\t" + description + "\t" + total;
  }
 
+ public boolean equals(AccountMember member) {
+  if (firstName.equals(member.firstName) && lastName.equals(member.lastName) && email.equals(member.email)
+    && phone.equals(member.phone) && description.equals(member.description))
+   return true;
+  else
+   return false;
+ }
 }
