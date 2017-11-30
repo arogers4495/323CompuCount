@@ -55,7 +55,6 @@ public class AccountsFile {
   File memberFile = new File("./" + member.lastName + "_" + member.firstName);
   // creates a file with the member's last and then first name
   if (memberFile.createNewFile()) {
-   System.out.println("Successfully created a new file");
    FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
    BufferedWriter memberWriter = new BufferedWriter(fileWriter);
    memberWriter.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
@@ -140,7 +139,6 @@ public class AccountsFile {
 
  public ArrayList<AccountMember> getAccountMembers() {
   return AccountMembers;
-
  }
 
  public static void main(String[] args) throws IOException {
