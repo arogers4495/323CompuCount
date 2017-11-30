@@ -84,6 +84,22 @@ public class CreateMemberScene {
     phoneNum = phoneNumTField.getText();
     description = descriptionTField.getText();
 
+    // if (firstName.equals("")) {
+    //  firstNameTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (lastName.equals("")) {
+    //  lastNameTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (phoneNum.equals("")) {
+    //  phoneNumTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (email.equals("")) {
+    //  emailTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (description.equals("")) {
+    //  descriptionTField.setStyle("-fx-background-color: red;");
+    // }
+
     if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("")
       || description.equals("")) {
 
@@ -97,10 +113,22 @@ public class CreateMemberScene {
      try {
       AccountsFile.addMember(myMember);
      } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
      }
      System.out.println(myMember);
+
+     firstNameTField.setText("");
+     lastNameTField.setText("");
+     emailTField.setText("");
+     phoneNumTField.setText("");
+     descriptionTField.setText("");
+
+     firstNameTField.setStyle("-fx-background-color: white;");
+     lastNameTField.setStyle("-fx-background-color: white;");
+     phoneNumTField.setStyle("-fx-background-color: white;");
+     emailTField.setStyle("-fx-background-color: white;");
+     descriptionTField.setStyle("-fx-background-color: white;");
+
      System.out.println("submit");
     }
    }
@@ -110,7 +138,12 @@ public class CreateMemberScene {
 
   {
    if (event.getSource() == home) {
-    SceneController.ShowHome();
+     firstNameTField.setText("");
+     lastNameTField.setText("");
+     emailTField.setText("");
+     phoneNumTField.setText("");
+     descriptionTField.setText("");
+     SceneController.ShowHome();
    }
   });
 
