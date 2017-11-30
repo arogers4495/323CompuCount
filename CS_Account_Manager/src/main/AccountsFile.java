@@ -116,15 +116,10 @@ public class AccountsFile {
   mBW.flush();
  }
 
- public static void addMember(AccountMember member) throws IOException {
+ public static boolean addMember(AccountMember member) throws IOException {
   boolean memberExists = false;
-  for (AccountMember m : AccountMembers) {
-   if (m.equals(member))
-    memberExists = true;
-   else
-    memberExists = false;
-  }
-
+  if (AccountMembers.contains(member))
+   memberExists = true;
   if (memberExists == false) {
    member.index = AccountMembers.size();
    addToArrayList(member);
@@ -134,10 +129,18 @@ public class AccountsFile {
    writer.flush();
   } else
    System.out.println("This account already exists.");
+  return memberExists;
  }
 
  public static void deleteMember(AccountMember member) {
   AccountMembers.remove(member);
+  File memberFile = AccountMember.getMemberFile(member);
+  memberFile.delete();
+ }
+
+ public ArrayList<AccountMember> getAccountMembers() {
+  return AccountMembers;
+
  }
 
  public static void main(String[] args) throws IOException {

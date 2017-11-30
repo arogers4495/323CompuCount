@@ -28,17 +28,8 @@ public class CreateMemberScene {
  TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  Button home, submit, logout;
  AccountMember myMember;
- public CreateMemberScene() {
 
-     
-     
-     
- }
-
- public Scene CreateMemberScene() {
-
-  BorderPane bp = new BorderPane();
-
+ public CreateMemberScene() throws IOException {
   poweredBy = new Label("Powered By 4Guys");
 
   firstNameLabel = new Label("First Name:");
@@ -57,14 +48,17 @@ public class CreateMemberScene {
   logout = new Button("Logout");
   submit = new Button("Submit");
 
+ }
 
+ public Scene CreateMemberScene() {
+
+  BorderPane bp = new BorderPane();
 
   GridPane grid = new GridPane();
   grid.setAlignment(Pos.CENTER);
   grid.setHgap(10);
   grid.setVgap(10);
   grid.setPadding(new Insets(5, 5, 5, 5));
-
 
   grid.add(firstNameLabel, 0, 0);
   grid.add(firstNameTField, 1, 0);

@@ -16,7 +16,9 @@ public class AccountMember {
   return memberFile;
  }
 
- public static void createTransactionsFile() {
+ public static File createTransactionsFile(AccountMember member) {
+  File memberFile = new File("./" + member.lastName + "_" + member.firstName + "_transactions");
+  return memberFile;
  }
 
  public void setLastName(String lastName) {
