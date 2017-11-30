@@ -75,16 +75,20 @@ public class AccountsFile {
 
  // Update the account transactions file with withdrawals and deposits
 
- public static void withdraw(AccountMember member, Transaction t) throws IOException {
+ public void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
+  File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
   double amount = t.getAmount();
   member.total -= amount;
   member.history.add(t);
 
   FileWriter fW = new FileWriter(mainFile);
-  FileWriter mW = new FileWriter(memberFile, true);
+  FileWriter mW = new FileWriter(memberFile);
+  FileWriter transactionWriter = new FileWriter(transactionFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
   BufferedWriter w = new BufferedWriter(fW);
+  BufferedWriter tBW = new BufferedWriter(transactionWriter);
+
   for (AccountMember m : AccountMembers) {
    w.write(m.toString());
    w.newLine();
@@ -93,12 +97,14 @@ public class AccountsFile {
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
     + member.firstName + " " + member.lastName + ";\t" + money.format(member.total) + " remaining";
-  mBW.newLine();
-  mBW.write(updateMessage);
-  mBW.flush();
+  for (Transaction trans : member.history) {
+   tBW.write(today + " " + trans.getAmount() + " " + trans.getType());
+   tBW.newLine();
+  }
+  tBW.flush();
  }
 
- public static void deposit(AccountMember member, Transaction t) throws IOException {
+ public void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   double amount = t.getAmount();
   member.total -= amount;
@@ -151,7 +157,6 @@ public class AccountsFile {
   AccountsFile mainFile = new AccountsFile();
   String x = "TEST";
   AccountMember member = new AccountMember(x, x, x, x, x);
-  mainFile.addMember(member);
-  member.createTransactionsFile();
+  mainFile.withdraw(member, new Transaction(x, "50", x, x));
  }
 }

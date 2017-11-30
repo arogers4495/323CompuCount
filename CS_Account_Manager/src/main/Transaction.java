@@ -3,56 +3,56 @@ import java.time.LocalDate;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Transaction {
-    
-    private SimpleStringProperty amount, type, WithdrawlDeposit , description, date;
-    private double amountActual;
-    Transaction(LocalDate localDate, String description, String amount, String type, String inOrOut) {
-        amountActual=Double.parseDouble(amount);
-        this.date = new SimpleStringProperty(localDate.toString());
-        this.description = new SimpleStringProperty(description);
-        this.amount = new SimpleStringProperty(amount);
-        this.type = new SimpleStringProperty(type);
-        this.WithdrawlDeposit = new SimpleStringProperty(inOrOut);
-        
-    }
 
-    public String getDate() {
-        return date.get();
-    }
+ private SimpleStringProperty amount, type, WithdrawlDeposit, description, date;
+ private double amountActual;
 
-    public void setDate(String date) {
-        this.date.set(date);
-    }
+ Transaction(String description, String amount, String type, String inOrOut) {
+  amountActual = Double.parseDouble(amount);
+  this.description = new SimpleStringProperty(description);
+  this.amount = new SimpleStringProperty(amount);
+  this.type = new SimpleStringProperty(type);
+  this.WithdrawlDeposit = new SimpleStringProperty(inOrOut);
 
-    public String getDescription() {
-        return description.get();
-    }
+ }
 
-    public void setDescription(String fName) {
-        description.set(fName);
-    }
+ public String getDate() {
+  return date.get();
+ }
 
-    public double getAmount() {
-        return amountActual;
-    }
+ public void setDate(String date) {
+  this.date.set(date);
+ }
 
-    public void setAmount(String money) {
-        amount.set(money);
-    }
+ public String getDescription() {
+  return description.get();
+ }
 
-    public String getWithdrawlDeposit() {
-        return WithdrawlDeposit.get();
-    }
+ public void setDescription(String fName) {
+  description.set(fName);
+ }
 
-    public void setWithdrawlDeposit(String inORout) {
-        this.WithdrawlDeposit.set(inORout);
-    }
+ public double getAmount() {
+  return amountActual;
+ }
 
-    public String getType() {
-        return type.get();
-    }
+ public void setAmount(String money) {
+  amount.set(money);
+ }
 
-    public void setType(String type) {
-        this.type.set(type);
-    }
+ public String getWithdrawlDeposit() {
+  return WithdrawlDeposit.get();
+ }
+
+ public void setWithdrawlDeposit(String inORout) {
+  this.WithdrawlDeposit.set(inORout);
+ }
+
+ public String getType() {
+  return type.get();
+ }
+
+ public void setType(String type) {
+  this.type.set(type);
+ }
 }
