@@ -46,7 +46,7 @@ public class ViewAccountScene {
   dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
   localDate = LocalDate.now();
 
-  data = FXCollections.observableArrayList(trans = new Transaction("Student", "1000", "Card", "Deposit"));
+  data = FXCollections.observableArrayList(trans = new Transaction("", "Student", "1000", "Card", "Deposit"));
 
   member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "4066261873", "Student");
 
@@ -198,7 +198,8 @@ public class ViewAccountScene {
       data.add(new Transaction(
 
         codeBox.getSelectionModel().getSelectedItem().toString() + " " + description.getText(), amount.getText(),
-        typeBox.getSelectionModel().getSelectedItem().toString(), dwBox.getSelectionModel().getSelectedItem().toString()
+        typeBox.getSelectionModel().getSelectedItem().toString(),
+        dwBox.getSelectionModel().getSelectedItem().toString(), ""
 
       ));
 

@@ -7,13 +7,13 @@ public class Transaction {
  private SimpleStringProperty amount, type, WithdrawlDeposit, description, date;
  private double amountActual;
 
- Transaction(String description, String amount, String type, String inOrOut) {
+ Transaction(String date, String description, String amount, String type, String inOrOut) {
   amountActual = Double.parseDouble(amount);
+  this.date = new SimpleStringProperty(date);
   this.description = new SimpleStringProperty(description);
   this.amount = new SimpleStringProperty(amount);
   this.type = new SimpleStringProperty(type);
   this.WithdrawlDeposit = new SimpleStringProperty(inOrOut);
-
  }
 
  public String getDate() {

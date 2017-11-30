@@ -157,6 +157,6 @@ public class AccountsFile {
   AccountsFile mainFile = new AccountsFile();
   String x = "TEST";
   AccountMember member = new AccountMember(x, x, x, x, x);
-  mainFile.withdraw(member, new Transaction(x, "50", x, x));
+  mainFile.withdraw(member, new Transaction(x, x, "50", x, x));
  }
 }
