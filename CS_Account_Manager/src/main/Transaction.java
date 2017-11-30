@@ -5,9 +5,9 @@ import javafx.beans.property.SimpleStringProperty;
 public class Transaction {
     
     private SimpleStringProperty amount, type, WithdrawlDeposit , description, date;
-
+    private double amountActual;
     Transaction(LocalDate localDate, String description, String amount, String type, String inOrOut) {
-        
+        amountActual=Double.parseDouble(amount);
         this.date = new SimpleStringProperty(localDate.toString());
         this.description = new SimpleStringProperty(description);
         this.amount = new SimpleStringProperty(amount);
@@ -32,8 +32,8 @@ public class Transaction {
         description.set(fName);
     }
 
-    public String getAmount() {
-        return amount.get();
+    public double getAmount() {
+        return amountActual;
     }
 
     public void setAmount(String money) {

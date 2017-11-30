@@ -75,9 +75,12 @@ public class AccountsFile {
 
  // Update the account transactions file with withdrawals and deposits
 
- public static void withdraw(AccountMember member, double amount) throws IOException {
+ public static void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
+  double amount = t.getAmount();
   member.total -= amount;
+  member.history.add(t);
+
   FileWriter fW = new FileWriter(mainFile);
   FileWriter mW = new FileWriter(memberFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
@@ -95,9 +98,12 @@ public class AccountsFile {
   mBW.flush();
  }
 
- public static void deposit(AccountMember member, double amount) throws IOException {
+ public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
-  member.total += amount;
+  double amount = t.getAmount();
+  member.total -= amount;
+  member.history.add(t);
+
   FileWriter fW = new FileWriter(mainFile);
   FileWriter mW = new FileWriter(memberFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
@@ -142,5 +148,10 @@ public class AccountsFile {
  }
 
  public static void main(String[] args) throws IOException {
+  AccountsFile mainFile = new AccountsFile();
+  String x = "TEST";
+  AccountMember member = new AccountMember(x, x, x, x, x);
+  mainFile.addMember(member);
+  member.createTransactionsFile();
  }
 }
