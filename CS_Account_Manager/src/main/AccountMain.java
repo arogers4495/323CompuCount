@@ -20,7 +20,7 @@ public void start(Stage primaryStage) throws Exception {
     SceneController.setStage(primaryStage);
     
     primaryStage.setTitle("CompuCount");
-    SceneController.ShowCreateMember();
+    SceneController.ShowViewAccountScene();
     primaryStage.show();
     
 }

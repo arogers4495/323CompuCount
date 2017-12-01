@@ -28,7 +28,7 @@ public class ViewAccountScene {
  private Transaction trans;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
 static Label labelTotal;
- private Button logout, home, addButton;
+ private Button addButton;
  private BorderPane bpane;
  private HBox hbox, hbox1;
  private BorderListener bl;
@@ -60,8 +60,6 @@ public ViewAccountScene() {
   displayEmail = new Label("Email:   " + member.getEmail());
   displayPhone = new Label("Phone#:   " + member.getPhone());
   displayDescription = new Label("Desctiption:   " + member.getDescription());
-  poweredBy = new Label("Powered By 4Guys");
-  logout = new Button("Logout");
   addButton = new Button("Add Transaction");
   total = Integer.parseInt(trans.getAmount());
   labelTotal = new Label("Total: "  + total);
@@ -80,7 +78,7 @@ public ViewAccountScene() {
  } 
 
  @SuppressWarnings({ "unchecked" })
-public Scene ViewMemberScene() {
+public Scene ViewMember() {
 
      
      transactionLabel.setFont(new Font("Arial", 20));
@@ -140,6 +138,27 @@ public Scene ViewMemberScene() {
      bp.setLeft(grid);
      bp.setCenter(vbox);
      
+     val = new ViewAccountListener(addButton);
+     
+     addButton.setOnAction(val);
+     
+     Scene ViewScene = new Scene(getFinallayout(bp), 900, 400);
+     
+     return ViewScene;
+     
+ }
+ 
+ public BorderPane getFinallayout(BorderPane bp) {
+     
+     HBox hbox, hbox1;
+     BorderPane bpane;
+     Button logout, home;
+     Label poweredBy;
+     
+     logout = new Button("Logout");
+     home = new Button("Home");
+     poweredBy = new Label("4Guys");
+     
      logout = new Button("Logout");
      home = new Button("Home");
      poweredBy = new Label("4Guys");
@@ -156,19 +175,15 @@ public Scene ViewMemberScene() {
      
      bpane.setTop(hbox);
      bpane.setBottom(hbox1);
-     bpane.setCenter(bp);
      
      bl = new BorderListener(logout, home);
-     val = new ViewAccountListener(addButton);
      
      logout.setOnAction(bl);
      home.setOnAction(bl);
-     addButton.setOnAction(val);
-
      
-     Scene ViewMemberScene = new Scene(bpane, 900, 400);
+     bpane.setCenter(bp);
      
-     return ViewMemberScene;
+     return bpane;
      
  }
  
