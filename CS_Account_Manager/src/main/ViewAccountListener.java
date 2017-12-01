@@ -113,16 +113,17 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
 
                     ));
                    
+                    
 
                     if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
-                        ViewAccountScene.total = ViewAccountScene.total + Integer.parseInt(amount.getText());
+                        ViewAccountScene.total = ViewAccountScene.total +  Double.parseDouble(amount.getText());
                      
                         ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
 
                     } else {
 
-                        ViewAccountScene.total = ViewAccountScene.total - Integer.parseInt(amount.getText());
+                        ViewAccountScene.total = ViewAccountScene.total - Double.parseDouble(amount.getText());
                         
                         ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
 

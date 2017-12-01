@@ -23,7 +23,7 @@ import javafx.stage.Stage;
 
 public class ViewAccountScene {
     
- static int total;
+ static double total;
  private AccountMember member;
  private Transaction trans;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
@@ -61,7 +61,7 @@ public ViewAccountScene() {
   displayPhone = new Label("Phone#:   " + member.getPhone());
   displayDescription = new Label("Desctiption:   " + member.getDescription());
   addButton = new Button("Add Transaction");
-  total = Integer.parseInt(trans.getAmount());
+  total = trans.getAmount();
   labelTotal = new Label("Total: "  + total);
   labelTotal.setFont(Font.font ("Verdana", 14));
   

@@ -32,8 +32,9 @@ public class Transaction {
         description.set(fName);
     }
 
-    public String getAmount() {
-        return amount.get();
+    public double getAmount() {
+        
+        return Double.parseDouble(amount.get());
     }
 
     public void setAmount(String money) {

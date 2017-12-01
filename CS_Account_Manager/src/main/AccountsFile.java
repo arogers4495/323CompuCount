@@ -37,7 +37,7 @@ public class AccountsFile {
     member.email = lineScan.next();
     member.phone = lineScan.next();
     member.description = lineScan.next();
-    member.total = lineScan.nextDouble();
+    member.total = lineScan.next();
     AccountMembers.add(member);
    }
   }
@@ -55,7 +55,6 @@ public class AccountsFile {
   File memberFile = new File("./" + member.lastName + "_" + member.firstName);
   // creates a file with the member's last and then first name
   if (memberFile.createNewFile()) {
-   System.out.println("Successfully created a new file");
    FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
    BufferedWriter memberWriter = new BufferedWriter(fileWriter);
    memberWriter.write(member.firstName + "\t" + member.lastName + "\t" + member.email + "\t" + member.phone + "\t"
@@ -76,13 +75,20 @@ public class AccountsFile {
 
  // Update the account transactions file with withdrawals and deposits
 
- public static void withdraw(AccountMember member, double amount) throws IOException {
+ public void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
+  File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
+  double amount = t.getAmount();
   member.total -= amount;
+  member.history.add(t);
+
   FileWriter fW = new FileWriter(mainFile);
-  FileWriter mW = new FileWriter(memberFile, true);
+  FileWriter mW = new FileWriter(memberFile);
+  FileWriter transactionWriter = new FileWriter(transactionFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
   BufferedWriter w = new BufferedWriter(fW);
+  BufferedWriter tBW = new BufferedWriter(transactionWriter);
+
   for (AccountMember m : AccountMembers) {
    w.write(m.toString());
    w.newLine();
@@ -91,14 +97,19 @@ public class AccountsFile {
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
     + member.firstName + " " + member.lastName + ";\t" + money.format(member.total) + " remaining";
-  mBW.newLine();
-  mBW.write(updateMessage);
-  mBW.flush();
+  for (Transaction trans : member.history) {
+   tBW.write(today + " " + trans.getAmount() + " " + trans.getType());
+   tBW.newLine();
+  }
+  tBW.flush();
  }
 
- public static void deposit(AccountMember member, double amount) throws IOException {
+ public void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
-  member.total += amount;
+  String amount = t.getAmount();
+  member.total -= amount;
+  member.history.add(t);
+
   FileWriter fW = new FileWriter(mainFile);
   FileWriter mW = new FileWriter(memberFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
@@ -116,15 +127,10 @@ public class AccountsFile {
   mBW.flush();
  }
 
- public static void addMember(AccountMember member) throws IOException {
+ public static boolean addMember(AccountMember member) throws IOException {
   boolean memberExists = false;
-  for (AccountMember m : AccountMembers) {
-   if (m.equals(member))
-    memberExists = true;
-   else
-    memberExists = false;
-  }
-
+  if (AccountMembers.contains(member))
+   memberExists = true;
   if (memberExists == false) {
    member.index = AccountMembers.size();
    addToArrayList(member);
@@ -134,12 +140,23 @@ public class AccountsFile {
    writer.flush();
   } else
    System.out.println("This account already exists.");
+  return memberExists;
  }
 
  public static void deleteMember(AccountMember member) {
   AccountMembers.remove(member);
+  File memberFile = AccountMember.getMemberFile(member);
+  memberFile.delete();
+ }
+
+ public ArrayList<AccountMember> getAccountMembers() {
+  return AccountMembers;
  }
 
  public static void main(String[] args) throws IOException {
+  AccountsFile mainFile = new AccountsFile();
+  String x = "TEST";
+  AccountMember member = new AccountMember(x, x, x, x, x);
+  mainFile.withdraw(member, new Transaction(x, x, "50", x, x));
  }
 }

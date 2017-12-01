@@ -3,8 +3,8 @@ import java.io.File;
 public class AccountMember {
 
  public String firstName, lastName, email, phone, description;
+ double total;
  protected File transactions;
- public double total;
  public int index;
 
  public String getLastName() {
