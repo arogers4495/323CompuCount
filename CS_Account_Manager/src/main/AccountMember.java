@@ -1,9 +1,14 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class AccountMember {
 
  public String firstName, lastName, email, phone, description;
  protected File transactions;
+ protected ArrayList<Transaction> history;
  public double total;
  public int index;
 
@@ -16,7 +21,15 @@ public class AccountMember {
   return memberFile;
  }
 
- public static void createTransactionsFile() {
+ public void createTransactionsFile() throws IOException {
+  File memberFile = new File("./" + lastName + "_" + firstName + "_transactions");
+  FileWriter memberFileWriter = new FileWriter(memberFile);
+  BufferedWriter memberBufferedFileWriter = new BufferedWriter(memberFileWriter);
+  for (Transaction t : history) {
+   memberBufferedFileWriter.write(t.getAmount() + " " + t.getDate() + " " + t.getType());
+   memberBufferedFileWriter.newLine();
+  }
+  memberBufferedFileWriter.flush();
  }
 
  public void setLastName(String lastName) {
@@ -48,7 +61,7 @@ public class AccountMember {
  }
 
  public AccountMember(String firstName, String lastName, String email, String phone, String description) {
-
+  history = new ArrayList<Transaction>();
   this.firstName = firstName;
   this.lastName = lastName;
   this.email = email;
@@ -61,7 +74,7 @@ public class AccountMember {
  // second constructor allows account to be instantiated with an amount already
  // in it
  public AccountMember(String firstName, String lastName, String email, String phone, String description, double total) {
-
+  history = new ArrayList<Transaction>();
   this.firstName = firstName;
   this.lastName = lastName;
   this.email = email;

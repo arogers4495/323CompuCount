@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 import javafx.stage.Stage;
 
 public class SceneController {
@@ -8,7 +10,7 @@ public class SceneController {
     private static CreateMemberScene cms;
     private static Stage window;
     
-    public SceneController() {
+    public SceneController() throws IOException {
         
         ls = new LoginScene();
         hs = new HomeScene();

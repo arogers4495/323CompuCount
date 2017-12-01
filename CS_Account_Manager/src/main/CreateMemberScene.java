@@ -28,19 +28,8 @@ public class CreateMemberScene {
  TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  Button home, submit, logout;
  AccountMember myMember;
- CreateMemberListener cml;
- 
- public CreateMemberScene() {
 
-     
-     
-     
- }
-
- public Scene CreateMemberScene() {
-
-  BorderPane bp = new BorderPane();
-
+ public CreateMemberScene() throws IOException {
   poweredBy = new Label("Powered By 4Guys");
 
   firstNameLabel = new Label("First Name:");
@@ -59,14 +48,17 @@ public class CreateMemberScene {
   logout = new Button("Logout");
   submit = new Button("Submit");
 
+ }
 
+ public Scene CreateMemberScene() {
+
+  BorderPane bp = new BorderPane();
 
   GridPane grid = new GridPane();
   grid.setAlignment(Pos.CENTER);
   grid.setHgap(10);
   grid.setVgap(10);
   grid.setPadding(new Insets(5, 5, 5, 5));
-
 
   grid.add(firstNameLabel, 0, 0);
   grid.add(firstNameTField, 1, 0);
@@ -83,8 +75,6 @@ public class CreateMemberScene {
   grid.add(submit, 1, 6);
   grid.add(logout, 2, 6);
 
-  cml = new CreateMemberListener(submit);
-  
   submit.setOnAction((event) -> {
    if (event.getSource() == submit) {
 
@@ -93,6 +83,22 @@ public class CreateMemberScene {
     email = emailTField.getText();
     phoneNum = phoneNumTField.getText();
     description = descriptionTField.getText();
+
+    // if (firstName.equals("")) {
+    //  firstNameTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (lastName.equals("")) {
+    //  lastNameTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (phoneNum.equals("")) {
+    //  phoneNumTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (email.equals("")) {
+    //  emailTField.setStyle("-fx-background-color: red;");
+    // }
+    // if (description.equals("")) {
+    //  descriptionTField.setStyle("-fx-background-color: red;");
+    // }
 
     if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("")
       || description.equals("")) {
@@ -107,10 +113,22 @@ public class CreateMemberScene {
      try {
       AccountsFile.addMember(myMember);
      } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
      }
      System.out.println(myMember);
+
+     firstNameTField.setText("");
+     lastNameTField.setText("");
+     emailTField.setText("");
+     phoneNumTField.setText("");
+     descriptionTField.setText("");
+
+     firstNameTField.setStyle("-fx-background-color: white;");
+     lastNameTField.setStyle("-fx-background-color: white;");
+     phoneNumTField.setStyle("-fx-background-color: white;");
+     emailTField.setStyle("-fx-background-color: white;");
+     descriptionTField.setStyle("-fx-background-color: white;");
+
      System.out.println("submit");
     }
    }
@@ -120,7 +138,12 @@ public class CreateMemberScene {
 
   {
    if (event.getSource() == home) {
-    SceneController.ShowHome();
+     firstNameTField.setText("");
+     lastNameTField.setText("");
+     emailTField.setText("");
+     phoneNumTField.setText("");
+     descriptionTField.setText("");
+     SceneController.ShowHome();
    }
   });
 
@@ -139,3 +162,4 @@ public class CreateMemberScene {
  }
 
 }
+
