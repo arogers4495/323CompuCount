@@ -37,7 +37,7 @@ public class AccountsFile {
     member.email = lineScan.next();
     member.phone = lineScan.next();
     member.description = lineScan.next();
-    member.total = lineScan.next();
+    member.total = lineScan.nextDouble();
     AccountMembers.add(member);
    }
   }
@@ -106,7 +106,7 @@ public class AccountsFile {
 
  public void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
-  String amount = t.getAmount();
+  double amount = t.getAmount();
   member.total -= amount;
   member.history.add(t);
 
@@ -157,6 +157,6 @@ public class AccountsFile {
   AccountsFile mainFile = new AccountsFile();
   String x = "TEST";
   AccountMember member = new AccountMember(x, x, x, x, x);
-  mainFile.withdraw(member, new Transaction(x, x, "50", x, x));
+  //mainFile.withdraw(member, new Transaction(x, x, "50", x, x));
  }
 }
