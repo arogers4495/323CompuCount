@@ -28,6 +28,8 @@ public class CreateMemberScene {
  TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  Button home, submit, logout;
  AccountMember myMember;
+ CreateMemberListener cml;
+ 
  public CreateMemberScene() {
 
      
@@ -81,6 +83,8 @@ public class CreateMemberScene {
   grid.add(submit, 1, 6);
   grid.add(logout, 2, 6);
 
+  cml = new CreateMemberListener(submit);
+  
   submit.setOnAction((event) -> {
    if (event.getSource() == submit) {
 

@@ -23,10 +23,11 @@ import javafx.stage.Stage;
 
 public class ViewAccountScene {
     
-    int total;
+ static int total;
  private AccountMember member;
  private Transaction trans;
- private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel, labelTotal;
+ private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
+static Label labelTotal;
  private Button logout, home, addButton;
  private BorderPane bpane;
  private HBox hbox, hbox1;
@@ -34,10 +35,11 @@ public class ViewAccountScene {
  LocalDate localDate;
  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
  TableColumn<Transaction, String> dateCol, descriptionCol, amountCol, typeCol, WithdrawlDepositCol;
+ private ViewAccountListener val;
  
  @SuppressWarnings("rawtypes")
  private final TableView table = new TableView();
- private final ObservableList<Transaction> data;
+ static ObservableList<Transaction> data;
  final HBox hb;
 
  @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -142,8 +144,6 @@ public Scene ViewMemberScene() {
      home = new Button("Home");
      poweredBy = new Label("4Guys");
      
-     bl = new BorderListener(logout, home);
-     
      bpane = new BorderPane();
      hbox = new HBox();
      hbox1 = new HBox();
@@ -156,134 +156,14 @@ public Scene ViewMemberScene() {
      
      bpane.setTop(hbox);
      bpane.setBottom(hbox1);
-     
-     logout.setOnAction(bl);
-     
-     home.setOnAction(bl);
-     
      bpane.setCenter(bp);
      
+     bl = new BorderListener(logout, home);
+     val = new ViewAccountListener(addButton);
      
-     addButton.setOnAction((event) -> {
-         if(event.getSource() == addButton) {
-             
-             Stage popupwindow=new Stage();
-             
-             popupwindow.initModality(Modality.APPLICATION_MODAL);
-             popupwindow.setTitle("Add Transaction");                   
-                  
-             Button button1 = new Button("Enter");
-             
-             Label lPrompt = new Label();
-             Label lAmount = new Label("Amount");
-             Label labelType = new Label("Type");
-             Label labelInorOut = new Label("Withdrawl/Deposit");
-             Label lDescription = new Label("Description");
-             Label code = new Label("Code");
-             
-             TextField amount = new TextField();
-             TextField description = new TextField(); 
-             
-             ComboBox<String> codeBox = new ComboBox<String>();
-             codeBox.getItems().addAll("MAF654845","KTO987856","HJT12478555");
-             codeBox.setEditable(true);
-             
-             ComboBox<String> typeBox = new ComboBox<String>();
-             typeBox.getItems().addAll("Card","Cash","Check");
-             typeBox.setEditable(true);
-             
-             ComboBox<String> dwBox = new ComboBox<String>();
-             dwBox.getItems().addAll("Withdrawl","Deposit");
-             dwBox.setEditable(true);
-             
-             
-             button1.setOnAction(e -> {                 
-                 
-                 if(amount.getText().trim().isEmpty() || description.getText().trim().isEmpty()) {
-                     
-                     lPrompt.setText("*All Fields Required!");
-                     lPrompt.setFont(Font.font ("Verdana", 12));
-                     lPrompt.setTextFill(Paint.valueOf("RED"));
-                     amount.clear();
-                     description.clear();
-                         
-                 }
-                 else {
-                     
-                     data.add(new Transaction(
-                         
-                         localDate,
-                         codeBox.getSelectionModel().getSelectedItem().toString() + " " + description.getText(),
-                         amount.getText(),
-                         typeBox.getSelectionModel().getSelectedItem().toString(),
-                         dwBox.getSelectionModel().getSelectedItem().toString()
-                         
-                             ));
-                     
-                     
-                     
-                     if(dwBox.getSelectionModel().getSelectedItem() == "Deposit"){
-                         
-                         total = total + Integer.parseInt(amount.getText());
-                         
-                         labelTotal.setText("Total: " + total);
-                         
-                         
-                         
-                     }
-                     else{
-                         
-                         total = total - Integer.parseInt(amount.getText());
-                         
-                         labelTotal.setText("Total: " + total);
-                         
-                     }
-                     
-                     
-                     
-                     
-                     popupwindow.close();
-                     
-                 }
-                 
-             
-             
-             });
-                  
-                  
-
-             GridPane grid1 = new GridPane();
-             grid1.setAlignment(Pos.CENTER);
-             grid1.setHgap(10);
-             grid1.setVgap(10);
-             grid1.setPadding(new Insets(25, 25, 25, 25));
-             
-             grid1.add(lPrompt, 1, 0);
-             grid1.add(lAmount, 0, 1);
-             grid1.add(amount, 1, 1);
-             grid1.add(lDescription, 0, 2);
-             grid1.add(description, 1, 2);
-             grid1.add(code, 0, 3);
-             grid1.add(codeBox, 1, 3);
-             grid1.add(labelType, 0, 4);
-             grid1.add(typeBox , 1, 4);
-             grid1.add(labelInorOut , 0, 5);
-             grid1.add(dwBox , 1, 5);
-             
-             HBox hbBtn = new HBox(10);
-             hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-             hbBtn.getChildren().add(button1);
-             grid1.add(hbBtn, 1, 6);
-             
-                   
-             Scene scene1= new Scene(grid1, 400, 250);
-                   
-             popupwindow.setScene(scene1);
-                   
-             popupwindow.showAndWait();
-             
-         }
-     });
+     logout.setOnAction(bl);
+     home.setOnAction(bl);
+     addButton.setOnAction(val);
 
      
      Scene ViewMemberScene = new Scene(bpane, 900, 400);
