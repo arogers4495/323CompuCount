@@ -75,7 +75,7 @@ public class AccountsFile {
 
  // Update the account transactions file with withdrawals and deposits
 
- public void withdraw(AccountMember member, Transaction t) throws IOException {
+ public static void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
   double amount = t.getAmount();
@@ -104,7 +104,7 @@ public class AccountsFile {
   tBW.flush();
  }
 
- public void deposit(AccountMember member, Transaction t) throws IOException {
+ public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   double amount = t.getAmount();
   member.total -= amount;

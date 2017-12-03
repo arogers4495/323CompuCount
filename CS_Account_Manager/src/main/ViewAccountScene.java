@@ -138,7 +138,7 @@ public Scene ViewMember() {
      bp.setLeft(grid);
      bp.setCenter(vbox);
      
-     val = new ViewAccountListener(addButton);
+     val = new ViewAccountListener(addButton, member);
      
      addButton.setOnAction(val);
      
