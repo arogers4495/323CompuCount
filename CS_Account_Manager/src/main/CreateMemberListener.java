@@ -11,10 +11,9 @@ public class CreateMemberListener implements EventHandler<ActionEvent>{
     private Button submit;
     private AccountMember member;
     
-    public CreateMemberListener(Button submit, AccountMember member) {
+    public CreateMemberListener(Button submit) {
         
         this.submit = submit;
-        this.member = member;
         
     }
 
@@ -23,15 +22,20 @@ public class CreateMemberListener implements EventHandler<ActionEvent>{
         
         if(event.getSource() == submit) {
 
-                if (member.firstName.equals("") || member.lastName.equals("") || member.phone.equals("") || member.email.equals("")
-                  || member.description.equals("")) {
-
+            System.out.println(CreateMemberScene.firstName);
+            
+                if (CreateMemberScene.firstName.isEmpty() || CreateMemberScene.lastName.isEmpty() || CreateMemberScene.phoneNum.isEmpty()
+                    || CreateMemberScene.email.isEmpty() || CreateMemberScene.description.isEmpty()) {
+                    
                  Alert alert = new Alert(AlertType.WARNING);
                  alert.setTitle("Field Error!");
                  alert.setHeaderText(null);
                  alert.setContentText("Please Complete ALL Fields!");
                  alert.showAndWait();
                 } else {
+                    
+                    member = new AccountMember(CreateMemberScene.firstName, CreateMemberScene.lastName, CreateMemberScene.phoneNum,
+                            CreateMemberScene.email, CreateMemberScene.description);
                  try {
                   AccountsFile.addMember(member);
                  } catch (IOException e) {

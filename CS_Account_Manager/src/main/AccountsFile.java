@@ -131,7 +131,7 @@ public class AccountsFile {
   boolean memberExists = false;
   if (AccountMembers.contains(member))
    memberExists = true;
-  else if (memberExists == false) {
+  if (memberExists == false) {
    member.index = AccountMembers.size();
    addToArrayList(member);
    createNewFile(member);
@@ -157,7 +157,6 @@ public class AccountsFile {
   AccountsFile mainFile = new AccountsFile();
   String x = "TEST";
   AccountMember member = new AccountMember(x, x, x, x, x);
-  AccountsFile.addMember(member);
   mainFile.withdraw(member, new Transaction(now, x, "50", x, x));
  }
 }
