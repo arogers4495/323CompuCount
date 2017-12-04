@@ -1,6 +1,4 @@
-
 import java.io.IOException;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,17 +18,6 @@ public class SceneController {
  private static Stage window;
 
  public SceneController() throws IOException {
-
-  ls = new LoginScene();
-  hs = new HomeScene();
-  vas = new ViewAccountScene();
-  cms = new CreateMemberScene();
-
- }
-
- public static void ShowHome() {
-
-  window.setScene(hs.HomeScene());
  }
 
  public static void ShowLogin() {
@@ -52,6 +39,10 @@ public class SceneController {
 
   window = primaryStage;
 
+ }
+
+ public static void showHome() {
+  window.setScene(hs.HomeScene());
  }
 
 }

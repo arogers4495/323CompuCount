@@ -36,16 +36,20 @@ public class Transaction {
   return Double.parseDouble(amount.get());
  }
 
- public void setAmount(String money) {
+ public double setAmount(String money) {
   amount.set(money);
+  return Double.parseDouble(amount.get());
+
  }
 
  public String getWithdrawlDeposit() {
   return WithdrawlDeposit.get();
+
  }
 
  public void setWithdrawlDeposit(String inORout) {
   this.WithdrawlDeposit.set(inORout);
+
  }
 
  public String getType() {
@@ -58,5 +62,6 @@ public class Transaction {
 
  public String toString() {
   return LocalDate.now() + "\t" + type.getValue() + "\t" + num.format(getAmount()) + "\t" + description.getValue();
+
  }
 }

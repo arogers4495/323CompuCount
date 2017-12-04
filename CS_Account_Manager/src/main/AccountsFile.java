@@ -102,11 +102,13 @@ public class AccountsFile {
   mBW.flush();
   tBW.write(t.toString());
   tBW.newLine();
+
   tBW.flush();
  }
 
  public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
+
   File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
   double amount = t.getAmount();
   member.total += amount;

@@ -23,9 +23,8 @@ import javafx.scene.control.Alert.AlertType;
 
 public class CreateMemberScene {
 
- String firstName, lastName, email, phoneNum, description;
  Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel, poweredBy;
- TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
+ static TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  Button home, submit, logout;
  AccountMember myMember;
  CreateMemberListener cml;
@@ -74,15 +73,7 @@ public class CreateMemberScene {
   grid.add(descriptionTField, 1, 4);
   grid.add(hb, 1, 5);
 
-  firstName = firstNameTField.getText();
-  lastName = lastNameTField.getText();
-  email = emailTField.getText();
-  phoneNum = phoneNumTField.getText();
-  description = descriptionTField.getText();
-
-  myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
-
-  cml = new CreateMemberListener(submit, myMember);
+  cml = new CreateMemberListener(submit);
 
   submit.setOnAction(cml);
 

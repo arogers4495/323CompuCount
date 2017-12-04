@@ -76,6 +76,7 @@ public class ViewAccountScene {
  }
 
  @SuppressWarnings({ "unchecked" })
+
  public Scene ViewMember() {
 
   transactionLabel.setFont(new Font("Arial", 20));
@@ -93,13 +94,6 @@ public class ViewAccountScene {
 
   typeCol.setMinWidth(99);
   typeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
-
-  WithdrawlDepositCol.setMinWidth(150);
-  WithdrawlDepositCol.setCellValueFactory(new PropertyValueFactory<>("WithdrawlDeposit"));
-
-  table.setItems(data);
-
-  hb.setSpacing(3);
 
   final VBox vbox = new VBox();
   vbox.setSpacing(5);
@@ -125,7 +119,7 @@ public class ViewAccountScene {
   bp.setLeft(grid);
   bp.setCenter(vbox);
 
-  val = new ViewAccountListener(addButton);
+  val = new ViewAccountListener(addButton, member);
 
   addButton.setOnAction(val);
 
