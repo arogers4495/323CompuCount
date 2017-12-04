@@ -28,9 +28,15 @@ public class CreateMemberScene {
  TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
  Button home, submit, logout;
  AccountMember myMember;
+ CreateMemberListener cml;
+ BorderListener bl;
+ HBox hb;
 
- public CreateMemberScene() throws IOException {
-  poweredBy = new Label("Powered By 4Guys");
+ public CreateMemberScene() {
+
+ }
+
+ public Scene CreateScene() {
 
   firstNameLabel = new Label("First Name:");
   lastNameLabel = new Label("Last Name:");
@@ -44,21 +50,17 @@ public class CreateMemberScene {
   emailTField = new TextField();
   descriptionTField = new TextField();
 
-  home = new Button("Home");
-  logout = new Button("Logout");
   submit = new Button("Submit");
-
- }
-
- public Scene CreateMemberScene() {
-
-  BorderPane bp = new BorderPane();
 
   GridPane grid = new GridPane();
   grid.setAlignment(Pos.CENTER);
   grid.setHgap(10);
   grid.setVgap(10);
   grid.setPadding(new Insets(5, 5, 5, 5));
+
+  hb = new HBox();
+  hb.setAlignment(Pos.BOTTOM_RIGHT);
+  hb.getChildren().add(submit);
 
   grid.add(firstNameLabel, 0, 0);
   grid.add(firstNameTField, 1, 0);
@@ -70,95 +72,62 @@ public class CreateMemberScene {
   grid.add(phoneNumTField, 1, 3);
   grid.add(descriptionLabel, 0, 4);
   grid.add(descriptionTField, 1, 4);
+  grid.add(hb, 1, 5);
 
-  grid.add(home, 0, 6);
-  grid.add(submit, 1, 6);
-  grid.add(logout, 2, 6);
+  firstName = firstNameTField.getText();
+  lastName = lastNameTField.getText();
+  email = emailTField.getText();
+  phoneNum = phoneNumTField.getText();
+  description = descriptionTField.getText();
 
-  submit.setOnAction((event) -> {
-   if (event.getSource() == submit) {
+  myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
 
-    firstName = firstNameTField.getText();
-    lastName = lastNameTField.getText();
-    email = emailTField.getText();
-    phoneNum = phoneNumTField.getText();
-    description = descriptionTField.getText();
+  cml = new CreateMemberListener(submit, myMember);
 
-    // if (firstName.equals("")) {
-    //  firstNameTField.setStyle("-fx-background-color: red;");
-    // }
-    // if (lastName.equals("")) {
-    //  lastNameTField.setStyle("-fx-background-color: red;");
-    // }
-    // if (phoneNum.equals("")) {
-    //  phoneNumTField.setStyle("-fx-background-color: red;");
-    // }
-    // if (email.equals("")) {
-    //  emailTField.setStyle("-fx-background-color: red;");
-    // }
-    // if (description.equals("")) {
-    //  descriptionTField.setStyle("-fx-background-color: red;");
-    // }
+  submit.setOnAction(cml);
 
-    if (firstName.equals("") || lastName.equals("") || phoneNum.equals("") || email.equals("")
-      || description.equals("")) {
+  Scene CreateMemberScene = new Scene(getFinallayout(grid), 500, 500);
 
-     Alert alert = new Alert(AlertType.WARNING);
-     alert.setTitle("Field Error!");
-     alert.setHeaderText(null);
-     alert.setContentText("Please Complete ALL Fields!");
-     alert.showAndWait();
-    } else {
-     myMember = new AccountMember(firstName, lastName, email, phoneNum, description);
-     try {
-      AccountsFile.addMember(myMember);
-     } catch (IOException e) {
-      e.printStackTrace();
-     }
-     System.out.println(myMember);
+  return CreateMemberScene;
+ }
 
-     firstNameTField.setText("");
-     lastNameTField.setText("");
-     emailTField.setText("");
-     phoneNumTField.setText("");
-     descriptionTField.setText("");
+ public BorderPane getFinallayout(GridPane grid) {
 
-     firstNameTField.setStyle("-fx-background-color: white;");
-     lastNameTField.setStyle("-fx-background-color: white;");
-     phoneNumTField.setStyle("-fx-background-color: white;");
-     emailTField.setStyle("-fx-background-color: white;");
-     descriptionTField.setStyle("-fx-background-color: white;");
+  HBox hbox, hbox1;
+  BorderPane bpane;
+  Button logout, home;
+  Label poweredBy;
 
-     System.out.println("submit");
-    }
-   }
-  });
+  logout = new Button("Logout");
+  home = new Button("Home");
+  poweredBy = new Label("4Guys");
 
-  home.setOnAction((event) ->
+  logout = new Button("Logout");
+  home = new Button("Home");
+  poweredBy = new Label("4Guys");
 
-  {
-   if (event.getSource() == home) {
-     firstNameTField.setText("");
-     lastNameTField.setText("");
-     emailTField.setText("");
-     phoneNumTField.setText("");
-     descriptionTField.setText("");
-     SceneController.ShowHome();
-   }
-  });
+  bpane = new BorderPane();
+  hbox = new HBox();
+  hbox1 = new HBox();
 
-  logout.setOnAction((event) -> {
-   if (event.getSource() == logout) {
-    SceneController.ShowLogin();
-   }
-  });
+  hbox.getChildren().addAll(home, logout);
+  hbox1.getChildren().add(poweredBy);
 
-  bp.setCenter(grid);
-  bp.setBottom(poweredBy);
+  hbox1.setAlignment(Pos.BOTTOM_RIGHT);
+  hbox.setAlignment(Pos.TOP_RIGHT);
 
-  Scene createMember = new Scene(bp, 400, 400);
+  bpane.setTop(hbox);
+  bpane.setBottom(hbox1);
 
-  return createMember;
+  bl = new BorderListener(logout, home);
+
+  logout.setOnAction(bl);
+  home.setOnAction(bl);
+
+  bpane.setCenter(grid);
+
+  return bpane;
+
  }
 
 }

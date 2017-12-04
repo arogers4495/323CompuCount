@@ -21,19 +21,20 @@ public class HomeScene {
     private Button logout, home;
     private Label poweredBy;
     private BorderListener bl;
-	
+	private HomeSceneListener hsl;
+    
 	public HomeScene() {
 		
-	    
-	    
-	}
-	
-	public Scene HomeScene() {
-        
-        viewAccount = new Button("View Account");
+	    viewAccount = new Button("View Account");
         addAccount = new Button("Add Account");
         name = new Label("Josh Anderson");
         total = new Label("0");
+	    
+        
+        
+	}
+	
+	public Scene HomeScene() {
         
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -47,51 +48,54 @@ public class HomeScene {
         grid.add(total, 1, 1);
         grid.add(addAccount, 1, 2);
         
-        logout = new Button("Logout");
-        home = new Button("Home");
-        poweredBy = new Label("4Guys");
+        hsl = new HomeSceneListener(viewAccount, addAccount);
         
-        bl = new BorderListener(logout, home);
+        viewAccount.setOnAction(hsl);
+        addAccount.setOnAction(hsl);
         
-        bpane = new BorderPane();
-        hbox = new HBox();
-        hbox1 = new HBox();
+        Scene HomeScene = new Scene(getFinallayout(grid), 500, 500);
         
-        hbox.getChildren().addAll(home, logout);
-        hbox1.getChildren().add(poweredBy);
-        
-        hbox1.setAlignment(Pos.BOTTOM_RIGHT);
-        hbox.setAlignment(Pos.TOP_RIGHT);
-        
-        bpane.setTop(hbox);
-        bpane.setBottom(hbox1);
-        
-        logout.setOnAction(bl);
-        
-        home.setOnAction(bl);
-        
-        bpane.setCenter(grid);
-                
-        Scene homeScene = new Scene(bpane);
-	    
-        viewAccount.setOnAction((event) -> {
-            if(event.getSource() == viewAccount) {
-                
-             SceneController.ShowViewAccountScene();
-                
-            }
-        });
-        
-        addAccount.setOnAction((event) -> {
-            if(event.getSource() == addAccount) {
-                
-                SceneController.ShowCreateMember();
-                
-            }
-        });
-        
-	    return homeScene;
+	    return HomeScene;
 	    
 	}
 
+	public BorderPane getFinallayout(GridPane grid) {
+	     
+	     HBox hbox, hbox1;
+	     BorderPane bpane;
+	     Button logout, home;
+	     Label poweredBy;
+	     
+	     logout = new Button("Logout");
+	     home = new Button("Home");
+	     poweredBy = new Label("4Guys");
+	     
+	     logout = new Button("Logout");
+	     home = new Button("Home");
+	     poweredBy = new Label("4Guys");
+	     
+	     bpane = new BorderPane();
+	     hbox = new HBox();
+	     hbox1 = new HBox();
+	     
+	     hbox.getChildren().addAll(home, logout);
+	     hbox1.getChildren().add(poweredBy);
+	     
+	     hbox1.setAlignment(Pos.BOTTOM_RIGHT);
+	     hbox.setAlignment(Pos.TOP_RIGHT);
+	     
+	     bpane.setTop(hbox);
+	     bpane.setBottom(hbox1);
+	     
+	     bl = new BorderListener(logout, home);
+	     
+	     logout.setOnAction(bl);
+	     home.setOnAction(bl);
+	     
+	     bpane.setCenter(grid);
+	     
+	     return bpane;
+	     
+	 }
+	
 }

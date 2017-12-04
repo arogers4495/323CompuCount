@@ -8,7 +8,7 @@ public class AccountMain extends Application {
  private SceneController controller;
 
  public static void main(String[] args) throws IOException {
-  AccountsFile mainFile = new AccountsFile();
+
   launch(args);
 
  }
