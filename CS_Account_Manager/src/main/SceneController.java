@@ -18,6 +18,11 @@ public class SceneController {
  private static Stage window;
 
  public SceneController() throws IOException {
+  ls = new LoginScene();
+  hs = new HomeScene();
+  vas = new ViewAccountScene();
+  cms = new CreateMemberScene();
+  window = new Stage();
  }
 
  public static void ShowLogin() {

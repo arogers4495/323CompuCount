@@ -169,13 +169,13 @@ public class AccountsFile {
   AccountMember Auston = new AccountMember("Auston", "Rogers", "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
     "Student");
   Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdrawal", "out");
-  // AccountsFile.addMember(Auston);
+   AccountsFile.addMember(Auston);
 
   // I've added the bit of code below to demonstrate the mechanics of how my
   // deposit/withdraw functions work; since they are static, they only need to
   // call the AccountsFile class, not an instance of it.
 
-  AccountsFile.withdraw(AccountsFile.AccountMembers.get(0), t);
+
 
  }
 }
