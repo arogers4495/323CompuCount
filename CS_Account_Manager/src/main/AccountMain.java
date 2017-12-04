@@ -6,9 +6,11 @@ import javafx.stage.Stage;
 public class AccountMain extends Application {
     
     private SceneController controller;
+    private static AccountsFile af;
     
  public static void main(String[] args) throws IOException {
 
+     af = new AccountsFile();
      launch(args);
      
  }

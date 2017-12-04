@@ -8,6 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class CreateMemberListener implements EventHandler<ActionEvent>{
 
+    private String firstName, lastName, email, phoneNum, description;
     private Button submit;
     private AccountMember member;
     
@@ -21,11 +22,17 @@ public class CreateMemberListener implements EventHandler<ActionEvent>{
     public void handle(ActionEvent event) {
         
         if(event.getSource() == submit) {
-
-            System.out.println(CreateMemberScene.firstName);
             
-                if (CreateMemberScene.firstName.isEmpty() || CreateMemberScene.lastName.isEmpty() || CreateMemberScene.phoneNum.isEmpty()
-                    || CreateMemberScene.email.isEmpty() || CreateMemberScene.description.isEmpty()) {
+            firstName = CreateMemberScene.firstNameTField.getText().trim();
+            lastName = CreateMemberScene.lastNameTField.getText().trim();
+            email = CreateMemberScene.emailTField.getText().trim();
+            phoneNum = CreateMemberScene.phoneNumTField.getText().trim();
+            description = CreateMemberScene.descriptionTField.getText().trim();
+
+            System.out.println(firstName);
+            
+                if (firstName.isEmpty() || lastName.isEmpty() || phoneNum.isEmpty()
+                    || email.isEmpty() || description.isEmpty()) {
                     
                  Alert alert = new Alert(AlertType.WARNING);
                  alert.setTitle("Field Error!");
@@ -34,8 +41,10 @@ public class CreateMemberListener implements EventHandler<ActionEvent>{
                  alert.showAndWait();
                 } else {
                     
-                    member = new AccountMember(CreateMemberScene.firstName, CreateMemberScene.lastName, CreateMemberScene.phoneNum,
-                            CreateMemberScene.email, CreateMemberScene.description);
+                    member = new AccountMember(firstName, lastName, phoneNum,
+                            email, description);
+                    System.out.println(member.toString());
+                    
                  try {
                   AccountsFile.addMember(member);
                  } catch (IOException e) {
