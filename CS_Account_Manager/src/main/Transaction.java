@@ -1,15 +1,15 @@
 import java.time.LocalDate;
-
+import java.text.NumberFormat;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Transaction {
 
  private SimpleStringProperty amount, type, WithdrawlDeposit, description, date;
- private double amountActual;
+ private NumberFormat num = NumberFormat.getCurrencyInstance();
 
- Transaction(String date, String description, String amount, String type, String inOrOut) {
-  amountActual = Double.parseDouble(amount);
-  this.date = new SimpleStringProperty(date);
+ Transaction(LocalDate localDate, String description, String amount, String type, String inOrOut) {
+  localDate = LocalDate.now();
+  this.date = new SimpleStringProperty(localDate.toString());
   this.description = new SimpleStringProperty(description);
   this.amount = new SimpleStringProperty(amount);
   this.type = new SimpleStringProperty(type);
@@ -33,19 +33,23 @@ public class Transaction {
  }
 
  public double getAmount() {
-  return amountActual;
+  return Double.parseDouble(amount.get());
  }
 
- public void setAmount(String money) {
+ public double setAmount(String money) {
   amount.set(money);
+  return Double.parseDouble(amount.get());
+
  }
 
  public String getWithdrawlDeposit() {
   return WithdrawlDeposit.get();
+
  }
 
  public void setWithdrawlDeposit(String inORout) {
   this.WithdrawlDeposit.set(inORout);
+
  }
 
  public String getType() {
@@ -54,5 +58,10 @@ public class Transaction {
 
  public void setType(String type) {
   this.type.set(type);
+ }
+
+ public String toString() {
+  return LocalDate.now() + "\t" + type.getValue() + "\t" + num.format(getAmount()) + "\t" + description.getValue();
+
  }
 }

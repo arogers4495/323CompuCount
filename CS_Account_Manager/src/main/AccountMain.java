@@ -6,9 +6,11 @@ import javafx.stage.Stage;
 public class AccountMain extends Application {
 
  private SceneController controller;
+ private static AccountsFile af;
 
  public static void main(String[] args) throws IOException {
-  AccountsFile mainFile = new AccountsFile();
+
+  af = new AccountsFile();
   launch(args);
 
  }
@@ -20,7 +22,7 @@ public class AccountMain extends Application {
   SceneController.setStage(primaryStage);
 
   primaryStage.setTitle("CompuCount");
-  SceneController.ShowCreateMember();
+  SceneController.ShowViewAccountScene();
   primaryStage.show();
 
  }

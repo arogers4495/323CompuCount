@@ -23,11 +23,15 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
     private Button addButton;
     LocalDate localDate;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-    public ViewAccountListener(Button addButton) {
+    Transaction tran;
+    AccountMember member;
+    
+    public ViewAccountListener(Button addButton, AccountMember member) {
         
         dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         localDate = LocalDate.now();
         this.addButton = addButton;
+        this.member = member;
         
     }
 
@@ -103,7 +107,8 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
 
                    } else {
 
-                    ViewAccountScene.data.add(new Transaction(
+                    
+                            tran =new Transaction(
                       
                       localDate,
                       codeBox.getSelectionModel().getSelectedItem().toString(),
@@ -111,20 +116,35 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
                       typeBox.getSelectionModel().getSelectedItem().toString(),
                       dwBox.getSelectionModel().getSelectedItem().toString()
 
-                    ));
+                    );
                    
+                            ViewAccountScene.data.add(tran);
 
                     if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
-                        ViewAccountScene.total = ViewAccountScene.total + Integer.parseInt(amount.getText());
+                        ViewAccountScene.total = ViewAccountScene.total +  Double.parseDouble(amount.getText());
                      
                         ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
+                        
+                        try {
+                            AccountsFile.deposit(member, tran);
+                        } catch (Exception e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
 
                     } else {
 
-                        ViewAccountScene.total = ViewAccountScene.total - Integer.parseInt(amount.getText());
+                        ViewAccountScene.total = ViewAccountScene.total - Double.parseDouble(amount.getText());
                         
                         ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
+                        
+                        try {
+                            AccountsFile.withdraw(member, tran);
+                        } catch (Exception e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
 
                     }
 

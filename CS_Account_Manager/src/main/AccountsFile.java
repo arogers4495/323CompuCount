@@ -3,11 +3,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class AccountsFile {
  private static ArrayList<AccountMember> AccountMembers;
@@ -16,7 +18,7 @@ public class AccountsFile {
  private static File mainFile;
  public static NumberFormat money;
  public static DateTimeFormatter date;
- public static LocalDateTime now;
+ public static LocalDate now;
 
  public AccountsFile() throws IOException {
   mainFile = new File("./Members");
@@ -41,10 +43,8 @@ public class AccountsFile {
     AccountMembers.add(member);
    }
   }
-  money = NumberFormat.getCurrencyInstance();
+  money = new DecimalFormat("$,000.00");
   date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-  for (AccountMember m : AccountMembers)
-   System.out.println(m.toString() + "\n");
  }
 
  private static void addToArrayList(AccountMember member) {
@@ -75,7 +75,7 @@ public class AccountsFile {
 
  // Update the account transactions file with withdrawals and deposits
 
- public void withdraw(AccountMember member, Transaction t) throws IOException {
+ public static void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
   double amount = t.getAmount();
@@ -83,7 +83,7 @@ public class AccountsFile {
   member.history.add(t);
 
   FileWriter fW = new FileWriter(mainFile);
-  FileWriter mW = new FileWriter(memberFile);
+  FileWriter mW = new FileWriter(memberFile, true);
   FileWriter transactionWriter = new FileWriter(transactionFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
   BufferedWriter w = new BufferedWriter(fW);
@@ -97,23 +97,30 @@ public class AccountsFile {
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
     + member.firstName + " " + member.lastName + ";\t" + money.format(member.total) + " remaining";
-  for (Transaction trans : member.history) {
-   tBW.write(today + " " + trans.getAmount() + " " + trans.getType());
-   tBW.newLine();
-  }
+  mBW.newLine();
+  mBW.write(updateMessage);
+  mBW.flush();
+  tBW.write(t.toString());
+  tBW.newLine();
+
   tBW.flush();
  }
 
- public void deposit(AccountMember member, Transaction t) throws IOException {
+ public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
+
+  File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
   double amount = t.getAmount();
-  member.total -= amount;
+  member.total += amount;
   member.history.add(t);
 
   FileWriter fW = new FileWriter(mainFile);
   FileWriter mW = new FileWriter(memberFile, true);
+  FileWriter transactionWriter = new FileWriter(transactionFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
   BufferedWriter w = new BufferedWriter(fW);
+  BufferedWriter tBW = new BufferedWriter(transactionWriter);
+
   for (AccountMember m : AccountMembers) {
    w.write(m.toString());
    w.newLine();
@@ -125,13 +132,16 @@ public class AccountsFile {
   mBW.newLine();
   mBW.write(updateMessage);
   mBW.flush();
+  tBW.write(t.toString());
+  tBW.newLine();
+  tBW.flush();
  }
 
  public static boolean addMember(AccountMember member) throws IOException {
   boolean memberExists = false;
   if (AccountMembers.contains(member))
    memberExists = true;
-  if (memberExists == false) {
+  else if (memberExists == false) {
    member.index = AccountMembers.size();
    addToArrayList(member);
    createNewFile(member);
@@ -156,7 +166,16 @@ public class AccountsFile {
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
   String x = "TEST";
-  AccountMember member = new AccountMember(x, x, x, x, x);
-  mainFile.withdraw(member, new Transaction(x, x, "50", x, x));
+  AccountMember Auston = new AccountMember("Auston", "Rogers", "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
+    "Student");
+  Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdrawal", "out");
+   AccountsFile.addMember(Auston);
+
+  // I've added the bit of code below to demonstrate the mechanics of how my
+  // deposit/withdraw functions work; since they are static, they only need to
+  // call the AccountsFile class, not an instance of it.
+
+
+
  }
 }
