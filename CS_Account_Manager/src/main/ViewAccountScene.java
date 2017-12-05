@@ -47,12 +47,10 @@ public ViewAccountScene() {
  
      dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
      localDate = LocalDate.now();
-     
-     data = FXCollections.observableArrayList(
-             trans = new Transaction(localDate, "Student", "1000", "Card", "Deposit")
-         );
   
-     member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "4066261873", "Student");
+     member = AccountsFile.AccountMembers.get(0);
+     
+     data.addAll(member.history);
      
      hb = new HBox();
   

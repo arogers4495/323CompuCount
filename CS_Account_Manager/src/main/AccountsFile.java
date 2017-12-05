@@ -11,8 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class AccountsFile {
- private static ArrayList<AccountMember> AccountMembers;
+    public class AccountsFile {
+ protected static ArrayList<AccountMember> AccountMembers;
  private static BufferedWriter writer;
  private FileWriter memberFileWriter;
  private static File mainFile;
