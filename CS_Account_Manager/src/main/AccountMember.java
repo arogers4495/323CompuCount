@@ -21,6 +21,11 @@ public class AccountMember {
   return memberFile;
  }
 
+ public static File getTransactionFile(AccountMember member) {
+  File memberFile = new File("./" + member.lastName + "_" + member.firstName + "_transactions");
+  return memberFile;
+ }
+
  public void createTransactionsFile() throws IOException {
   File memberFile = new File("./" + lastName + "_" + firstName + "_transactions");
   FileWriter memberFileWriter = new FileWriter(memberFile);
@@ -68,6 +73,7 @@ public class AccountMember {
   this.phone = phone;
   this.description = description;
   this.total = 0;
+  transactions = new File(lastName + "_" + firstName + "_transactions");
 
  }
 
@@ -81,7 +87,7 @@ public class AccountMember {
   this.phone = phone;
   this.description = description;
   this.total = total;
-
+  transactions = new File(lastName + "_" + firstName + "_transactions");
  }
 
  public void setFirstName(String name) {

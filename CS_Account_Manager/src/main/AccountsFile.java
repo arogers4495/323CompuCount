@@ -29,18 +29,35 @@ public class AccountsFile {
   Scanner mainFileScanner = new Scanner(mainFile);
 
   while (mainFileScanner.hasNextLine()) {
-   AccountMember member = new AccountMember(null, null, null, null, null);
    String line = mainFileScanner.nextLine();
    Scanner lineScan = new Scanner(line).useDelimiter("\t");
    while (lineScan.hasNext()) {
-    member.index = lineScan.nextInt();
-    member.firstName = lineScan.next();
-    member.lastName = lineScan.next();
-    member.email = lineScan.next();
-    member.phone = lineScan.next();
-    member.description = lineScan.next();
-    member.total = lineScan.nextDouble();
+    int index = lineScan.nextInt();
+    String firstName = lineScan.next();
+    String lastName = lineScan.next();
+    String email = lineScan.next();
+    String phone = lineScan.next();
+    String description = lineScan.next();
+    double total = lineScan.nextDouble();
+    AccountMember member = new AccountMember(firstName, lastName, email, phone, description, total);
     AccountMembers.add(member);
+    if (!member.transactions.exists())
+     member.createTransactionsFile();
+    File transactionFile = member.transactions;
+    Scanner tScan = new Scanner(transactionFile);
+    while (tScan.hasNextLine()) {
+     String tLine = tScan.nextLine();
+     Scanner tLineScan = new Scanner(tLine).useDelimiter("\t");
+     while (tLineScan.hasNext()) {
+      tLineScan.next();
+      String desc = tLineScan.next();
+      String amount = tLineScan.next();
+      String type = tLineScan.next();
+      String inOrOut = tLineScan.next();
+      Transaction t = new Transaction(LocalDate.now(), desc, amount, type, inOrOut);
+      member.history.add(t);
+     }
+    }
    }
   }
   money = new DecimalFormat("$,000.00");
@@ -77,7 +94,7 @@ public class AccountsFile {
 
  public static void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
-  File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
+  File transactionFile = AccountMember.getTransactionFile(member);
   double amount = t.getAmount();
   member.total -= amount;
   member.history.add(t);
@@ -93,6 +110,7 @@ public class AccountsFile {
    w.write(m.toString());
    w.newLine();
   }
+
   w.flush();
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
@@ -102,7 +120,6 @@ public class AccountsFile {
   mBW.flush();
   tBW.write(t.toString());
   tBW.newLine();
-
   tBW.flush();
  }
 
@@ -125,6 +142,7 @@ public class AccountsFile {
    w.write(m.toString());
    w.newLine();
   }
+
   w.flush();
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " deposited into the account of "
@@ -165,17 +183,12 @@ public class AccountsFile {
 
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
-  String x = "TEST";
-  AccountMember Auston = new AccountMember("Auston", "Rogers", "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
-    "Student");
-  Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdrawal", "out");
-   AccountsFile.addMember(Auston);
-
-  // I've added the bit of code below to demonstrate the mechanics of how my
-  // deposit/withdraw functions work; since they are static, they only need to
-  // call the AccountsFile class, not an instance of it.
-
-
+  // AccountMember Auston = new AccountMember("Auston", "Rogers",
+  // "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
+  // "Student");
+  Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "deposit", "in");
+  // AccountsFile.addMember(Auston);
+  AccountsFile.deposit(AccountsFile.AccountMembers.get(0), t);
 
  }
 }
