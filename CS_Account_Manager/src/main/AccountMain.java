@@ -12,7 +12,6 @@ public class AccountMain extends Application {
 
   af = new AccountsFile();
   launch(args);
-
  }
 
  @Override

@@ -193,7 +193,7 @@ import java.util.Locale;
   Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out");
   AccountsFile.withdraw(Auston, t);
   for (int i = 0; i < 5; i++)
-   AccountsFile.withdraw(AccountsFile.AccountMembers.get(0), t);
+   AccountsFile.withdraw(AccountsFile.AccountMembers.get(1), t);
 
  }
 }
