@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="393.0" prefWidth="552.0" style="-fx-background-color: #3d4956;" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="moneytracker.LoginController">
+   <children>
+      <TextField fx:id="login_name" layoutX="195.0" layoutY="194.0" prefHeight="25.0" prefWidth="245.0" promptText="Name" style="-fx-background-radius: 0;" />
+      <Button fx:id="login" layoutX="263.0" layoutY="301.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="109.0" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: lavender;" text="Sign in" textAlignment="CENTER" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label fx:id="signin_success" layoutX="212.0" layoutY="172.0" prefHeight="17.0" prefWidth="187.0" style="-fx-background-color: #3d4956y;" textFill="#fffdfd" />
+      <PasswordField fx:id="login_password" layoutX="195.0" layoutY="238.0" prefHeight="25.0" prefWidth="245.0" promptText="Password" style="-fx-background-radius: 0;" />
+      <ImageView fitHeight="114.0" fitWidth="167.0" layoutX="222.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@money%20Tracker.png" />
+         </image>
+      </ImageView>
+      <CheckBox fx:id="login_rememberName" layoutX="14.0" layoutY="320.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-background-radius: 0;" text="Remember Name" textFill="#c3c3c3" />
+      <CheckBox fx:id="login_rememberPassword" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-background-radius: 0;" text="Remember Password" textFill="#d3d3d3" />
+      <Button fx:id="login_about" layoutX="468.0" layoutY="342.0" mnemonicParsing="false" onAction="#handleButtonAction" style="-fx-background-radius: 0; -fx-background-color: transparent; -fx-border-color: lavender;" text="About" textFill="#fcfcfc" />
+   </children>
+</AnchorPane>
