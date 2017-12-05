@@ -23,7 +23,7 @@ import java.util.Locale;
  public AccountsFile() throws IOException {
   boolean directory = new File("./Directory").mkdir(), members = new File("./Directory/Members").mkdir(),
     transHistoryFile = new File("./Directory/Transactions/").mkdir();
-  mainFile = new File("./Directory/Members/Members.txt");
+  mainFile = new File("./Directory/Members/Members");
   FileWriter fileWriter = new FileWriter(mainFile.getAbsolutePath(), true);
   writer = new BufferedWriter(fileWriter);
   AccountMembers = new ArrayList<AccountMember>();
@@ -189,8 +189,9 @@ import java.util.Locale;
   AccountsFile mainFile = new AccountsFile();
   AccountMember Auston = new AccountMember("Auston", "Rogers", "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
     "Student");
+  addMember(Auston);
   Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out");
-  // AccountsFile.addMember(Auston);
+  AccountsFile.withdraw(Auston, t);
   for (int i = 0; i < 5; i++)
    AccountsFile.withdraw(AccountsFile.AccountMembers.get(0), t);
 

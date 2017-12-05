@@ -50,7 +50,7 @@ public ViewAccountScene() {
   
      member = AccountsFile.AccountMembers.get(0);
      
-     data.addAll(member.history);
+     data = FXCollections.observableArrayList( new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out"));
      
      hb = new HBox();
   
