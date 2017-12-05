@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="4 Guys" company="" webLink="http://" view-date="2017-10-08" view-index="0" gantt-divider-location="658" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="4 Guys" company="" webLink="http://" view-date="2017-11-26" view-index="0" gantt-divider-location="658" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:7" id="gantt-chart">
-        <field id="tpd3" name="Name" width="276" order="0"/>
-        <field id="tpd4" name="Begin date" width="108" order="1"/>
-        <field id="tpd5" name="End date" width="108" order="2"/>
-        <field id="tpc0" name="Group Member" width="160" order="3"/>
+    <view zooming-state="default:5" id="gantt-chart">
+        <field id="tpd3" name="Name" width="270" order="0"/>
+        <field id="tpd4" name="Begin date" width="106" order="1"/>
+        <field id="tpd5" name="End date" width="106" order="2"/>
+        <field id="tpc0" name="Group Member" width="157" order="3"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="209" order="0"/>
-        <field id="1" name="Default role" width="85" order="1"/>
+        <field id="0" name="Name" width="210" order="0"/>
+        <field id="1" name="Default role" width="86" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -125,7 +125,7 @@ Created methods to be used by other members of the MVC architecture
                 <customproperty taskproperty-id="tpc0" value="Auston"/>
             </task>
         </task>
-        <task id="52" name="Sprint 4" meeting="false" start="2017-11-21" duration="6" complete="4" expand="true">
+        <task id="52" name="Sprint 4" meeting="false" start="2017-11-21" duration="6" complete="18" expand="true">
             <task id="53" name="Deposit, withdraw, and delete account functions" color="#8cb6ce" meeting="false" start="2017-11-21" duration="5" complete="0" expand="true">
                 <notes><![CDATA[8 hours]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Auston"/>
@@ -134,7 +134,7 @@ Created methods to be used by other members of the MVC architecture
                 <notes><![CDATA[9 hrs]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Josh"/>
             </task>
-            <task id="55" name="Home, delete account, table, transetion" color="#8cb6ce" meeting="false" start="2017-11-27" duration="1" complete="100" expand="true">
+            <task id="55" name="Home, delete account, table, transetion" color="#8cb6ce" meeting="false" start="2017-11-21" duration="5" complete="100" expand="true">
                 <notes><![CDATA[15 hours and not even enough ]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Ali"/>
             </task>
@@ -145,6 +145,12 @@ Created methods to be used by other members of the MVC architecture
             <task id="57" name="Begin Documentation" color="#8cb6ce" meeting="false" start="2017-11-21" duration="6" complete="0" expand="true">
                 <notes><![CDATA[3 hours]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Seth"/>
+            </task>
+        </task>
+        <task id="58" name="Sprint 5" color="#8cb6ce" meeting="false" start="2017-11-29" duration="3" complete="0" expand="true">
+            <task id="62" name="Home, cosmatic, functionablity" color="#8cb6ce" meeting="false" start="2017-11-29" duration="3" complete="0" expand="true">
+                <notes><![CDATA[takes me 4 days and not finished ]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Ali"/>
             </task>
         </task>
     </tasks>
