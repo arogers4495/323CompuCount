@@ -192,7 +192,7 @@ public class AccountsFile {
   Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out");
   // AccountsFile.addMember(Auston);
   for (int i = 0; i < 5; i++)
-   AccountsFile.withdraw(AccountsFile.AccountMembers.get(0), t);
+   AccountsFile.withdraw(AccountsFile.AccountMembers.get(1), t);
 
  }
 }
