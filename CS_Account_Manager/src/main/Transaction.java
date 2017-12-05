@@ -61,7 +61,8 @@ public class Transaction {
  }
 
  public String toString() {
-  return LocalDate.now() + "\t" + type.getValue() + "\t" + num.format(getAmount()) + "\t" + description.getValue();
+  return LocalDate.now() + "\t" + description.get() + "\t" + getAmount() + "\t" + type.getValue() + "\t"
+    + WithdrawlDeposit.get();
 
  }
 }
