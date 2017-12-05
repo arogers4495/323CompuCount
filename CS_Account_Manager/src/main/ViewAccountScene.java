@@ -50,7 +50,7 @@ public ViewAccountScene() {
   
      member = AccountsFile.AccountMembers.get(0);
      
-     data = FXCollections.observableArrayList( new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out"));
+     data = FXCollections.observableArrayList( trans = new Transaction(LocalDate.now(), "Trial description", "100.00", "Card", "withdraw"));
      
      hb = new HBox();
   
