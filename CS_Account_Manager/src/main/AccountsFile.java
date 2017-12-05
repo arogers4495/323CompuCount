@@ -21,7 +21,9 @@ public class AccountsFile {
  public static LocalDate now;
 
  public AccountsFile() throws IOException {
-  mainFile = new File("./Members");
+  boolean directory = new File("./Directory").mkdir(), members = new File("./Directory/Members").mkdir(),
+    transHistoryFile = new File("./Directory/Transactions/").mkdir();
+  mainFile = new File("./Directory/Members/Members.txt");
   FileWriter fileWriter = new FileWriter(mainFile.getAbsolutePath(), true);
   writer = new BufferedWriter(fileWriter);
   AccountMembers = new ArrayList<AccountMember>();
@@ -69,7 +71,9 @@ public class AccountsFile {
  }
 
  private static void createNewFile(AccountMember member) throws IOException {
-  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  File memberFile = new File("./Directory/Members/" + member.lastName + "_" + member.firstName + ".txt");
+  File transFile = new File(
+    "./Directory/Transactions/" + member.lastName + "_" + member.firstName + "_transactions.txt");
   // creates a file with the member's last and then first name
   if (memberFile.createNewFile()) {
    FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
@@ -81,7 +85,7 @@ public class AccountsFile {
  }
 
  private static void updateMemberFile(AccountMember member, String newText) throws IOException {
-  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  File memberFile = new File("./Members" + member.lastName + "_" + member.firstName);
   FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath(), true);
   BufferedWriter memberWriter = new BufferedWriter(fileWriter);
   memberWriter.newLine();
@@ -183,12 +187,12 @@ public class AccountsFile {
 
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
-  // AccountMember Auston = new AccountMember("Auston", "Rogers",
-  // "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
-  // "Student");
-  Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "deposit", "in");
+  AccountMember Auston = new AccountMember("Auston", "Rogers", "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
+    "Student");
+  Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out");
   // AccountsFile.addMember(Auston);
-  AccountsFile.deposit(AccountsFile.AccountMembers.get(0), t);
+  for (int i = 0; i < 5; i++)
+   AccountsFile.withdraw(AccountsFile.AccountMembers.get(0), t);
 
  }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class AccountMember {
 
  public String firstName, lastName, email, phone, description;
- protected File transactions;
+ protected File transactions, memberFile;
  protected ArrayList<Transaction> history;
  public double total;
  public int index;
@@ -17,17 +17,18 @@ public class AccountMember {
  }
 
  public static File getMemberFile(AccountMember member) {
-  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
+  File memberFile = new File("./Directory/Members/" + member.lastName + "_" + member.firstName + ".txt");
   return memberFile;
  }
 
  public static File getTransactionFile(AccountMember member) {
-  File memberFile = new File("./" + member.lastName + "_" + member.firstName + "_transactions");
+  File memberFile = new File(
+    "./Directory/Transactions/" + member.lastName + "_" + member.firstName + "_transactions.txt");
   return memberFile;
  }
 
  public void createTransactionsFile() throws IOException {
-  File memberFile = new File("./" + lastName + "_" + firstName + "_transactions");
+  File memberFile = new File("./Directory/Transactions/" + lastName + "_" + firstName + "_transactions.txt");
   FileWriter memberFileWriter = new FileWriter(memberFile);
   BufferedWriter memberBufferedFileWriter = new BufferedWriter(memberFileWriter);
   for (Transaction t : history) {
@@ -73,7 +74,7 @@ public class AccountMember {
   this.phone = phone;
   this.description = description;
   this.total = 0;
-  transactions = new File(lastName + "_" + firstName + "_transactions");
+  transactions = new File("./Directory/Transactions/" + lastName + "_" + firstName + "_transactions.txt");
 
  }
 
@@ -87,7 +88,7 @@ public class AccountMember {
   this.phone = phone;
   this.description = description;
   this.total = total;
-  transactions = new File(lastName + "_" + firstName + "_transactions");
+  transactions = new File("./Directory/Transactions/" + lastName + "_" + firstName + "_transactions.txt");
  }
 
  public void setFirstName(String name) {
