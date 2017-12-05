@@ -21,7 +21,7 @@ public class AccountMain extends Application {
   SceneController.setStage(primaryStage);
 
   primaryStage.setTitle("CompuCount");
-  SceneController.ShowCreateMember();
+  SceneController.ShowLogin();
   primaryStage.show();
 
  }
