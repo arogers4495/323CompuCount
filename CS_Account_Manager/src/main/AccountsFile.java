@@ -196,4 +196,10 @@ import java.util.Locale;
    AccountsFile.withdraw(AccountsFile.AccountMembers.get(1), t);
 
  }
+
+ public static ArrayList<AccountMember> getMembersList() {
+    
+    return AccountMembers;
+    
+}
 }

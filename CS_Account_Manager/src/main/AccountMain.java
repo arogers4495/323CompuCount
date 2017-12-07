@@ -14,6 +14,7 @@ public class AccountMain extends Application {
   launch(args);
  }
 
+
  @Override
  public void start(Stage primaryStage) throws Exception {
 
@@ -25,5 +26,4 @@ public class AccountMain extends Application {
   primaryStage.show();
 
  }
-
 }
