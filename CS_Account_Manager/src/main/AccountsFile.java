@@ -159,4 +159,10 @@ public class AccountsFile {
   AccountMember member = new AccountMember(x, x, x, x, x);
   mainFile.withdraw(member, new Transaction(now, x, "50", x, x));
  }
+
+ public static ArrayList<AccountMember> getMembersList() {
+    
+    return AccountMembers;
+    
+}
 }
