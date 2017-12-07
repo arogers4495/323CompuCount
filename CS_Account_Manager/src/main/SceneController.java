@@ -40,7 +40,7 @@ public class SceneController {
   window.setScene(cms.CreateScene());
  }
 
- public static void setStage(Stage primaryStage) {
+ public void setStage(Stage primaryStage) {
 
   window = primaryStage;
 

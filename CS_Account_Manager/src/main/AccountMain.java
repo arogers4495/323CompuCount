@@ -18,7 +18,7 @@ public class AccountMain extends Application {
  public void start(Stage primaryStage) throws Exception {
 
   controller = new SceneController();
-  SceneController.setStage(primaryStage);
+  controller.setStage(primaryStage);
 
   primaryStage.setTitle("CompuCount");
   SceneController.ShowLogin();
