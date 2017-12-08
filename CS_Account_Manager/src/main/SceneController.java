@@ -31,22 +31,22 @@ public class SceneController {
 
     public static void ShowHome() {
         
-        window.setScene(hs.HomeScene());
+        window.setScene(hs.getHomeScene());
     }
 
     public static void ShowLogin() {
         
-       window.setScene(ls.LoginScene());
+       window.setScene(ls.getLoginScene());
     }
     
     public static void ShowViewAccountScene() {
         
-        window.setScene(vas.ViewMember());
+        window.setScene(vas.getViewMember());
      }
     
     public static void ShowCreateMember() {
         
-        window.setScene(cms.CreateScene());
+        window.setScene(cms.getCreateScene());
      }
     
     public static void setStage(Stage primaryStage) {

@@ -34,7 +34,7 @@ public class LoginScene {
     
     }
 
-    public Scene LoginScene(){
+    public Scene getLoginScene(){
     
     lPrompt = new Label("");
     unameLabel = new Label("Username: ");
@@ -42,6 +42,8 @@ public class LoginScene {
     login = new Button("Login");
     unameTField = new TextField();
     pwdField = new PasswordField();
+    
+    login.setFont(new Font("Arial", 15));
     
     // username and password for testing purposes
     usernameActual = "csadmin";

@@ -95,6 +95,12 @@ public class AccountMember {
   return this.firstName;
 
  }
+ 
+ public String getName() {
+     
+     return firstName + " " + lastName;
+     
+ }
 
  public double getTotal() {
 

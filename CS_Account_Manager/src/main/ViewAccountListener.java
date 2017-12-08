@@ -20,23 +20,30 @@ import javafx.stage.Stage;
 
 public class ViewAccountListener implements EventHandler<ActionEvent>{
 
-    private Button addButton;
+    private Button addButton, editButton;
     LocalDate localDate;
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     Transaction tran;
     AccountMember member;
     
-    public ViewAccountListener(Button addButton, AccountMember member) {
+    public ViewAccountListener(Button addButton, Button editButton, AccountMember member) {
         
         dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
         localDate = LocalDate.now();
         this.addButton = addButton;
+        this.editButton = editButton;
         this.member = member;
         
     }
 
     @Override
     public void handle(ActionEvent event) {
+        
+        if(event.getSource() == editButton) {
+            
+            
+            
+        }
         
         if(event.getSource() == addButton) {
             
