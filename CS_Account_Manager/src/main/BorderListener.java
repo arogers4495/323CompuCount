@@ -26,7 +26,7 @@ public class BorderListener implements EventHandler<ActionEvent> {
         
         if(event.getSource() == home) {
             
-            SceneController.showHome();
+            SceneController.ShowHome();
             
         }
         

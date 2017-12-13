@@ -25,17 +25,15 @@ public class ViewAccountScene {
     
  static double total;
  private AccountMember member;
- private Transaction trans;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
-static Label labelTotal;
- private Button addButton;
+ static Label labelTotal;
+ private Button addButton, editButton, logout, home;
  private BorderPane bpane;
  private HBox hbox, hbox1;
  private BorderListener bl;
- LocalDate localDate;
- DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
- TableColumn<Transaction, String> dateCol, descriptionCol, amountCol, typeCol, WithdrawlDepositCol;
+ private TableColumn<Transaction, String> dateCol, descriptionCol, amountCol, typeCol, WithdrawlDepositCol;
  private ViewAccountListener val;
+ private Transaction transaction;
  
  @SuppressWarnings("rawtypes")
  private final TableView table = new TableView();
@@ -44,22 +42,18 @@ static Label labelTotal;
 
  @SuppressWarnings({ "unchecked", "rawtypes" })
 public ViewAccountScene() {
- 
-     dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-     localDate = LocalDate.now();
-  
+     
+     data = FXCollections.observableArrayList();
+
      member = AccountsFile.AccountMembers.get(0);
      
-     data = FXCollections.observableArrayList( trans = new Transaction(LocalDate.now(), "Trial description", "100.00", "Card", "withdraw"));
-     
      hb = new HBox();
+     hb.setSpacing(3);
   
-  displayName = new Label("Name:   " + member.getFirstName() + member.getLastName());// sets the label text to the member's name
-  displayEmail = new Label("Email:   " + member.getEmail());
-  displayPhone = new Label("Phone#:   " + member.getPhone());
-  displayDescription = new Label("Desctiption:   " + member.getDescription());
   addButton = new Button("Add Transaction");
-  total = trans.getAmount();
+  addButton.setFont(new Font("Arial", 15));
+  editButton = new Button("Edit");
+  editButton.setFont(new Font("Arial", 15));
   labelTotal = new Label("Total: "  + total);
   labelTotal.setFont(Font.font ("Verdana", 14));
   
@@ -76,8 +70,30 @@ public ViewAccountScene() {
  } 
 
  @SuppressWarnings({ "unchecked" })
-public Scene ViewMember() {
+public Scene getViewMember() {
 
+     member = HomeSceneListener.member;
+     
+     total = member.total;
+     
+     displayName = new Label("Name:   " + member.getName());// sets the label text to the member's name
+     displayEmail = new Label("Email:   " + member.getEmail());
+     displayPhone = new Label("Phone#:   " + member.getPhone());
+     displayDescription = new Label("Desctiption:   " + member.getDescription());
+     
+     for(int i = 0; i < member.history.size(); i++) {
+         
+         transaction = member.history.get(i);
+         
+         if(data.contains(transaction)) {
+             
+             continue;
+             
+         }
+         else
+         data.add(transaction);
+         
+     }
      
      transactionLabel.setFont(new Font("Arial", 20));
 
@@ -107,10 +123,6 @@ public Scene ViewMember() {
              new PropertyValueFactory<>("WithdrawlDeposit"));
      
      table.setItems(data);
-     
-
-     
-     hb.setSpacing(3);
 
      final VBox vbox = new VBox();
      vbox.setSpacing(5);
@@ -122,7 +134,7 @@ public Scene ViewMember() {
      BorderPane bp = new BorderPane();
      
      GridPane grid = new GridPane();
-     grid.setAlignment(Pos.TOP_LEFT);
+     grid.setAlignment(Pos.CENTER);
      grid.setHgap(10);
      grid.setVgap(10);
      grid.setPadding(new Insets(25, 25, 25, 25));
@@ -132,13 +144,16 @@ public Scene ViewMember() {
      grid.add(displayEmail, 0, 2);
      grid.add(displayPhone, 0 , 3);
      grid.add(displayDescription, 0, 4);
+     grid.add(editButton, 0, 5);
      
      bp.setLeft(grid);
      bp.setCenter(vbox);
      
-     val = new ViewAccountListener(addButton, member);
+     val = new ViewAccountListener(addButton, editButton, member);
+     
      
      addButton.setOnAction(val);
+     editButton.setOnAction(val);
      
      Scene ViewScene = new Scene(getFinallayout(bp), 900, 400);
      
@@ -148,28 +163,25 @@ public Scene ViewMember() {
  
  public BorderPane getFinallayout(BorderPane bp) {
      
-     HBox hbox, hbox1;
-     BorderPane bpane;
-     Button logout, home;
-     Label poweredBy;
-     
      logout = new Button("Logout");
      home = new Button("Home");
      poweredBy = new Label("4Guys");
      
-     logout = new Button("Logout");
-     home = new Button("Home");
-     poweredBy = new Label("4Guys");
+     logout.setFont(new Font("Arial", 15));
+     home.setFont(new Font("Arial", 15));
      
      bpane = new BorderPane();
      hbox = new HBox();
      hbox1 = new HBox();
      
      hbox.getChildren().addAll(home, logout);
-     hbox1.getChildren().add(poweredBy);
-     
-     hbox1.setAlignment(Pos.BOTTOM_RIGHT);
+     hbox.setSpacing(5);
+     hbox.setPadding(new Insets(5, 0, 0, 10));
      hbox.setAlignment(Pos.TOP_RIGHT);
+     
+     hbox1.getChildren().add(poweredBy);
+     hbox1.setAlignment(Pos.BOTTOM_RIGHT);
+     
      
      bpane.setTop(hbox);
      bpane.setBottom(hbox1);

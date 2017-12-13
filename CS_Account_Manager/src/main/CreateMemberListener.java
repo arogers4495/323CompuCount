@@ -42,8 +42,7 @@ public class CreateMemberListener implements EventHandler<ActionEvent>{
                 } else {
                     
                     member = new AccountMember(firstName, lastName, phoneNum,
-                            email, description);
-                    System.out.println(member.toString());
+                            email, description);                   
                     
                  try {
                   AccountsFile.addMember(member);
@@ -51,9 +50,18 @@ public class CreateMemberListener implements EventHandler<ActionEvent>{
                   // TODO Auto-generated catch block
                   e.printStackTrace();
                  }
-                 System.out.println(member);
-                 System.out.println("submit");
+
                 }
+                
+                
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Member Added!");
+                alert.setHeaderText(null);
+                alert.setContentText("Member Added!");
+                alert.show();
+                
+                SceneController.ShowHome();
+                
                }
             
         }

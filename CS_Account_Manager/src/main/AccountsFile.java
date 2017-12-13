@@ -183,6 +183,7 @@ import java.util.Locale;
 
  public ArrayList<AccountMember> getAccountMembers() {
   return AccountMembers;
+
  }
 
  public static void main(String[] args) throws IOException {
@@ -194,7 +195,6 @@ import java.util.Locale;
   AccountsFile.withdraw(Auston, t);
   for (int i = 0; i < 5; i++)
    AccountsFile.withdraw(AccountsFile.AccountMembers.get(1), t);
-
  }
 
  public static ArrayList<AccountMember> getMembersList() {
