@@ -18,24 +18,27 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class CreateMemberScene {
 
- Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel, poweredBy;
+ private Label firstNameLabel, lastNameLabel, phoneNumLabel, emailLabel, descriptionLabel, poweredBy;
  static TextField firstNameTField, lastNameTField, phoneNumTField, emailTField, descriptionTField;
- Button home, submit, logout;
- AccountMember myMember;
- CreateMemberListener cml;
- BorderListener bl;
- HBox hb;
 
+ private Button home, submit, logout;
+ private AccountMember myMember;
+ private CreateMemberListener cml;
+ private BorderListener bl;
+ private HBox hb, hbox, hbox1;
+ private BorderPane bpane;
+ 
  public CreateMemberScene() {
 
  }
 
- public Scene CreateScene() {
+ public Scene getCreateScene() {
 
   firstNameLabel = new Label("First Name:");
   lastNameLabel = new Label("Last Name:");
@@ -50,6 +53,7 @@ public class CreateMemberScene {
   descriptionTField = new TextField();
 
   submit = new Button("Submit");
+  submit.setFont(new Font("Arial", 15));
 
   GridPane grid = new GridPane();
   grid.setAlignment(Pos.CENTER);
@@ -81,44 +85,40 @@ public class CreateMemberScene {
 
   return CreateMemberScene;
  }
-
- public BorderPane getFinallayout(GridPane grid) {
-
-  HBox hbox, hbox1;
-  BorderPane bpane;
-  Button logout, home;
-  Label poweredBy;
-
-  logout = new Button("Logout");
-  home = new Button("Home");
-  poweredBy = new Label("4Guys");
-
-  logout = new Button("Logout");
-  home = new Button("Home");
-  poweredBy = new Label("4Guys");
-
-  bpane = new BorderPane();
-  hbox = new HBox();
-  hbox1 = new HBox();
-
-  hbox.getChildren().addAll(home, logout);
-  hbox1.getChildren().add(poweredBy);
-
-  hbox1.setAlignment(Pos.BOTTOM_RIGHT);
-  hbox.setAlignment(Pos.TOP_RIGHT);
-
-  bpane.setTop(hbox);
-  bpane.setBottom(hbox1);
-
-  bl = new BorderListener(logout, home);
-
-  logout.setOnAction(bl);
-  home.setOnAction(bl);
-
-  bpane.setCenter(grid);
-
-  return bpane;
-
+ 
+public BorderPane getFinallayout(GridPane grid) {
+     
+    logout = new Button("Logout");
+    home = new Button("Home");
+    poweredBy = new Label("4Guys");
+    
+    logout.setFont(new Font("Arial", 15));
+    home.setFont(new Font("Arial", 15));
+    
+    bpane = new BorderPane();
+    hbox = new HBox();
+    hbox1 = new HBox();
+    
+    hbox.getChildren().addAll(home, logout);
+    hbox.setSpacing(5);
+    hbox.setPadding(new Insets(5, 0, 0, 10));
+    hbox.setAlignment(Pos.TOP_RIGHT);
+    
+    hbox1.getChildren().add(poweredBy);
+    hbox1.setAlignment(Pos.BOTTOM_RIGHT);
+    
+    
+    bpane.setTop(hbox);
+    bpane.setBottom(hbox1);
+    
+    bl = new BorderListener(logout, home);
+    
+    logout.setOnAction(bl);
+    home.setOnAction(bl);
+    
+    bpane.setCenter(grid);
+    
+    return bpane;
  }
 
 }

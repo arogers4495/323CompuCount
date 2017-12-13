@@ -12,14 +12,17 @@ public class AccountMain extends Application {
 
   af = new AccountsFile();
   launch(args);
+
  }
 
  @Override
  public void start(Stage primaryStage) throws Exception {
+
   controller = new SceneController();
   SceneController.setStage(primaryStage);
+
   primaryStage.setTitle("CompuCount");
-  SceneController.ShowLogin();
+  SceneController.ShowHome();
   primaryStage.show();
 
  }

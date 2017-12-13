@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class AccountsFile {
+
  protected static ArrayList<AccountMember> AccountMembers;
  private static BufferedWriter writer;
  private FileWriter memberFileWriter;
@@ -23,7 +24,7 @@ public class AccountsFile {
  public AccountsFile() throws IOException {
   boolean directory = new File("./Directory").mkdir(), members = new File("./Directory/Members").mkdir(),
     transHistoryFile = new File("./Directory/Transactions/").mkdir();
-  mainFile = new File("./Directory/Members/Members.txt");
+  mainFile = new File("./Directory/Members/Members");
   FileWriter fileWriter = new FileWriter(mainFile.getAbsolutePath(), true);
   writer = new BufferedWriter(fileWriter);
   AccountMembers = new ArrayList<AccountMember>();
@@ -122,7 +123,8 @@ public class AccountsFile {
 
  public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
-  File transactionFile = new File("./Directory/Transactions/" + member.lastName + "_" + member.firstName + "_" + "transactions.txt");
+  File transactionFile = new File(
+    "./Directory/Transactions/" + member.lastName + "_" + member.firstName + "_" + "transactions.txt");
   double amount = t.getAmount();
   member.total += amount;
   member.history.add(t);
@@ -172,12 +174,15 @@ public class AccountsFile {
 
  public ArrayList<AccountMember> getAccountMembers() {
   return AccountMembers;
+
  }
 
  public static void main(String[] args) throws IOException {
-  AccountsFile mainFile = new AccountsFile();
-  AccountMember member = AccountMembers.get(0);
-  Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out");
-  deposit(member, t);
+ }
+
+ public static ArrayList<AccountMember> getMembersList() {
+
+  return AccountMembers;
+
  }
 }

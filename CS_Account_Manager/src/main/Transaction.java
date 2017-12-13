@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class Transaction {
 
  private SimpleStringProperty amount, type, WithdrawlDeposit, description, date;
- private NumberFormat num = NumberFormat.getCurrencyInstance();
+ private Double total;
 
  Transaction(LocalDate localDate, String description, String amount, String type, String inOrOut) {
   localDate = LocalDate.now();
@@ -36,10 +36,11 @@ public class Transaction {
   return Double.parseDouble(amount.get());
  }
 
- public double setAmount(String money) {
-  amount.set(money);
-  return Double.parseDouble(amount.get());
-
+ public void setAmount(String money) {
+     
+     total = total + Double.parseDouble(money);
+     
+  amount = new SimpleStringProperty(Double.toString(total));
  }
 
  public String getWithdrawlDeposit() {

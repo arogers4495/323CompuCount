@@ -20,23 +20,28 @@ import javafx.stage.Stage;
 
 public class ViewAccountListener implements EventHandler<ActionEvent> {
 
- private Button addButton;
+ private Button addButton, editButton;
  LocalDate localDate;
  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
  Transaction tran;
- public AccountMember member;
+ AccountMember member;
 
- public ViewAccountListener(Button addButton, AccountMember member) {
+ public ViewAccountListener(Button addButton, Button editButton, AccountMember member) {
 
   dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
   localDate = LocalDate.now();
   this.addButton = addButton;
+  this.editButton = editButton;
   this.member = member;
 
  }
 
  @Override
  public void handle(ActionEvent event) {
+
+  if (event.getSource() == editButton) {
+
+  }
 
   if (event.getSource() == addButton) {
 
@@ -96,15 +101,10 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
 
    button1.setOnAction(e -> {
 
-    if (amount.getText().trim().isEmpty() || typeBox.getSelectionModel().isEmpty()
-      || codeBox.getSelectionModel().isEmpty() || dwBox.getSelectionModel().isEmpty()) {
+    popupwindow.setScene(scene);
+    popupwindow.showAndWait();
 
-     lPrompt.setText("*All Fields Required!");
-     lPrompt.setFont(Font.font("Verdana", 12));
-     lPrompt.setTextFill(Paint.valueOf("RED"));
-     amount.clear();
-
-    } else {
+    {
 
      tran = new Transaction(
 
@@ -113,41 +113,37 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
 
      );
 
-     ViewAccountScene.data.add(tran);
+     member.history.add(tran);
+    }
+    if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
-     if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
+     ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
 
-      ViewAccountScene.total = ViewAccountScene.total + Double.parseDouble(amount.getText());
-
-      ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
-
-      try {
-       AccountsFile.deposit(member, tran);
-      } catch (Exception e1) {
-       // TODO Auto-generated catch block
-       e1.printStackTrace();
-      }
-
-     } else {
-
-      ViewAccountScene.total = ViewAccountScene.total - Double.parseDouble(amount.getText());
-
-      ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
-
-      try {
-       AccountsFile.withdraw(member, tran);
-      } catch (Exception e1) {
-       // TODO Auto-generated catch block
-       e1.printStackTrace();
-      }
-
+     try {
+      AccountsFile.deposit(member, tran);
+     } catch (Exception e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
      }
 
-     popupwindow.close();
+    } else {
+
+     ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
+
+     try {
+      AccountsFile.withdraw(member, tran);
+     } catch (Exception e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+     }
 
     }
 
-   });
+    popupwindow.close();
+
+   }
+
+   );
 
    popupwindow.setScene(scene);
    popupwindow.showAndWait();
