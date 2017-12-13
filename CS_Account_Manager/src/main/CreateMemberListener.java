@@ -45,13 +45,22 @@ public class CreateMemberListener implements EventHandler<ActionEvent> {
     try {
      AccountsFile.addMember(member);
     } catch (IOException e) {
+     // TODO Auto-generated catch block
      e.printStackTrace();
     }
 
    }
-   System.out.println(member);
-   System.out.println("submit");
+
+   Alert alert = new Alert(AlertType.INFORMATION);
+   alert.setTitle("Member Added!");
+   alert.setHeaderText(null);
+   alert.setContentText("Member Added!");
+   alert.show();
+
+   SceneController.ShowHome();
+
   }
+
  }
 
 }

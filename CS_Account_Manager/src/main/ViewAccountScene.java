@@ -25,17 +25,15 @@ public class ViewAccountScene {
     
  static double total;
  private AccountMember member;
- private Transaction trans;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
-static Label labelTotal;
+ static Label labelTotal;
  private Button addButton, editButton, logout, home;
  private BorderPane bpane;
  private HBox hbox, hbox1;
  private BorderListener bl;
- private LocalDate localDate;
- private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
  private TableColumn<Transaction, String> dateCol, descriptionCol, amountCol, typeCol, WithdrawlDepositCol;
  private ViewAccountListener val;
+ private Transaction transaction;
  
  @SuppressWarnings("rawtypes")
  private final TableView table = new TableView();
@@ -44,16 +42,13 @@ static Label labelTotal;
 
  @SuppressWarnings({ "unchecked", "rawtypes" })
 public ViewAccountScene() {
- 
-     dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-     localDate = LocalDate.now();
      
      data = FXCollections.observableArrayList();
   
      
      
      hb = new HBox();
-  
+     hb.setSpacing(3);
   
   addButton = new Button("Add Transaction");
   addButton.setFont(new Font("Arial", 15));
@@ -88,7 +83,15 @@ public Scene getViewMember() {
      
      for(int i = 0; i < member.history.size(); i++) {
          
-         data.add(member.history.get(i));
+         transaction = member.history.get(i);
+         
+         if(data.contains(transaction)) {
+             
+             continue;
+             
+         }
+         else
+         data.add(transaction);
          
      }
      
@@ -120,10 +123,6 @@ public Scene getViewMember() {
              new PropertyValueFactory<>("WithdrawlDeposit"));
      
      table.setItems(data);
-     
-
-     
-     hb.setSpacing(3);
 
      final VBox vbox = new VBox();
      vbox.setSpacing(5);

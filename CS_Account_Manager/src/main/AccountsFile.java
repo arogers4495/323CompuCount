@@ -63,18 +63,6 @@ public class AccountsFile {
   }
  }
 
- private static void updateMemberFile(AccountMember member, String newText) throws IOException {
-  File memberFile = new File("./" + member.lastName + "_" + member.firstName);
-  FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath(), true);
-  BufferedWriter memberWriter = new BufferedWriter(fileWriter);
-  memberWriter.newLine();
-  memberWriter.write(newText);
-  memberWriter.flush();
-  memberWriter.close();
- }
-
- // Update the account transactions file with withdrawals and deposits
-
  public static void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
@@ -107,7 +95,7 @@ public class AccountsFile {
  public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   double amount = t.getAmount();
-  member.total -= amount;
+  member.total += amount;
   member.history.add(t);
 
   FileWriter fW = new FileWriter(mainFile);
@@ -153,16 +141,9 @@ public class AccountsFile {
   return AccountMembers;
  }
 
- public static void main(String[] args) throws IOException {
-  AccountsFile mainFile = new AccountsFile();
-  String x = "TEST";
-  AccountMember member = new AccountMember(x, x, x, x, x);
-  mainFile.withdraw(member, new Transaction(now, x, "50", x, x));
- }
-
  public static ArrayList<AccountMember> getMembersList() {
-    
-    return AccountMembers;
-    
-}
+
+  return AccountMembers;
+
+ }
 }

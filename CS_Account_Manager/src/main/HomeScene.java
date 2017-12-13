@@ -21,10 +21,10 @@ import javafx.stage.Stage;
 
 public class HomeScene {
 
- private Button viewAccount, addAccount, delAccount;
+ private Button viewAccount, addAccount, delAccount, viewButton;
  private Label memberLabel, adminLabel;
  private BorderPane bpane, bp;
- private HBox hbox, hbox1, hbox2;
+ private HBox hbox, hbox1, hbox2, viewTrans;
  private VBox vbox, vbox1;
  private Button logout, home;
  private Label poweredBy;
@@ -38,28 +38,27 @@ public class HomeScene {
 
  @SuppressWarnings("unchecked")
  public HomeScene() {
-  nameCol = new TableColumn<AccountMember, String>("");
-  totalCol = new TableColumn<AccountMember, String>("");
-  membersList = AccountsFile.getMembersList();
-  adminLabel = new Label("");
-  if (membersList == null || member == null) {
-   adminLabel = new Label();
-   memberLabel = new Label();
-  } else {
-   memberLabel = new Label("Members");
-   adminLabel = new Label(member.lastName + ", " + member.firstName);
 
-   nameCol = new TableColumn<AccountMember, String>("Name");
-   totalCol = new TableColumn<AccountMember, String>("Amount");
+  membersList = AccountsFile.getMembersList();
+  memberLabel = new Label("Members");
+  nameCol = new TableColumn<AccountMember, String>("Name");
+  totalCol = new TableColumn<AccountMember, String>("Amount");
+  try {
+   member = membersList.get(0);
+   adminLabel = new Label(member.lastName + ", " + member.firstName);
 
    data = FXCollections.observableArrayList();
 
    table.getColumns().addAll(nameCol, totalCol);
+
+  } catch (Exception e) {
+   System.out.println("EXCEPTION");
+   adminLabel = new Label("");
   }
   viewAccount = new Button("View Account");
   addAccount = new Button("Add Account");
   delAccount = new Button("Delete Account");
-
+  viewButton = new Button("View Report");
  }
 
  public Scene getHomeScene() {
@@ -68,12 +67,14 @@ public class HomeScene {
 
    member = membersList.get(i);
 
-   try {
+   if (data.contains(member)) {
+    continue;
+   } else
     data.add(member);
-   } catch (java.lang.NullPointerException e) {
-   }
 
   }
+
+  table.refresh();
 
   table.setEditable(true);
 
@@ -88,6 +89,7 @@ public class HomeScene {
   viewAccount.setFont(new Font("Arial", 15));
   addAccount.setFont(new Font("Arial", 15));
   delAccount.setFont(new Font("Arial", 15));
+  viewButton.setFont(new Font("Arial", 15));
 
   nameCol.setMinWidth(400);
   nameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
@@ -100,7 +102,7 @@ public class HomeScene {
   vbox = new VBox();
   vbox.setSpacing(5);
   vbox.setPadding(new Insets(10, 0, 0, 10));
-  vbox.getChildren().addAll(memberLabel, table);
+  vbox.getChildren().addAll(memberLabel, table, viewButton);
   vbox.setAlignment(Pos.CENTER);
 
   vbox1 = new VBox();
@@ -119,11 +121,12 @@ public class HomeScene {
   bp.setCenter(vbox);
   bp.setTop(hbox2);
 
-  hsl = new HomeSceneListener(viewAccount, addAccount, delAccount, table);
+  hsl = new HomeSceneListener(viewAccount, addAccount, delAccount, table, viewButton);
 
   viewAccount.setOnAction(hsl);
   addAccount.setOnAction(hsl);
   delAccount.setOnAction(hsl);
+  viewButton.setOnAction(hsl);
 
   Scene HomeScene = new Scene(getFinallayout(bp), 1200, 500);
 
