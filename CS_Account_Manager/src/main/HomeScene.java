@@ -19,156 +19,151 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-
-
 public class HomeScene {
-    
-	private Button viewAccount, addAccount, delAccount;
-	private Label memberLabel, adminLabel;
-	private BorderPane bpane, bp;
-    private HBox hbox, hbox1, hbox2;
-    private VBox vbox, vbox1;
-    private Button logout, home;
-    private Label poweredBy;
-    private BorderListener bl;
-	private HomeSceneListener hsl;
-	private AccountMember member;
-    private ArrayList<AccountMember> membersList;
-    TableColumn<AccountMember, String> nameCol ,totalCol;
-    private final TableView<AccountMember> table = new TableView<AccountMember>();
-    static ObservableList<AccountMember> data;
-    
-	@SuppressWarnings("unchecked")
-    public HomeScene() {
-		
-	    membersList = AccountsFile.getMembersList();	
-	   
-	    member = membersList.get(7);
-	    
-	    memberLabel = new Label("Members");
-	    adminLabel = new Label(member.lastName + ", " + member.firstName);
-	    
-	    nameCol = new TableColumn<AccountMember, String>("Name");
-	    totalCol = new TableColumn<AccountMember, String>("Amount");
-        
-	    data = FXCollections.observableArrayList();
-	    
-	    table.getColumns().addAll(nameCol, totalCol);
-	    
-	    viewAccount = new Button("View Account");
-	    addAccount = new Button("Add Account");
-	    delAccount = new Button("Delete Account");
-	    
-	    
-	}
-	
-	public Scene getHomeScene() {        
-        
-	    for(int i = 0; i < membersList.size(); i++) {
-	        
-	        member = membersList.get(i);
-	        
-	        data.add(member);
-	        
-	    }
-	    
-	    table.setEditable(true);
-	    
-	    table.setMaxSize(800, 220);
 
-	    
-	    viewAccount.setPrefSize(200, 20);
-	    addAccount.setPrefSize(200, 20);
-	    delAccount.setPrefSize(200, 20);
-	    
-	    adminLabel.setFont(new Font("Arial", 50));
-	    memberLabel.setFont(new Font("Arial", 20));
-	    viewAccount.setFont(new Font("Arial", 15));
-	    addAccount.setFont(new Font("Arial", 15));
-	    delAccount.setFont(new Font("Arial", 15));
-	    
-	    nameCol.setMinWidth(400);
-        nameCol.setCellValueFactory(
-                new PropertyValueFactory<>("Name"));
-	    
-	    totalCol.setMinWidth(385);
-	     totalCol.setCellValueFactory(
-	             new PropertyValueFactory<>("Total"));
-	     
-	     table.setItems(data);
-	     
-	     vbox = new VBox();
-	     vbox.setSpacing(5);
-	     vbox.setPadding(new Insets(10, 0, 0, 10));
-	     vbox.getChildren().addAll(memberLabel, table);
-	     vbox.setAlignment(Pos.CENTER);
-	    
-	     vbox1 = new VBox();
-         vbox1.setSpacing(20);
-         vbox1.setPadding(new Insets(40, 0, 25, 50));
-	     vbox1.getChildren().addAll(viewAccount, addAccount, delAccount);
-	     vbox1.setAlignment(Pos.CENTER);
-	     
-	     hbox2 = new HBox();
-	     hbox2.setSpacing(20);
-         hbox2.setPadding(new Insets(40, 0, 25, 50));
-         hbox2.getChildren().add(adminLabel);
-         	     
-	     
-	     bp = new BorderPane();
-	     bp.setLeft(vbox1);
-	     bp.setCenter(vbox);
-	     bp.setTop(hbox2);
-	     
-	     
-	     
-        hsl = new HomeSceneListener(viewAccount, addAccount, delAccount, table);
-        
-        viewAccount.setOnAction(hsl);
-        addAccount.setOnAction(hsl);
-        delAccount.setOnAction(hsl);
-        
-        Scene HomeScene = new Scene(getFinallayout(bp), 1200, 500);
-        
-                
-	    return HomeScene;
-	    
-	}
+ private Button viewAccount, addAccount, delAccount;
+ private Label memberLabel, adminLabel;
+ private BorderPane bpane, bp;
+ private HBox hbox, hbox1, hbox2;
+ private VBox vbox, vbox1;
+ private Button logout, home;
+ private Label poweredBy;
+ private BorderListener bl;
+ private HomeSceneListener hsl;
+ private AccountMember member;
+ private ArrayList<AccountMember> membersList;
+ TableColumn<AccountMember, String> nameCol, totalCol;
+ private final TableView<AccountMember> table = new TableView<AccountMember>();
+ static ObservableList<AccountMember> data;
 
-	public BorderPane getFinallayout(BorderPane bp) {
-	     
-	     logout = new Button("Logout");
-	     home = new Button("Home");
-	     poweredBy = new Label("4Guys");
-	     
-	     logout.setFont(new Font("Arial", 15));
-	     home.setFont(new Font("Arial", 15));
-	     
-	     bpane = new BorderPane();
-	     hbox = new HBox();
-	     hbox1 = new HBox();
-	     
-	     hbox.getChildren().addAll(home, logout);
-	     hbox.setSpacing(5);
-         hbox.setPadding(new Insets(5, 0, 0, 10));
-         hbox.setAlignment(Pos.TOP_RIGHT);
-         
-         hbox1.getChildren().add(poweredBy);
-	     hbox1.setAlignment(Pos.BOTTOM_RIGHT);
-	     
-	     
-	     bpane.setTop(hbox);
-	     bpane.setBottom(hbox1);
-	     
-	     bl = new BorderListener(logout, home);
-	     
-	     logout.setOnAction(bl);
-	     home.setOnAction(bl);
-	     
-	     bpane.setCenter(bp);
-	     
-	     return bpane;
-	     
-	 }
-	
+ @SuppressWarnings("unchecked")
+ public HomeScene() {
+  nameCol = new TableColumn<AccountMember, String>("");
+  totalCol = new TableColumn<AccountMember, String>("");
+  membersList = AccountsFile.getMembersList();
+  adminLabel = new Label("");
+  if (membersList == null || member == null) {
+   adminLabel = new Label();
+   memberLabel = new Label();
+  } else {
+   memberLabel = new Label("Members");
+   adminLabel = new Label(member.lastName + ", " + member.firstName);
+
+   nameCol = new TableColumn<AccountMember, String>("Name");
+   totalCol = new TableColumn<AccountMember, String>("Amount");
+
+   data = FXCollections.observableArrayList();
+
+   table.getColumns().addAll(nameCol, totalCol);
+  }
+  viewAccount = new Button("View Account");
+  addAccount = new Button("Add Account");
+  delAccount = new Button("Delete Account");
+
+ }
+
+ public Scene getHomeScene() {
+
+  for (int i = 0; i < membersList.size(); i++) {
+
+   member = membersList.get(i);
+
+   try {
+    data.add(member);
+   } catch (java.lang.NullPointerException e) {
+   }
+
+  }
+
+  table.setEditable(true);
+
+  table.setMaxSize(800, 220);
+
+  viewAccount.setPrefSize(200, 20);
+  addAccount.setPrefSize(200, 20);
+  delAccount.setPrefSize(200, 20);
+
+  adminLabel.setFont(new Font("Arial", 50));
+  memberLabel.setFont(new Font("Arial", 20));
+  viewAccount.setFont(new Font("Arial", 15));
+  addAccount.setFont(new Font("Arial", 15));
+  delAccount.setFont(new Font("Arial", 15));
+
+  nameCol.setMinWidth(400);
+  nameCol.setCellValueFactory(new PropertyValueFactory<>("Name"));
+
+  totalCol.setMinWidth(385);
+  totalCol.setCellValueFactory(new PropertyValueFactory<>("Total"));
+
+  table.setItems(data);
+
+  vbox = new VBox();
+  vbox.setSpacing(5);
+  vbox.setPadding(new Insets(10, 0, 0, 10));
+  vbox.getChildren().addAll(memberLabel, table);
+  vbox.setAlignment(Pos.CENTER);
+
+  vbox1 = new VBox();
+  vbox1.setSpacing(20);
+  vbox1.setPadding(new Insets(40, 0, 25, 50));
+  vbox1.getChildren().addAll(viewAccount, addAccount, delAccount);
+  vbox1.setAlignment(Pos.CENTER);
+
+  hbox2 = new HBox();
+  hbox2.setSpacing(20);
+  hbox2.setPadding(new Insets(40, 0, 25, 50));
+  hbox2.getChildren().add(adminLabel);
+
+  bp = new BorderPane();
+  bp.setLeft(vbox1);
+  bp.setCenter(vbox);
+  bp.setTop(hbox2);
+
+  hsl = new HomeSceneListener(viewAccount, addAccount, delAccount, table);
+
+  viewAccount.setOnAction(hsl);
+  addAccount.setOnAction(hsl);
+  delAccount.setOnAction(hsl);
+
+  Scene HomeScene = new Scene(getFinallayout(bp), 1200, 500);
+
+  return HomeScene;
+
+ }
+
+ public BorderPane getFinallayout(BorderPane bp) {
+
+  logout = new Button("Logout");
+  home = new Button("Home");
+  poweredBy = new Label("4Guys");
+
+  logout.setFont(new Font("Arial", 15));
+  home.setFont(new Font("Arial", 15));
+
+  bpane = new BorderPane();
+  hbox = new HBox();
+  hbox1 = new HBox();
+
+  hbox.getChildren().addAll(home, logout);
+  hbox.setSpacing(5);
+  hbox.setPadding(new Insets(5, 0, 0, 10));
+  hbox.setAlignment(Pos.TOP_RIGHT);
+
+  hbox1.getChildren().add(poweredBy);
+  hbox1.setAlignment(Pos.BOTTOM_RIGHT);
+
+  bpane.setTop(hbox);
+  bpane.setBottom(hbox1);
+
+  bl = new BorderListener(logout, home);
+
+  logout.setOnAction(bl);
+  home.setOnAction(bl);
+
+  bpane.setCenter(bp);
+
+  return bpane;
+
+ }
+
 }
