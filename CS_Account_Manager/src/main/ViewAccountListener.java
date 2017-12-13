@@ -25,6 +25,7 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
  Transaction tran;
  AccountMember member;
+ Double fee;
 
  public ViewAccountListener(Button addButton, Button editButton, AccountMember member) {
 
@@ -33,6 +34,7 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
   this.addButton = addButton;
   this.editButton = editButton;
   this.member = member;
+  fee = 0.0;
 
  }
 
@@ -68,11 +70,11 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
 
    ComboBox<String> typeBox = new ComboBox<String>();
    typeBox.getItems().addAll("Card", "Cash", "Check");
-   typeBox.setEditable(true);
+   typeBox.setEditable(false);
 
    ComboBox<String> dwBox = new ComboBox<String>();
    dwBox.getItems().addAll("Withdrawl", "Deposit");
-   dwBox.setEditable(true);
+   dwBox.setEditable(false);
 
    HBox hbox = new HBox();
    hbox.setAlignment(Pos.BOTTOM_RIGHT);
@@ -101,8 +103,11 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
 
    button1.setOnAction(e -> {
 
-    {
-
+    if(codeBox.){
+        
+    }
+    else{
+        
      tran = new Transaction(
 
        localDate, codeBox.getSelectionModel().getSelectedItem().toString(), amount.getText(),
@@ -111,10 +116,16 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
      );
 
      member.history.add(tran);
+     
     }
+    
     if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
-     ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
+        fee = tran.UFee();
+        
+        ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
+     
+        codeBox.setPromptText("50109");
 
      try {
       AccountsFile.deposit(member, tran);
