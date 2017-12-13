@@ -80,7 +80,8 @@ public class AccountMember {
 
  // second constructor allows account to be instantiated with an amount already
  // in it
- public AccountMember(String firstName, String lastName, String email, String phone, String description, double total) {
+ public AccountMember(String firstName, String lastName, String email, String phone, String description, double total)
+   throws IOException {
   history = new ArrayList<Transaction>();
   this.firstName = firstName;
   this.lastName = lastName;
@@ -89,6 +90,7 @@ public class AccountMember {
   this.description = description;
   this.total = total;
   transactions = new File("./Directory/Transactions/" + lastName + "_" + firstName + "_transactions.txt");
+  transactions.createNewFile();
  }
 
  public void setFirstName(String name) {

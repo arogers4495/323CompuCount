@@ -22,12 +22,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ViewAccountScene {
-    
+
  static double total;
  private AccountMember member;
  private Transaction trans;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
-static Label labelTotal;
+ static Label labelTotal;
  private Button addButton;
  private BorderPane bpane;
  private HBox hbox, hbox1;
@@ -36,35 +36,30 @@ static Label labelTotal;
  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
  TableColumn<Transaction, String> dateCol, descriptionCol, amountCol, typeCol, WithdrawlDepositCol;
  private ViewAccountListener val;
- 
+
  @SuppressWarnings("rawtypes")
  private final TableView table = new TableView();
  static ObservableList<Transaction> data;
  final HBox hb;
 
  @SuppressWarnings({ "unchecked", "rawtypes" })
-public ViewAccountScene() {
- 
-     dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-     localDate = LocalDate.now();
-     
-     data = FXCollections.observableArrayList(
-             trans = new Transaction(localDate, "Student", "1000", "Card", "Deposit")
-         );
-  
-     member = new AccountMember("Josh", "Anderson", "janderson152481@gmail.com", "4066261873", "Student");
-     
-     hb = new HBox();
-  
-  displayName = new Label("Name:   " + member.getFirstName() + member.getLastName());// sets the label text to the member's name
+ public ViewAccountScene() {
+  member = AccountsFile.AccountMembers.get(0);
+  dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+  localDate = LocalDate.now();
+  data = FXCollections.observableArrayList(AccountsFile.AccountMembers.get(0).history);
+  hb = new HBox();
+  displayName = new Label("Name:   " + member.getFirstName() + member.getLastName());// sets the label text to the //
+                                                                                     // member's name
+  trans = AccountsFile.AccountMembers.get(0).history.get(0);
   displayEmail = new Label("Email:   " + member.getEmail());
   displayPhone = new Label("Phone#:   " + member.getPhone());
   displayDescription = new Label("Desctiption:   " + member.getDescription());
   addButton = new Button("Add Transaction");
   total = trans.getAmount();
-  labelTotal = new Label("Total: "  + total);
-  labelTotal.setFont(Font.font ("Verdana", 14));
-  
+  labelTotal = new Label("Total: " + total);
+  labelTotal.setFont(Font.font("Verdana", 14));
+
   transactionLabel = new Label("Transactions");
   dateCol = new TableColumn("Date");
   descriptionCol = new TableColumn("Description");
@@ -74,117 +69,102 @@ public ViewAccountScene() {
 
   hb.getChildren().addAll(addButton, labelTotal);
   table.getColumns().addAll(descriptionCol, amountCol, dateCol, typeCol, WithdrawlDepositCol);
-  
- } 
+
+ }
 
  @SuppressWarnings({ "unchecked" })
-public Scene ViewMember() {
+ public Scene ViewMember() {
 
-     
-     transactionLabel.setFont(new Font("Arial", 20));
+  transactionLabel.setFont(new Font("Arial", 20));
 
-     table.setEditable(true);
+  table.setEditable(true);
 
-     
-     dateCol.setMinWidth(99);
-     dateCol.setCellValueFactory(
-             new PropertyValueFactory<>("Date"));
+  dateCol.setMinWidth(99);
+  dateCol.setCellValueFactory(new PropertyValueFactory<>("Date"));
 
-     
-     descriptionCol.setMinWidth(100);
-     descriptionCol.setCellValueFactory(
-             new PropertyValueFactory<>("Description"));
+  descriptionCol.setMinWidth(100);
+  descriptionCol.setCellValueFactory(new PropertyValueFactory<>("Description"));
 
-     
-     amountCol.setMinWidth(100);
-     amountCol.setCellValueFactory(
-             new PropertyValueFactory<>("Amount"));
-     
-     typeCol.setMinWidth(99);
-     typeCol.setCellValueFactory(
-             new PropertyValueFactory<>("Type"));
-     
-     WithdrawlDepositCol.setMinWidth(150);
-     WithdrawlDepositCol.setCellValueFactory(
-             new PropertyValueFactory<>("WithdrawlDeposit"));
-     
-     table.setItems(data);
-     
+  amountCol.setMinWidth(100);
+  amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
 
-     
-     hb.setSpacing(3);
+  typeCol.setMinWidth(99);
+  typeCol.setCellValueFactory(new PropertyValueFactory<>("Type"));
 
-     final VBox vbox = new VBox();
-     vbox.setSpacing(5);
-     vbox.setPadding(new Insets(10, 0, 0, 10));
-     vbox.getChildren().addAll(transactionLabel, table, hb);
-     
-     table.setMaxSize(550, 220);
-     
-     BorderPane bp = new BorderPane();
-     
-     GridPane grid = new GridPane();
-     grid.setAlignment(Pos.TOP_LEFT);
-     grid.setHgap(10);
-     grid.setVgap(10);
-     grid.setPadding(new Insets(25, 25, 25, 25));
-     
-     //grid.add();
-     grid.add(displayName, 0, 1);
-     grid.add(displayEmail, 0, 2);
-     grid.add(displayPhone, 0 , 3);
-     grid.add(displayDescription, 0, 4);
-     
-     bp.setLeft(grid);
-     bp.setCenter(vbox);
-     
-     val = new ViewAccountListener(addButton, member);
-     
-     addButton.setOnAction(val);
-     
-     Scene ViewScene = new Scene(getFinallayout(bp), 900, 400);
-     
-     return ViewScene;
-     
+  WithdrawlDepositCol.setMinWidth(150);
+  WithdrawlDepositCol.setCellValueFactory(new PropertyValueFactory<>("WithdrawlDeposit"));
+
+  table.setItems(data);
+
+  hb.setSpacing(3);
+
+  final VBox vbox = new VBox();
+  vbox.setSpacing(5);
+  vbox.setPadding(new Insets(10, 0, 0, 10));
+  vbox.getChildren().addAll(transactionLabel, table, hb);
+
+  table.setMaxSize(550, 220);
+
+  BorderPane bp = new BorderPane();
+
+  GridPane grid = new GridPane();
+  grid.setAlignment(Pos.TOP_LEFT);
+  grid.setHgap(10);
+  grid.setVgap(10);
+  grid.setPadding(new Insets(25, 25, 25, 25));
+
+  // grid.add();
+  grid.add(displayName, 0, 1);
+  grid.add(displayEmail, 0, 2);
+  grid.add(displayPhone, 0, 3);
+  grid.add(displayDescription, 0, 4);
+
+  bp.setLeft(grid);
+  bp.setCenter(vbox);
+
+  val = new ViewAccountListener(addButton, member);
+
+  addButton.setOnAction(val);
+
+  Scene ViewScene = new Scene(getFinallayout(bp), 900, 400);
+
+  return ViewScene;
+
  }
- 
+
  public BorderPane getFinallayout(BorderPane bp) {
-     
-     HBox hbox, hbox1;
-     BorderPane bpane;
-     Button logout, home;
-     Label poweredBy;
-     
-     logout = new Button("Logout");
-     home = new Button("Home");
-     poweredBy = new Label("4Guys");
-     
-     logout = new Button("Logout");
-     home = new Button("Home");
-     poweredBy = new Label("4Guys");
-     
-     bpane = new BorderPane();
-     hbox = new HBox();
-     hbox1 = new HBox();
-     
-     hbox.getChildren().addAll(home, logout);
-     hbox1.getChildren().add(poweredBy);
-     
-     hbox1.setAlignment(Pos.BOTTOM_RIGHT);
-     hbox.setAlignment(Pos.TOP_RIGHT);
-     
-     bpane.setTop(hbox);
-     bpane.setBottom(hbox1);
-     
-     bl = new BorderListener(logout, home);
-     
-     logout.setOnAction(bl);
-     home.setOnAction(bl);
-     
-     bpane.setCenter(bp);
-     
-     return bpane;
-     
+
+  HBox hbox, hbox1;
+  BorderPane bpane;
+  Button logout, home;
+  Label poweredBy;
+
+  logout = new Button("Logout");
+  home = new Button("Home");
+  poweredBy = new Label("4Guys");
+
+  bpane = new BorderPane();
+  hbox = new HBox();
+  hbox1 = new HBox();
+
+  hbox.getChildren().addAll(home, logout);
+  hbox1.getChildren().add(poweredBy);
+
+  hbox1.setAlignment(Pos.BOTTOM_RIGHT);
+  hbox.setAlignment(Pos.TOP_RIGHT);
+
+  bpane.setTop(hbox);
+  bpane.setBottom(hbox1);
+
+  bl = new BorderListener(logout, home);
+
+  logout.setOnAction(bl);
+  home.setOnAction(bl);
+
+  bpane.setCenter(bp);
+
+  return bpane;
+
  }
- 
+
 }

@@ -16,12 +16,10 @@ public class AccountMain extends Application {
 
  @Override
  public void start(Stage primaryStage) throws Exception {
-
   controller = new SceneController();
   SceneController.setStage(primaryStage);
-
   primaryStage.setTitle("CompuCount");
-  SceneController.ShowViewAccountScene();
+  SceneController.ShowLogin();
   primaryStage.show();
 
  }
