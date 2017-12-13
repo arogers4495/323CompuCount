@@ -107,7 +107,7 @@ public class AccountsFile {
  public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   double amount = t.getAmount();
-  member.total -= amount;
+  member.total += amount;
   member.history.add(t);
 
   FileWriter fW = new FileWriter(mainFile);
@@ -151,13 +151,6 @@ public class AccountsFile {
 
  public ArrayList<AccountMember> getAccountMembers() {
   return AccountMembers;
- }
-
- public static void main(String[] args) throws IOException {
-  AccountsFile mainFile = new AccountsFile();
-  String x = "TEST";
-  AccountMember member = new AccountMember(x, x, x, x, x);
-  mainFile.withdraw(member, new Transaction(now, x, "50", x, x));
  }
 
  public static ArrayList<AccountMember> getMembersList() {

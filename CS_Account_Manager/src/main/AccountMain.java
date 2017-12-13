@@ -25,6 +25,7 @@ public void start(Stage primaryStage) throws Exception {
     SceneController.ShowHome();
     primaryStage.show();
     
+    
 }
 
 }

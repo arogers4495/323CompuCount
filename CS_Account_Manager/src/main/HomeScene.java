@@ -23,10 +23,10 @@ import javafx.stage.Stage;
 
 public class HomeScene {
     
-	private Button viewAccount, addAccount, delAccount;
+	private Button viewAccount, addAccount, delAccount, viewButton;
 	private Label memberLabel, adminLabel;
 	private BorderPane bpane, bp;
-    private HBox hbox, hbox1, hbox2;
+    private HBox hbox, hbox1, hbox2, viewTrans;
     private VBox vbox, vbox1;
     private Button logout, home;
     private Label poweredBy;
@@ -43,7 +43,7 @@ public class HomeScene {
 		
 	    membersList = AccountsFile.getMembersList();	
 	   
-	    member = membersList.get(7);
+	    member = membersList.get(0);
 	    
 	    memberLabel = new Label("Members");
 	    adminLabel = new Label(member.lastName + ", " + member.firstName);
@@ -58,7 +58,7 @@ public class HomeScene {
 	    viewAccount = new Button("View Account");
 	    addAccount = new Button("Add Account");
 	    delAccount = new Button("Delete Account");
-	    
+	    viewButton = new Button("View Report");
 	    
 	}
 	
@@ -68,9 +68,17 @@ public class HomeScene {
 	        
 	        member = membersList.get(i);
 	        
+	        if(data.contains(member)) {
+	            
+	            continue;
+	            
+	        }
+	        else
 	        data.add(member);
 	        
 	    }
+	    
+	    table.refresh();
 	    
 	    table.setEditable(true);
 	    
@@ -86,6 +94,7 @@ public class HomeScene {
 	    viewAccount.setFont(new Font("Arial", 15));
 	    addAccount.setFont(new Font("Arial", 15));
 	    delAccount.setFont(new Font("Arial", 15));
+	    viewButton.setFont(new Font("Arial", 15));
 	    
 	    nameCol.setMinWidth(400);
         nameCol.setCellValueFactory(
@@ -97,12 +106,14 @@ public class HomeScene {
 	     
 	     table.setItems(data);
 	     
+	     	     
+	     
 	     vbox = new VBox();
 	     vbox.setSpacing(5);
 	     vbox.setPadding(new Insets(10, 0, 0, 10));
-	     vbox.getChildren().addAll(memberLabel, table);
+	     vbox.getChildren().addAll(memberLabel, table, viewButton);
 	     vbox.setAlignment(Pos.CENTER);
-	    
+	     
 	     vbox1 = new VBox();
          vbox1.setSpacing(20);
          vbox1.setPadding(new Insets(40, 0, 25, 50));
@@ -122,11 +133,12 @@ public class HomeScene {
 	     
 	     
 	     
-        hsl = new HomeSceneListener(viewAccount, addAccount, delAccount, table);
+        hsl = new HomeSceneListener(viewAccount, addAccount, delAccount, table, viewButton);
         
         viewAccount.setOnAction(hsl);
         addAccount.setOnAction(hsl);
         delAccount.setOnAction(hsl);
+        viewButton.setOnAction(hsl);
         
         Scene HomeScene = new Scene(getFinallayout(bp), 1200, 500);
         

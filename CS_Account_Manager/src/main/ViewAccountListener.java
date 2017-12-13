@@ -115,7 +115,7 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
                    } else {
 
                     
-                            tran =new Transaction(
+                            tran = new Transaction(
                       
                       localDate,
                       codeBox.getSelectionModel().getSelectedItem().toString(),
@@ -125,13 +125,13 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
 
                     );
                    
-                            ViewAccountScene.data.add(tran);
+                            member.history.add(tran);
 
                     if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
-                        ViewAccountScene.total = ViewAccountScene.total +  Double.parseDouble(amount.getText());
-                     
-                        ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
+                                           
+                        
+                        ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
                         
                         try {
                             AccountsFile.deposit(member, tran);
@@ -140,11 +140,10 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
                             e1.printStackTrace();
                         }
 
-                    } else {
-
-                        ViewAccountScene.total = ViewAccountScene.total - Double.parseDouble(amount.getText());
+                    } 
+                    else {
                         
-                        ViewAccountScene.labelTotal.setText("Total: " + ViewAccountScene.total);
+                        ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
                         
                         try {
                             AccountsFile.withdraw(member, tran);
