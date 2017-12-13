@@ -11,7 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Locale;
 
-    public class AccountsFile {
+public class AccountsFile {
+
  protected static ArrayList<AccountMember> AccountMembers;
  private static BufferedWriter writer;
  private FileWriter memberFileWriter;
@@ -43,8 +44,6 @@ import java.util.Locale;
     double total = lineScan.nextDouble();
     AccountMember member = new AccountMember(firstName, lastName, email, phone, description, total);
     AccountMembers.add(member);
-    if (!member.transactions.exists())
-     member.createTransactionsFile();
     File transactionFile = member.transactions;
     Scanner tScan = new Scanner(transactionFile);
     while (tScan.hasNextLine()) {
@@ -94,27 +93,22 @@ import java.util.Locale;
   memberWriter.close();
  }
 
- // Update the account transactions file with withdrawals and deposits
-
  public static void withdraw(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
   File transactionFile = AccountMember.getTransactionFile(member);
   double amount = t.getAmount();
   member.total -= amount;
   member.history.add(t);
-
   FileWriter fW = new FileWriter(mainFile);
   FileWriter mW = new FileWriter(memberFile, true);
   FileWriter transactionWriter = new FileWriter(transactionFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
   BufferedWriter w = new BufferedWriter(fW);
   BufferedWriter tBW = new BufferedWriter(transactionWriter);
-
   for (AccountMember m : AccountMembers) {
    w.write(m.toString());
    w.newLine();
   }
-
   w.flush();
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " withdrawn from the account of "
@@ -129,24 +123,21 @@ import java.util.Locale;
 
  public static void deposit(AccountMember member, Transaction t) throws IOException {
   File memberFile = AccountMember.getMemberFile(member);
-
-  File transactionFile = new File("./" + member.lastName + "_" + member.firstName + "_" + "transactions");
+  File transactionFile = new File(
+    "./Directory/Transactions/" + member.lastName + "_" + member.firstName + "_" + "transactions.txt");
   double amount = t.getAmount();
   member.total += amount;
   member.history.add(t);
-
   FileWriter fW = new FileWriter(mainFile);
   FileWriter mW = new FileWriter(memberFile, true);
   FileWriter transactionWriter = new FileWriter(transactionFile, true);
   BufferedWriter mBW = new BufferedWriter(mW);
   BufferedWriter w = new BufferedWriter(fW);
   BufferedWriter tBW = new BufferedWriter(transactionWriter);
-
   for (AccountMember m : AccountMembers) {
    w.write(m.toString());
    w.newLine();
   }
-
   w.flush();
   LocalDate today = LocalDate.now();
   String updateMessage = date.format(today) + "\t" + money.format(amount) + " deposited into the account of "
@@ -181,20 +172,13 @@ import java.util.Locale;
   memberFile.delete();
  }
 
+
  public static void main(String[] args) throws IOException {
-  AccountsFile mainFile = new AccountsFile();
-  AccountMember Auston = new AccountMember("Auston", "Rogers", "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
-    "Student");
-  addMember(Auston);
-  Transaction t = new Transaction(LocalDate.now(), "Trial description", "1000000", "withdraw", "out");
-  AccountsFile.withdraw(Auston, t);
-  for (int i = 0; i < 5; i++)
-   AccountsFile.withdraw(AccountsFile.AccountMembers.get(1), t);
  }
 
  public static ArrayList<AccountMember> getMembersList() {
-    
-    return AccountMembers;
-    
-}
+
+  return AccountMembers;
+
+ }
 }
