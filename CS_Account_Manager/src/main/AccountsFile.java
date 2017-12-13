@@ -22,7 +22,7 @@ public class AccountsFile {
  public static LocalDate now;
 
  public AccountsFile() throws IOException {
-  boolean directory = new File("./Directory").mkdir(), members = new File("./Directory/Members").mkdir(),
+  boolean directory = new File("./Directory").mkdir(), members = new File("./Directory/Members.txt").mkdir(),
     transHistoryFile = new File("./Directory/Transactions/").mkdir();
   mainFile = new File("./Directory/Members/Members");
   FileWriter fileWriter = new FileWriter(mainFile.getAbsolutePath(), true);
