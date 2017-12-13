@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -95,8 +96,11 @@ public class HomeSceneListener implements EventHandler<ActionEvent>{
                     Optional<ButtonType> result2 = alert2.showAndWait();
                     
                     if(result2.get() == ButtonType.OK)
-                        
-                    AccountsFile.deleteMember(member);
+                     try {
+                      AccountsFile.deleteMember(member);
+                     } catch (IOException e) {
+                      e.printStackTrace();
+                     }
                     HomeScene.data.remove(member);
                     alert2.close();
                     

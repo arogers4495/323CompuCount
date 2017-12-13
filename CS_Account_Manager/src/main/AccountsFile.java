@@ -24,7 +24,7 @@ public class AccountsFile {
  public AccountsFile() throws IOException {
   boolean directory = new File("./Directory").mkdir(), members = new File("./Directory/Members").mkdir(),
     transHistoryFile = new File("./Directory/Transactions/").mkdir();
-  mainFile = new File("./Directory/Members/Members");
+  mainFile = new File("./Directory/Members/Members.txt");
   FileWriter fileWriter = new FileWriter(mainFile.getAbsolutePath(), true);
   writer = new BufferedWriter(fileWriter);
   AccountMembers = new ArrayList<AccountMember>();
@@ -166,10 +166,18 @@ public class AccountsFile {
   return memberExists;
  }
 
- public static void deleteMember(AccountMember member) {
+ public static void deleteMember(AccountMember member) throws IOException {
   AccountMembers.remove(member);
   File memberFile = AccountMember.getMemberFile(member);
   memberFile.delete();
+  FileWriter updateWriter = new FileWriter(mainFile);
+  BufferedWriter updateBWriter = new BufferedWriter(updateWriter);
+  for (AccountMember m : AccountMembers) {
+   updateBWriter.write(m.toString());
+   updateBWriter.newLine();
+  }
+  updateBWriter.flush();
+
  }
 
 
