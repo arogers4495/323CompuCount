@@ -40,8 +40,10 @@ public class HomeScene {
  public HomeScene() {
 
   membersList = AccountsFile.getMembersList();
-
-  member = membersList.get(0);
+  if (membersList.size() == 0)
+   member = new AccountMember(null, null, null, null, null);
+  else
+   member = membersList.get(0);
 
   memberLabel = new Label("Members");
   adminLabel = new Label(member.lastName + ", " + member.firstName);

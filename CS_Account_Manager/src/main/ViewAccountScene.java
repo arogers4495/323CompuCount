@@ -46,8 +46,10 @@ public class ViewAccountScene {
  public ViewAccountScene() {
 
   data = FXCollections.observableArrayList();
-
-  member = AccountsFile.AccountMembers.get(0);
+  if (AccountsFile.AccountMembers.size() == 0)
+   member = new AccountMember(null, null, null, null, null);
+  else
+   member = AccountsFile.AccountMembers.get(0);
 
   hb = new HBox();
   hb.setSpacing(3);
