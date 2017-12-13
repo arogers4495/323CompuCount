@@ -98,8 +98,7 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
    bp.setCenter(grid);
 
    Scene scene = new Scene(bp, 300, 250);
-   popupwindow.setScene(scene);
-   popupwindow.showAndWait();
+
    button1.setOnAction(e -> {
 
     {
