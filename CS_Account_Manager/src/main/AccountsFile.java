@@ -181,11 +181,6 @@ import java.util.Locale;
   memberFile.delete();
  }
 
- public ArrayList<AccountMember> getAccountMembers() {
-  return AccountMembers;
-
- }
-
  public static void main(String[] args) throws IOException {
   AccountsFile mainFile = new AccountsFile();
   AccountMember Auston = new AccountMember("Auston", "Rogers", "auston.rogers@umconnect.umt.edu", "1-406-546-4781",
