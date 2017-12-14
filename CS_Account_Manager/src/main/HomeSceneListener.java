@@ -26,7 +26,7 @@ public class HomeSceneListener implements EventHandler<ActionEvent>{
     private Button viewAccount, addAccount, delAccount, viewReport;
     private TableView<AccountMember> table;
     static AccountMember member;
-    private final TableView<Transaction> table2 = new TableView();
+    private final TableView<Transaction> table2 = new TableView<Transaction>();
     static ObservableList<Transaction> data;
     private TableColumn<Transaction, String> dateCol, descriptionCol, amountCol, typeCol, WithdrawlDepositCol;
     private Label transactionLabel;
@@ -143,25 +143,25 @@ public class HomeSceneListener implements EventHandler<ActionEvent>{
             
             table2.getColumns().addAll(descriptionCol, amountCol, dateCol, typeCol, WithdrawlDepositCol);
             
-            dateCol.setMinWidth(99);
+            dateCol.setMinWidth(200);
             dateCol.setCellValueFactory(
                     new PropertyValueFactory<>("Date"));
 
             
-            descriptionCol.setMinWidth(100);
+            descriptionCol.setMinWidth(200);
             descriptionCol.setCellValueFactory(
                     new PropertyValueFactory<>("Description"));
 
             
-            amountCol.setMinWidth(100);
+            amountCol.setMinWidth(200);
             amountCol.setCellValueFactory(
                     new PropertyValueFactory<>("Amount"));
             
-            typeCol.setMinWidth(99);
+            typeCol.setMinWidth(200);
             typeCol.setCellValueFactory(
                     new PropertyValueFactory<>("Type"));
             
-            WithdrawlDepositCol.setMinWidth(150);
+            WithdrawlDepositCol.setMinWidth(200);
             WithdrawlDepositCol.setCellValueFactory(
                     new PropertyValueFactory<>("WithdrawlDeposit"));
             
@@ -171,12 +171,12 @@ public class HomeSceneListener implements EventHandler<ActionEvent>{
             
             final VBox vbox = new VBox();
             vbox.setSpacing(5);
-            vbox.setPadding(new Insets(10, 0, 0, 10));
+            vbox.setPadding(new Insets(10, 10, 10, 10));
             vbox.getChildren().addAll(transactionLabel, table2, hb);
             
             bp.setCenter(vbox);
             
-            Scene scene = new Scene(bp, 1000, 800);
+            Scene scene = new Scene(bp, 1000, 500);
             
             popupwindow.setScene(scene);
             popupwindow.showAndWait();

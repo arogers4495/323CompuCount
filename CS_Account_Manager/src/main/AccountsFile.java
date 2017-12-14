@@ -180,10 +180,6 @@ public class AccountsFile {
 
  }
 
- public ArrayList<AccountMember> getAccountMembers() {
-  return AccountMembers;
-
- }
 
  public static void main(String[] args) throws IOException {
  }
