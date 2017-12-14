@@ -26,7 +26,7 @@ public class ViewAccountScene {
  static double total;
  private AccountMember member;
  private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
- static Label labelTotal;
+ static Label labelTotal, labelFee;
  private Button addButton, editButton, logout, home;
  private BorderPane bpane;
  private HBox hbox, hbox1;
@@ -44,7 +44,6 @@ public class ViewAccountScene {
 public ViewAccountScene() {
      
      data = FXCollections.observableArrayList();
-  
      
      
      hb = new HBox();
@@ -54,8 +53,9 @@ public ViewAccountScene() {
   addButton.setFont(new Font("Arial", 15));
   editButton = new Button("Edit");
   editButton.setFont(new Font("Arial", 15));
-  labelTotal = new Label("Total: "  + total);
-  labelTotal.setFont(Font.font ("Verdana", 14));
+  
+  labelTotal = new Label();
+  labelFee = new Label();
   
   transactionLabel = new Label("Transactions");
   dateCol = new TableColumn("Date");
@@ -64,7 +64,8 @@ public ViewAccountScene() {
   typeCol = new TableColumn("Type");
   WithdrawlDepositCol = new TableColumn("Deposit/Withdrawl");
 
-  hb.getChildren().addAll(addButton, labelTotal);
+  hb.getChildren().addAll(addButton, labelTotal, labelFee);
+  
   table.getColumns().addAll(descriptionCol, amountCol, dateCol, typeCol, WithdrawlDepositCol);
   
  } 
@@ -74,7 +75,14 @@ public Scene getViewMember() {
 
      member = HomeSceneListener.member;
      
-     total = member.total;
+     total = member.getTotal();
+     //fee = member.getFee();
+     
+     labelTotal.setText("Total: "  + total);
+     labelTotal.setFont(Font.font ("Verdana", 14));
+     
+     labelFee.setText("WH for Fees: ");
+     labelFee.setFont(Font.font ("Verdana", 14));
      
      displayName = new Label("Name:   " + member.getName());// sets the label text to the member's name
      displayEmail = new Label("Email:   " + member.getEmail());
@@ -124,6 +132,8 @@ public Scene getViewMember() {
      
      table.setItems(data);
 
+     
+     
      final VBox vbox = new VBox();
      vbox.setSpacing(5);
      vbox.setPadding(new Insets(10, 0, 0, 10));

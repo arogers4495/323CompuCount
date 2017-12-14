@@ -10,6 +10,8 @@ public class AccountMain extends Application {
     
  public static void main(String[] args) throws IOException {
 
+     
+     
      af = new AccountsFile();
      launch(args);
      
@@ -22,9 +24,20 @@ public void start(Stage primaryStage) throws Exception {
     SceneController.setStage(primaryStage);
     
     primaryStage.setTitle("CompuCount");
-    SceneController.ShowHome();
-    primaryStage.show();
     
+   if(AccountsFile.getAccountHolder() == null){
+        
+        
+        SceneController.ShowCreateHolderScene();        
+        
+    }
+    else {
+    
+        SceneController.ShowLogin();
+        
+    }
+    
+    primaryStage.show();
     
 }
 

@@ -33,6 +33,7 @@ public class HomeScene {
     private BorderListener bl;
 	private HomeSceneListener hsl;
 	private AccountMember member;
+	private AccountHolder holder;
     private ArrayList<AccountMember> membersList;
     TableColumn<AccountMember, String> nameCol ,totalCol;
     private final TableView<AccountMember> table = new TableView<AccountMember>();
@@ -43,10 +44,10 @@ public class HomeScene {
 		
 	    membersList = AccountsFile.getMembersList();	
 	   
-	    member = membersList.get(0);
+	    holder = AccountsFile.holder;
 	    
 	    memberLabel = new Label("Members");
-	    adminLabel = new Label(member.lastName + ", " + member.firstName);
+	    
 	    
 	    nameCol = new TableColumn<AccountMember, String>("Name");
 	    totalCol = new TableColumn<AccountMember, String>("Amount");
@@ -64,6 +65,8 @@ public class HomeScene {
 	
 	public Scene getHomeScene() {        
         
+	    adminLabel = new Label(holder.getLname() + ", " + holder.getFname());
+	    
 	    for(int i = 0; i < membersList.size(); i++) {
 	        
 	        member = membersList.get(i);

@@ -8,15 +8,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class AccountsFile {
  private static ArrayList<AccountMember> AccountMembers;
  private static BufferedWriter writer;
  private FileWriter memberFileWriter;
- private static File mainFile;
+ private static File mainFile, accountHolderFile;
  public static NumberFormat money;
  public static DateTimeFormatter date;
  public static LocalDate now;
+ static AccountHolder holder;
+ static Hashtable<String, String> st;
 
  public AccountsFile() throws IOException {
   mainFile = new File("./Members");
@@ -43,8 +46,24 @@ public class AccountsFile {
   }
   money = NumberFormat.getCurrencyInstance();
   date = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-  for (AccountMember m : AccountMembers)
-   System.out.println(m.toString() + "\n");
+  
+  //For Account Holder
+  accountHolderFile = new File("./AccountHolder");
+  FileWriter holderWriter = new FileWriter(accountHolderFile.getAbsolutePath(), true);
+  writer = new BufferedWriter(holderWriter);
+  Scanner holderFileScanner = new Scanner(accountHolderFile);
+  
+  while (holderFileScanner.hasNextLine()) {
+      holder = new AccountHolder(null, null, null, null);
+      String line = holderFileScanner.nextLine();
+      Scanner lineScan = new Scanner(line).useDelimiter("\t");
+      while (lineScan.hasNext()) {
+       holder.setFname(lineScan.next());
+       holder.setLname(lineScan.next());
+       holder.setUsername(lineScan.next());
+       holder.setPassword(lineScan.next());
+      }
+  }
  }
 
  private static void addToArrayList(AccountMember member) {
@@ -62,6 +81,18 @@ public class AccountsFile {
    memberWriter.close();
   }
  }
+ 
+ private static void createNewAccountHolderFile(AccountHolder holder) throws IOException {
+     File memberFile = new File("./" + holder.getLname() + "_" + holder.getFname());
+     // creates a file with the member's last and then first name
+     if (memberFile.createNewFile()) {
+      FileWriter fileWriter = new FileWriter(memberFile.getAbsolutePath());
+      BufferedWriter memberWriter = new BufferedWriter(fileWriter);
+      memberWriter.write(holder.getFname() + "\t" + holder.getLname() + "\t" + AccountHolder.getUsername() + "\t" + AccountHolder.getPassword());
+      memberWriter.close();
+     }
+    }
+ 
 
  private static void updateMemberFile(AccountMember member, String newText) throws IOException {
   File memberFile = new File("./" + member.lastName + "_" + member.firstName);
@@ -127,10 +158,22 @@ public class AccountsFile {
   mBW.flush();
  }
 
+ public static void addAccountHolder(AccountHolder holder) throws IOException {
+    
+      createNewAccountHolderFile(holder);
+      writer.write(holder.toString());
+      writer.newLine();
+      writer.flush();
+     } 
+    
+ 
  public static boolean addMember(AccountMember member) throws IOException {
+  
   boolean memberExists = false;
-  if (AccountMembers.contains(member))
-   memberExists = true;
+  
+  if (AccountMembers.contains(member)){
+   memberExists = true;}
+  
   if (memberExists == false) {
    member.index = AccountMembers.size();
    addToArrayList(member);
@@ -138,9 +181,8 @@ public class AccountsFile {
    writer.write(member.toString());
    writer.newLine();
    writer.flush();
-  } else
-   System.out.println("This account already exists.");
-  return memberExists;
+  } 
+return memberExists;
  }
 
  public static void deleteMember(AccountMember member) {
@@ -148,14 +190,41 @@ public class AccountsFile {
   File memberFile = AccountMember.getMemberFile(member);
   memberFile.delete();
  }
-
- public ArrayList<AccountMember> getAccountMembers() {
-  return AccountMembers;
- }
+ 
+ public static AccountHolder getAccountHolder() {
+     return holder;
+    }
 
  public static ArrayList<AccountMember> getMembersList() {
     
     return AccountMembers;
     
 }
+ 
+ public static Hashtable<String, String> getExpenseCodes() throws IOException {
+     
+     st = new Hashtable<String, String>();
+     String key, value;
+     
+     File expenseCodesFile = new File("./expenseCodes");
+     FileWriter codeWriter = new FileWriter(expenseCodesFile.getAbsolutePath(), true);
+     writer = new BufferedWriter(codeWriter);
+     Scanner codeFileScanner = new Scanner(expenseCodesFile);
+     
+     while (codeFileScanner.hasNextLine()) {
+         String line = codeFileScanner.nextLine();
+         Scanner lineScan = new Scanner(line).useDelimiter("_");
+         while (lineScan.hasNext()) {
+          
+             key = lineScan.next();
+             value = lineScan.next();
+             
+             st.put(key, value);
+             
+         }
+     }
+     
+    return st;
+     
+ }
 }
