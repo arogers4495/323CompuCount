@@ -4,84 +4,82 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 public class HomeScene {
-
- private Button viewAccount, addAccount, delAccount, viewButton;
- private Label memberLabel, adminLabel;
- private BorderPane bpane, bp;
- private HBox hbox, hbox1, hbox2, viewTrans;
- private VBox vbox, vbox1;
- private Button logout, home;
- private Label poweredBy;
- private BorderListener bl;
- private HomeSceneListener hsl;
- private AccountMember member;
- private ArrayList<AccountMember> membersList;
- TableColumn<AccountMember, String> nameCol, totalCol;
- private final TableView<AccountMember> table = new TableView<AccountMember>();
- static ObservableList<AccountMember> data;
-
- @SuppressWarnings("unchecked")
- public HomeScene() {
-
-  membersList = AccountsFile.getMembersList();
-  if (membersList.size() == 0)
-   member = new AccountMember(null, null, null, null, null);
-  else
-   member = membersList.get(0);
-
-  memberLabel = new Label("Members");
-  adminLabel = new Label(member.lastName + ", " + member.firstName);
-
-  nameCol = new TableColumn<AccountMember, String>("Name");
-  totalCol = new TableColumn<AccountMember, String>("Amount");
-
-  data = FXCollections.observableArrayList();
-
-  table.getColumns().addAll(nameCol, totalCol);
-
-  viewAccount = new Button("View Account");
-  addAccount = new Button("Add Account");
-  delAccount = new Button("Delete Account");
-  viewButton = new Button("View Report");
-
- }
-
- public Scene getHomeScene() {
-
-  for (int i = 0; i < membersList.size(); i++) {
-
-   member = membersList.get(i);
-
-   if (data.contains(member)) {
-
-    continue;
-
-   } else
-    data.add(member);
-
-  }
-
-  table.refresh();
-
-  table.setEditable(true);
-
-  table.setMaxSize(800, 220);
+    
+	private Button viewAccount, addAccount, delAccount, viewButton;
+	private Label memberLabel, adminLabel;
+	private BorderPane bpane, bp;
+    private HBox hbox, hbox1, hbox2, viewTrans;
+    private VBox vbox, vbox1;
+    private Button logout, home;
+    private Label poweredBy;
+    private BorderListener bl;
+	private HomeSceneListener hsl;
+	private AccountMember member;
+	private AccountHolder holder;
+    private ArrayList<AccountMember> membersList;
+    TableColumn<AccountMember, String> nameCol ,totalCol;
+    private final TableView<AccountMember> table = new TableView<AccountMember>();
+    static ObservableList<AccountMember> data;
+    
+	@SuppressWarnings("unchecked")
+    public HomeScene() {
+		
+	    membersList = AccountsFile.getMembersList();	
+	   
+	    holder = AccountsFile.holder;
+	    
+	    memberLabel = new Label("Members");
+	    
+	    
+	    nameCol = new TableColumn<AccountMember, String>("Name");
+	    totalCol = new TableColumn<AccountMember, String>("Amount");
+        
+	    data = FXCollections.observableArrayList();
+	    
+	    table.getColumns().addAll(nameCol, totalCol);
+	    
+	    viewAccount = new Button("View Account");
+	    addAccount = new Button("Add Account");
+	    delAccount = new Button("Delete Account");
+	    viewButton = new Button("View Report");
+	    
+	}
+	
+	public Scene getHomeScene() {        
+        
+	    adminLabel = new Label(holder.getLname() + ", " + holder.getFname());
+	    
+	    for(int i = 0; i < membersList.size(); i++) {
+	        
+	        member = membersList.get(i);
+	        
+	        if(data.contains(member)) {
+	            
+	            continue;
+	            
+	        }
+	        else
+	        data.add(member);
+	        
+	    }
+	    
+	    table.refresh();
+	    
+	    table.setEditable(true);
+	    
+	    table.setMaxSize(800, 220);
 
   viewAccount.setPrefSize(200, 20);
   addAccount.setPrefSize(200, 20);

@@ -5,3 +5,7 @@
 2017-12-13	MAF654845	10000.0	Cash	Deposit
 2017-12-13	21321	21321.0	165464654	Deposit
 2017-12-13	KTO987856	1000.0	Card	Withdrawl
+2017-12-14	50109    Revenue	1.0	Card	Deposit
+2017-12-14	50109    Revenue	100.0	Card	Deposit
+2017-12-14	62801    Dues	100.0	Card	Deposit
+2017-12-14	50109    Revenue	100.0	Card	Deposit

@@ -18,14 +18,12 @@ import javafx.stage.Stage;
 public class LoginScene {
 
     Label unameLabel;
-    Label pwdLabel, lPrompt;
-    TextField unameTField;
-    PasswordField pwdField;
+    Label pwdLabel;
+    static Label lPrompt;
+    static TextField unameTField;
+    static PasswordField pwdField;
     Button login;
-    String usernameInput;
-    String passwordInput;
-    String usernameActual;
-    String passwordActual = "csci323";
+    LoginListener ll;
 
     
     public LoginScene() {
@@ -44,10 +42,7 @@ public class LoginScene {
     pwdField = new PasswordField();
     
     login.setFont(new Font("Arial", 15));
-    
-    // username and password for testing purposes
-    usernameActual = "csadmin";
-    
+       
     BorderPane bp = new BorderPane();
     
     GridPane grid = new GridPane();
@@ -71,29 +66,9 @@ public class LoginScene {
     
     Scene loginScene = new Scene(bp, 500, 250);
     
-    login.setOnAction((event) -> {
-        if(event.getSource() == login) {
-            
-            String uname = unameTField.getText();
-            String pwd = pwdField.getText();
-            
-            if(uname.equals(usernameActual) && pwd.equals(passwordActual)) {
-                
-                SceneController.ShowHome();
-                
-            }
-            else {
-                
-                lPrompt.setText("*All Fields Required!");
-                lPrompt.setFont(Font.font ("Verdana", 12));
-                lPrompt.setTextFill(Paint.valueOf("RED"));
-                unameTField.clear();
-                pwdField.clear();
-                
-            }
-            
-        }
-    });
+    ll = new LoginListener(login);
+    
+    login.setOnAction(ll);
     
     return loginScene;
     

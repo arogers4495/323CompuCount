@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,12 +25,12 @@ import javafx.stage.Stage;
 
 public class ViewAccountListener implements EventHandler<ActionEvent> {
 
- private Button addButton, editButton;
- LocalDate localDate;
- DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
- Transaction tran;
- AccountMember member;
- Double fee;
+    private Button addButton, editButton;
+    LocalDate localDate;
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    Transaction tran;
+    AccountMember member;
+    double cardfee, uFee, tranAmount;
 
  public ViewAccountListener(Button addButton, Button editButton, AccountMember member) {
 
@@ -38,216 +39,238 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
   this.addButton = addButton;
   this.editButton = editButton;
   this.member = member;
-  fee = 0.0;
+  uFee = 0.0;
+  cardfee = 0.0;
+ }    
 
- }
+    @SuppressWarnings("unchecked")
+    @Override
+    public void handle(ActionEvent event) {
+        AccountsFile.removeFile(member);
+    if (event.getSource() == editButton) {
+        FileWriter w = null;
+        try {
+         w = new FileWriter(AccountsFile.mainFile);
+        } catch (IOException e3) {
+         e3.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(w);
+        Stage editWin = new Stage();
+        Label firstName = new Label("First Name:"), lastName = new Label("Last Name:"), email = new Label("eMail:"),
+          phone = new Label("Phone:"), description = new Label("Description");
+        TextField fText = new TextField(member.firstName), lText = new TextField(member.lastName),
+          eText = new TextField(member.email), pText = new TextField(member.getPhone()),
+          dText = new TextField(member.getDescription());
 
- @Override
- public void handle(ActionEvent event) {
-AccountsFile.removeFile(member);
-  if (event.getSource() == editButton) {
-   FileWriter w = null;
-   try {
-    w = new FileWriter(AccountsFile.mainFile);
-   } catch (IOException e3) {
-    e3.printStackTrace();
-   }
-   BufferedWriter bw = new BufferedWriter(w);
-   Stage editWin = new Stage();
-   Label firstName = new Label("First Name:"), lastName = new Label("Last Name:"), email = new Label("eMail:"),
-     phone = new Label("Phone:"), description = new Label("Description");
-   TextField fText = new TextField(member.firstName), lText = new TextField(member.lastName),
-     eText = new TextField(member.email), pText = new TextField(member.getPhone()),
-     dText = new TextField(member.getDescription());
+        Button update = new Button("Update information");
 
-   Button update = new Button("Update information");
+        BorderPane bp = new BorderPane();
 
-   BorderPane bp = new BorderPane();
+        firstName.setPadding(new Insets(10, 10, 10, 10));
+        lastName.setPadding(new Insets(10, 10, 10, 10));
+        email.setPadding(new Insets(10, 10, 10, 10));
+        phone.setPadding(new Insets(10, 10, 10, 10));
+        description.setPadding(new Insets(10, 10, 10, 10));
 
-   firstName.setPadding(new Insets(10, 10, 10, 10));
-   lastName.setPadding(new Insets(10, 10, 10, 10));
-   email.setPadding(new Insets(10, 10, 10, 10));
-   phone.setPadding(new Insets(10, 10, 10, 10));
-   description.setPadding(new Insets(10, 10, 10, 10));
+        fText.setPadding(new Insets(10, 10, 10, 10));
+        lText.setPadding(new Insets(10, 10, 10, 10));
+        eText.setPadding(new Insets(10, 10, 10, 10));
+        pText.setPadding(new Insets(10, 10, 10, 10));
+        dText.setPadding(new Insets(10, 10, 10, 10));
 
-   fText.setPadding(new Insets(10, 10, 10, 10));
-   lText.setPadding(new Insets(10, 10, 10, 10));
-   eText.setPadding(new Insets(10, 10, 10, 10));
-   pText.setPadding(new Insets(10, 10, 10, 10));
-   dText.setPadding(new Insets(10, 10, 10, 10));
+        update.resize(20, 10);
 
-   update.resize(20, 10);
+        editWin.initModality(Modality.APPLICATION_MODAL);
+        editWin.setTitle("Edit " + member.firstName);
+        HBox h = new HBox();
+        h.setPadding(new Insets(10, 10, 10, 10));
+        VBox v = new VBox();
+        VBox v2 = new VBox();
+        h.getChildren().addAll(v, v2);
+        v.getChildren().addAll(firstName, lastName, email, phone, description);
+        v2.getChildren().addAll(fText, lText, eText, pText, dText);
+        bp.setCenter(h);
+        v.getChildren().add(update);
+        Scene s = new Scene(bp, 250, 300);
 
-   editWin.initModality(Modality.APPLICATION_MODAL);
-   editWin.setTitle("Edit " + member.firstName);
-   HBox h = new HBox();
-   h.setPadding(new Insets(10, 10, 10, 10));
-   VBox v = new VBox();
-   VBox v2 = new VBox();
-   h.getChildren().addAll(v, v2);
-   v.getChildren().addAll(firstName, lastName, email, phone, description);
-   v2.getChildren().addAll(fText, lText, eText, pText, dText);
-   bp.setCenter(h);
-   v.getChildren().add(update);
-   Scene s = new Scene(bp, 250, 300);
+        update.setOnAction(e2 -> {
+         String fName = fText.getText(), lName = lText.getText(), e = eText.getText(), p = pText.getText(),
+           d = dText.getText();
+         member.setFirstName(fName);
+         member.setLastName(lName);
+         member.setEmail(e);
+         member.setPhone(p);
+         member.setDescription(d);
+         ViewAccountScene.displayName.setText(fName + " " + lName);
+         ViewAccountScene.displayDescription.setText(d);
+         ViewAccountScene.displayEmail.setText(e);
+         ViewAccountScene.displayPhone.setText(p);
+         System.out.println(member.toString());
+         for (AccountMember m : AccountsFile.AccountMembers)
+          try {
+           bw.write(m.toString());
+           bw.newLine();
+          } catch (IOException e1) {
+           e1.printStackTrace();
+          }
+         try {
+          bw.flush();
+         } catch (IOException e1) {
+          e1.printStackTrace();
+         }
+         try {
+          AccountsFile.createNewFile(member);
+         } catch (IOException e1) {
+          e1.printStackTrace();
+         }
+         editWin.close();
+        });
 
-   update.setOnAction(e2 -> {
-    String fName = fText.getText(), lName = lText.getText(), e = eText.getText(), p = pText.getText(),
-      d = dText.getText();
-    member.setFirstName(fName);
-    member.setLastName(lName);
-    member.setEmail(e);
-    member.setPhone(p);
-    member.setDescription(d);
-    ViewAccountScene.displayName.setText(fName + " " + lName);
-    ViewAccountScene.displayDescription.setText(d);
-    ViewAccountScene.displayEmail.setText(e);
-    ViewAccountScene.displayPhone.setText(p);
-    System.out.println(member.toString());
-    for (AccountMember m : AccountsFile.AccountMembers)
-     try {
-      bw.write(m.toString());
-      bw.newLine();
-     } catch (IOException e1) {
-      e1.printStackTrace();
-     }
-    try {
-     bw.flush();
-    } catch (IOException e1) {
-     e1.printStackTrace();
-    }
-    try {
-     AccountsFile.createNewFile(member);
-    } catch (IOException e1) {
-     e1.printStackTrace();
-    }
-    editWin.close();
-   });
+        editWin.setScene(s);
+        editWin.showAndWait();
 
-   editWin.setScene(s);
-   editWin.showAndWait();
-
-  }
-
-  if (event.getSource() == addButton) {
-
-   Stage popupwindow = new Stage();
-
-   BorderPane bp = new BorderPane();
-
-   popupwindow.initModality(Modality.APPLICATION_MODAL);
-   popupwindow.setTitle("Add Transaction");
-
-   Button button1 = new Button("Enter");
-
-   Label lPrompt = new Label();
-   Label lAmount = new Label("Amount");
-   Label labelType = new Label("Type");
-   Label labelInorOut = new Label("Withdrawl/" + "\n" + "Deposit");
-   Label code = new Label("Code");
-
-   TextField amount = new TextField();
-
-   ComboBox<String> codeBox = new ComboBox<String>();
-   codeBox.getItems().addAll("MAF654845", "KTO987856", "HJT12478555");
-   codeBox.setEditable(true);
-
-   ComboBox<String> typeBox = new ComboBox<String>();
-   typeBox.getItems().addAll("Card", "Cash", "Check");
-   typeBox.setEditable(false);
-
-   ComboBox<String> dwBox = new ComboBox<String>();
-   dwBox.getItems().addAll("Withdrawl", "Deposit");
-   dwBox.setEditable(false);
-
-   HBox hbox = new HBox();
-   hbox.setAlignment(Pos.BOTTOM_RIGHT);
-   hbox.getChildren().add(button1);
-
-   GridPane grid = new GridPane();
-   grid.setAlignment(Pos.TOP_LEFT);
-   grid.setHgap(10);
-   grid.setVgap(10);
-   grid.setPadding(new Insets(25, 25, 25, 25));
-
-   grid.add(lPrompt, 1, 0);
-   grid.add(lAmount, 0, 1);
-   grid.add(amount, 1, 1);
-   grid.add(labelType, 0, 2);
-   grid.add(typeBox, 1, 2);
-   grid.add(code, 0, 3);
-   grid.add(codeBox, 1, 3);
-   grid.add(labelInorOut, 0, 4);
-   grid.add(dwBox, 1, 4);
-   grid.add(hbox, 1, 5);
-
-   bp.setCenter(grid);
-
-   Scene scene = new Scene(bp, 300, 250);
-
-   button1.setOnAction(e -> {
-
-       if (amount.getText().trim().isEmpty() || typeBox.getSelectionModel().isEmpty() || codeBox.getSelectionModel().isEmpty() || 
-               dwBox.getSelectionModel().isEmpty()) {
-
-           lPrompt.setText("*All Fields Required!");
-           lPrompt.setFont(Font.font("Verdana", 12));
-           lPrompt.setTextFill(Paint.valueOf("RED"));
-           amount.clear();
-
-
-          } else {
+       }
         
-     tran = new Transaction(
+        if(event.getSource() == addButton) {
+            
+            Stage popupwindow = new Stage();
+            
+            BorderPane bp = new BorderPane();
+            
+            popupwindow.initModality(Modality.APPLICATION_MODAL);
+            popupwindow.setTitle("Add Transaction");                   
+                 
+            Button button1 = new Button("Enter");
+            
+            Label lPrompt = new Label();
+            Label lAmount = new Label("Amount");
+            Label labelType = new Label("Type");
+            Label labelInorOut = new Label("Withdrawl/" + "\n" + "Deposit");
+            Label code = new Label("Code");
+            
+            TextField amount = new TextField(); 
+            
+            ComboBox<String> codeBox = new ComboBox<String>();
+            try {
+                codeBox.getItems().addAll(AccountsFile.getExpenseCodes().keySet());
+            } catch (IOException e2) {
+                // TODO Auto-generated catch block
+                e2.printStackTrace();
+            }
+            codeBox.setEditable(true);
+            
+            ComboBox<String> typeBox = new ComboBox<String>();
+            typeBox.getItems().addAll("Card","Cash","Check");
+            typeBox.setEditable(false);
+            
+            ComboBox<String> dwBox = new ComboBox<String>();
+            dwBox.getItems().addAll("Withdrawl","Deposit");
+            dwBox.setEditable(false);
+            
+            HBox hbox = new HBox();
+            hbox.setAlignment(Pos.BOTTOM_RIGHT);
+            hbox.getChildren().add(button1);
+            
+            GridPane grid = new GridPane();
+            grid.setAlignment(Pos.TOP_LEFT);
+            grid.setHgap(10);
+            grid.setVgap(10);
+            grid.setPadding(new Insets(25, 25, 25, 25));
+            
+            grid.add(lPrompt, 1, 0);
+            grid.add(lAmount, 0, 1);
+            grid.add(amount, 1, 1);
+            grid.add(labelType, 0, 2);
+            grid.add(typeBox, 1, 2);
+            grid.add(code, 0, 3);
+            grid.add(codeBox, 1, 3);
+            grid.add(labelInorOut, 0, 4);
+            grid.add(dwBox, 1, 4);
+            grid.add(hbox, 1, 5);
+            
+            bp.setCenter(grid);
+            
+            Scene scene = new Scene(bp, 300, 250);
+            
+            button1.setOnAction(e -> {
 
-       localDate, codeBox.getSelectionModel().getSelectedItem().toString(), amount.getText(),
-       typeBox.getSelectionModel().getSelectedItem().toString(), dwBox.getSelectionModel().getSelectedItem().toString()
+                if (amount.getText().trim().isEmpty() || typeBox.getSelectionModel().isEmpty() || codeBox.getSelectionModel().isEmpty() || 
+                        dwBox.getSelectionModel().isEmpty()) {
 
-     );
+                    lPrompt.setText("*All Fields Required!");
+                    lPrompt.setFont(Font.font("Verdana", 12));
+                    lPrompt.setTextFill(Paint.valueOf("RED"));
+                    amount.clear();
 
-     member.history.add(tran);
-     
-    
-    
-    if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
-        fee = tran.UFee();
+                }else {
+
+                    
+                            tran = new Transaction(
+                      
+                      localDate,
+                      codeBox.getSelectionModel().getSelectedItem().toString() +  "    " + AccountsFile.st.get(codeBox.getSelectionModel().getSelectedItem().toString()),
+                      amount.getText(),
+                      typeBox.getSelectionModel().getSelectedItem().toString(),
+                      dwBox.getSelectionModel().getSelectedItem().toString()
+
+                    );
+                   
+                            member.history.add(tran);
+
+                    if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
+
+                        uFee = tran.getAmount() *.08;
+                        tranAmount = tran.getAmount() - uFee;
+                        member.setFeeAmount(uFee);
+                        
+                        if(typeBox.getSelectionModel().getSelectedItem() == "Card") {
+                            
+                            cardfee = tran.getAmount() *.04;
+                            tranAmount = tran.getAmount() - cardfee;
+                            member.setFeeAmount(cardfee);
+                            
+                        }
+                        
+                        ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
+                        ViewAccountScene.labelFee.setText("WH for Fees: " + member.getFeeAmount());
+                        System.out.println(member.getFeeAmount());
+                        try {
+                            AccountsFile.deposit(member, tran);
+                        } catch (Exception e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+                        SceneController.ShowViewAccountScene();
+                    } 
+                    else {
+                        
+                        ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
+                        SceneController.ShowViewAccountScene();
+                        
+                        try {
+                            AccountsFile.withdraw(member, tran);
+                        } catch (Exception e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        }
+
+                    }
+
+                    
+                    
+                 popupwindow.close();
+
+                }
+
+               });
+            
+            popupwindow.setScene(scene);
+            popupwindow.showAndWait();
+            
+        }
         
-        ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
-     
-        codeBox.setPromptText("50109");
-
-     try {
-      AccountsFile.deposit(member, tran);
-     } catch (Exception e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-     }
-
-    } else {
-
-     ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
-
-     try {
-      AccountsFile.withdraw(member, tran);
-     } catch (Exception e1) {
-      // TODO Auto-generated catch block
-      e1.printStackTrace();
-     }
-
     }
-          
-    popupwindow.close();
 
-   }
-
-   });
-
-   popupwindow.setScene(scene);
-   popupwindow.showAndWait();
-
-  }
-
- }
 
 }

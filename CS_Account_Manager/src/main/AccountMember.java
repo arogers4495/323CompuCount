@@ -4,12 +4,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AccountMember {
+public class AccountMember extends Account{
 
  public String firstName, lastName, email, phone, description;
  protected File transactions, memberFile;
  protected ArrayList<Transaction> history;
- public double total;
+ public double total, feeAmount;
  public int index;
 
  public String getLastName() {
@@ -89,6 +89,7 @@ public class AccountMember {
   this.phone = phone;
   this.description = description;
   this.total = total;
+  //this.feeAmount = fee;
   transactions = new File("./Directory/Transactions/" + lastName + "_" + firstName + "_transactions.txt");
   transactions.createNewFile();
  }
@@ -128,4 +129,16 @@ public class AccountMember {
    return false;
 
  }
+
+public void setFeeAmount(double fee) {
+    
+    feeAmount += fee;
+    
+}
+
+public double getFeeAmount() {
+    
+    return feeAmount;
+}
+
 }

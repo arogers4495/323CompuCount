@@ -1,18 +1,10 @@
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class SceneController {
 
     
     private static LoginScene ls;
+    private static CreateHolderScene chs;
     private static HomeScene hs;
     private static ViewAccountScene vas;
     private static CreateMemberScene cms;
@@ -24,9 +16,7 @@ public class SceneController {
         hs = new HomeScene();
         vas = new ViewAccountScene();
         cms = new CreateMemberScene();
-        
-        
-        
+        chs = new CreateHolderScene();
         
     }
 
@@ -56,4 +46,11 @@ public class SceneController {
         
     }
 
+    public static void ShowCreateHolderScene() {
+        
+        window.setScene(chs.getHolderScene());
+        
+    }
+
 }
+
