@@ -16,7 +16,7 @@ public class AccountsFile {
  protected static ArrayList<AccountMember> AccountMembers;
  private static BufferedWriter writer;
  private FileWriter memberFileWriter;
- protected static File mainFile;
+ private static File mainFile;
  public static NumberFormat money;
  public static DateTimeFormatter date;
  public static LocalDate now;
@@ -69,7 +69,7 @@ public class AccountsFile {
   AccountMembers.add(member);
  }
 
- protected static void createNewFile(AccountMember member) throws IOException {
+ private static void createNewFile(AccountMember member) throws IOException {
   File memberFile = new File("./Directory/Members/" + member.lastName + "_" + member.firstName + ".txt");
   File transFile = new File(
     "./Directory/Transactions/" + member.lastName + "_" + member.firstName + "_transactions.txt");
@@ -188,10 +188,5 @@ public class AccountsFile {
 
   return AccountMembers;
 
- }
-
- public static void removeFile(AccountMember member) {
-  File x = AccountMember.getMemberFile(member);
-  x.delete();
  }
 }

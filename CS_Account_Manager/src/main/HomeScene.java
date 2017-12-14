@@ -26,7 +26,7 @@ public class HomeScene {
  private BorderPane bpane, bp;
  private HBox hbox, hbox1, hbox2, viewTrans;
  private VBox vbox, vbox1;
- private Button logout, home;
+ private Button logout, home, calculator;
  private Label poweredBy;
  private BorderListener bl;
  private HomeSceneListener hsl;
@@ -142,15 +142,19 @@ public class HomeScene {
   logout = new Button("Logout");
   home = new Button("Home");
   poweredBy = new Label("4Guys");
-
+  calculator = new Button("Calculator");
+  calculator.setOnAction((event) -> {
+	SceneController.ShowCalculator();  
+  });
   logout.setFont(new Font("Arial", 15));
   home.setFont(new Font("Arial", 15));
+  calculator.setFont(new Font("Arial", 15));
 
   bpane = new BorderPane();
   hbox = new HBox();
   hbox1 = new HBox();
 
-  hbox.getChildren().addAll(home, logout);
+  hbox.getChildren().addAll(calculator, home, logout);
   hbox.setSpacing(5);
   hbox.setPadding(new Insets(5, 0, 0, 10));
   hbox.setAlignment(Pos.TOP_RIGHT);

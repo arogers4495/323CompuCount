@@ -17,6 +17,8 @@ public class SceneController {
     private static ViewAccountScene vas;
     private static CreateMemberScene cms;
     private static Stage window;
+    private static AboutScene as;
+    private static CalculatorScene cs;
     
     public SceneController() {
         
@@ -24,10 +26,8 @@ public class SceneController {
         hs = new HomeScene();
         vas = new ViewAccountScene();
         cms = new CreateMemberScene();
-        
-        
-        
-        
+        as = new AboutScene();
+        cs = new CalculatorScene();
     }
 
     public static void ShowHome() {
@@ -35,6 +35,14 @@ public class SceneController {
         window.setScene(hs.getHomeScene());
     }
 
+    public static void ShowCalculator() {
+    	window.setScene(cs.getCalculatorScene());
+    }
+    
+    public static void ShowAbout() {
+    	window.setScene(as.getAboutScene());
+    }
+    
     public static void ShowLogin() {
         
        window.setScene(ls.getLoginScene());

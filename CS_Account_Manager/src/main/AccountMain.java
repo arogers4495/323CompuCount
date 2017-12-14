@@ -1,5 +1,5 @@
 import java.io.IOException;
-import com.sun.java.swing.plaf.windows.resources.windows;
+//import com.sun.java.swing.plaf.windows.resources.windows;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -21,8 +21,8 @@ public class AccountMain extends Application {
   controller = new SceneController();
   SceneController.setStage(primaryStage);
 
-  primaryStage.setTitle("CompuCount");
-  SceneController.ShowHome();
+  primaryStage.setTitle("Money Tracker");
+  SceneController.ShowLogin();
   primaryStage.show();
 
  }

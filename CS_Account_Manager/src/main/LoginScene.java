@@ -1,18 +1,20 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 
 public class LoginScene {
@@ -21,7 +23,7 @@ public class LoginScene {
     Label pwdLabel, lPrompt;
     TextField unameTField;
     PasswordField pwdField;
-    Button login;
+    Button login, about;
     String usernameInput;
     String passwordInput;
     String usernameActual;
@@ -39,11 +41,14 @@ public class LoginScene {
     lPrompt = new Label("");
     unameLabel = new Label("Username: ");
     pwdLabel = new Label("Password: ");
+    
     login = new Button("Login");
+    about = new Button("About");
     unameTField = new TextField();
     pwdField = new PasswordField();
     
     login.setFont(new Font("Arial", 15));
+    about.setFont(new Font("Arial", 15));
     
     // username and password for testing purposes
     usernameActual = "csadmin";
@@ -65,11 +70,28 @@ public class LoginScene {
     HBox hbBtn = new HBox(10);
     hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
     hbBtn.getChildren().add(login);
+    hbBtn.getChildren().add(about);
     grid.add(hbBtn, 1, 4);   
     
     bp.setCenter(grid);
+    FileInputStream input;
+	try {
+		input = new FileInputStream("money Tracker.png");
+		Image image = new Image(input);
+		ImageView imgView = new ImageView(image);
+		imgView.setFitWidth(280);
+		imgView.setFitHeight(230);
+	    bp.setLeft(imgView);
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+   
+    Scene loginScene = new Scene(bp, 600, 230);
     
-    Scene loginScene = new Scene(bp, 500, 250);
+    about.setOnAction((event) -> {
+    	SceneController.ShowAbout();
+    });
     
     login.setOnAction((event) -> {
         if(event.getSource() == login) {

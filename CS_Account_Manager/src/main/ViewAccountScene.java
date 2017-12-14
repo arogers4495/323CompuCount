@@ -25,10 +25,11 @@ public class ViewAccountScene {
 
  static double total;
  private AccountMember member;
- protected static Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
+ private Label displayName, displayEmail, displayPhone, displayDescription, poweredBy, transactionLabel;
  static Label labelTotal;
 
  private Button addButton, editButton, logout, home;
+
  private BorderPane bpane;
  private HBox hbox, hbox1;
  private BorderListener bl;
