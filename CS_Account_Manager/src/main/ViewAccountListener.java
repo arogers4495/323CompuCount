@@ -103,10 +103,16 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
 
    button1.setOnAction(e -> {
 
-    if(codeBox.){
-        
-    }
-    else{
+       if (amount.getText().trim().isEmpty() || typeBox.getSelectionModel().isEmpty() || codeBox.getSelectionModel().isEmpty() || 
+               dwBox.getSelectionModel().isEmpty()) {
+
+           lPrompt.setText("*All Fields Required!");
+           lPrompt.setFont(Font.font("Verdana", 12));
+           lPrompt.setTextFill(Paint.valueOf("RED"));
+           amount.clear();
+
+
+          } else {
         
      tran = new Transaction(
 
@@ -117,7 +123,7 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
 
      member.history.add(tran);
      
-    }
+    
     
     if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
@@ -146,12 +152,12 @@ public class ViewAccountListener implements EventHandler<ActionEvent> {
      }
 
     }
-
+          
     popupwindow.close();
 
    }
 
-   );
+   });
 
    popupwindow.setScene(scene);
    popupwindow.showAndWait();

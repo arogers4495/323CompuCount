@@ -1,3 +1,4 @@
 Auston	Rogers	4065464781	auston.rogers@umconnect.umt.edu	Student	0.0
 12/13/2017	$10,000.00 deposited into the account of Auston Rogers;	$10,000.00 remaining
 12/13/2017	$21,321.00 deposited into the account of Auston Rogers;	$31,321.00 remaining
+12/13/2017	$1,000.00 withdrawn from the account of Auston Rogers;	$30,321.00 remaining
