@@ -1,3 +1,4 @@
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -33,7 +34,7 @@ public class CreateMemberScene {
  private BorderListener bl;
  private HBox hb, hbox, hbox1;
  private BorderPane bpane;
- 
+
  public CreateMemberScene() {
 
  }
@@ -47,10 +48,15 @@ public class CreateMemberScene {
   descriptionLabel = new Label("Description:");
 
   firstNameTField = new TextField();
+  firstNameTField.setPromptText("First Name");
   lastNameTField = new TextField();
+  lastNameTField.setPromptText("Last Name");
   phoneNumTField = new TextField();
+  phoneNumTField.setPromptText("###-###-####");
   emailTField = new TextField();
+  emailTField.setPromptText("sample@sample.com");
   descriptionTField = new TextField();
+  descriptionTField.setPromptText("Account Use");
 
   submit = new Button("Submit");
   submit.setFont(new Font("Arial", 15));
@@ -85,41 +91,40 @@ public class CreateMemberScene {
 
   return CreateMemberScene;
  }
- 
+
 public BorderPane getFinallayout(GridPane grid) {
-     
+
     logout = new Button("Logout");
     home = new Button("Home");
     poweredBy = new Label("4Guys");
-    
+
     logout.setFont(new Font("Arial", 15));
     home.setFont(new Font("Arial", 15));
-    
+
     bpane = new BorderPane();
     hbox = new HBox();
     hbox1 = new HBox();
-    
+
     hbox.getChildren().addAll(home, logout);
     hbox.setSpacing(5);
     hbox.setPadding(new Insets(5, 0, 0, 10));
     hbox.setAlignment(Pos.TOP_RIGHT);
-    
+
     hbox1.getChildren().add(poweredBy);
     hbox1.setAlignment(Pos.BOTTOM_RIGHT);
-    
-    
+
+
     bpane.setTop(hbox);
     bpane.setBottom(hbox1);
-    
+
     bl = new BorderListener(logout, home);
-    
+
     logout.setOnAction(bl);
     home.setOnAction(bl);
-    
+
     bpane.setCenter(grid);
-    
+
     return bpane;
  }
 
 }
-
