@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="4 Guys" company="" webLink="http://" view-date="2017-11-26" view-index="0" gantt-divider-location="658" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:5" id="gantt-chart">
-        <field id="tpd3" name="Name" width="266" order="0"/>
+        <field id="tpd3" name="Name" width="265" order="0"/>
         <field id="tpd4" name="Begin date" width="108" order="1"/>
         <field id="tpd5" name="End date" width="109" order="2"/>
-        <field id="tpc0" name="Group Member" width="156" order="3"/>
+        <field id="tpc0" name="Group Member" width="155" order="3"/>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="210" order="0"/>
-        <field id="1" name="Default role" width="86" order="1"/>
+        <field id="0" name="Name" width="209" order="0"/>
+        <field id="1" name="Default role" width="85" order="1"/>
     </view>
     <!-- -->
     <calendars>
@@ -170,7 +170,7 @@ made scenecs look standered accross(Login, viewAccount, createmember)]]></notes>
                 </task>
             </task>
         </task>
-        <task id="68" name="Final Push" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
+        <task id="68" name="Final Push" meeting="false" start="2017-11-27" duration="14" complete="0" expand="true">
             <task id="69" name="Meeting" color="#8cb6ce" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
                 <notes><![CDATA[4 hours]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Group"/>
@@ -182,6 +182,18 @@ made scenecs look standered accross(Login, viewAccount, createmember)]]></notes>
             <task id="74" name="Polish Product Backlog" color="#8cb6ce" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
                 <notes><![CDATA[1 hour]]></notes>
                 <customproperty taskproperty-id="tpc0" value="Auston"/>
+            </task>
+            <task id="82" name="Finish Documentation" color="#8cb6ce" meeting="false" start="2017-12-05" duration="8" complete="0" expand="true">
+                <notes><![CDATA[2 hours]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Seth"/>
+            </task>
+            <task id="83" name="Error Checking" color="#8cb6ce" meeting="false" start="2017-12-05" duration="8" complete="0" expand="true">
+                <notes><![CDATA[6 hours]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Seth"/>
+            </task>
+            <task id="84" name="Polish Code" color="#8cb6ce" meeting="false" start="2017-12-05" duration="8" complete="0" expand="true">
+                <notes><![CDATA[2 hours]]></notes>
+                <customproperty taskproperty-id="tpc0" value="Seth"/>
             </task>
         </task>
     </tasks>
