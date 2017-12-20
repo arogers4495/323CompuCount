@@ -14,28 +14,26 @@ public class AccountMain extends Application {
   launch(args);
 
  }
-@Override
-public void start(Stage primaryStage) throws Exception {
-    
-    controller = new SceneController();
-    SceneController.setStage(primaryStage);
-    
-    primaryStage.setTitle("CompuCount");
-    
-   if(AccountsFile.getAccountHolder() == null){
-        
-        
-        SceneController.ShowCreateHolderScene();        
-        
-    }
-    else {
-    
-        SceneController.ShowLogin();
-        
-    }
-    
-    primaryStage.show();
-    
-}
 
+ @Override
+ public void start(Stage primaryStage) throws Exception {
+
+  controller = new SceneController();
+  SceneController.setStage(primaryStage);
+
+  primaryStage.setTitle("CompuCount");
+
+  if (AccountsFile.getAccountHolder() == null) {
+
+   SceneController.ShowCreateHolderScene();
+
+  } else {
+
+   SceneController.ShowLogin();
+
+  }
+
+  primaryStage.show();
+
+ }
 }

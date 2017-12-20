@@ -1,10 +1,11 @@
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class AccountMember extends Account{
+public class AccountMember extends Account {
 
  public String firstName, lastName, email, phone, description;
  protected File transactions, memberFile;
@@ -105,11 +106,11 @@ public class AccountMember extends Account{
   return this.firstName;
 
  }
- 
+
  public String getName() {
-     
-     return firstName + " " + lastName;
-     
+
+  return firstName + " " + lastName;
+
  }
 
  public double getTotal() {
@@ -130,15 +131,15 @@ public class AccountMember extends Account{
 
  }
 
-public void setFeeAmount(double fee) {
-    
-    feeAmount += fee;
-    
-}
+ public void setFeeAmount(double fee) {
 
-public double getFeeAmount() {
-    
-    return feeAmount;
-}
+  feeAmount += fee;
+
+ }
+
+ public double getFeeAmount() {
+
+  return feeAmount;
+ }
 
 }

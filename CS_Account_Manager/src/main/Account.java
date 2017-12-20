@@ -7,34 +7,29 @@ public class Account {
 
   total = 0;
   fees = 0;
-  
- }
 
+ }
 
  public double getTotalAmount() {
-    
-     return total;
+
+  return total;
 
  }
- 
+
  public void setTotalAmount() {
-     
-     
-     
+
  }
- 
+
  public double cardFee() {
-     
-     return fees;
-     
+
+  return fees;
+
  }
- 
+
  public double accountFee() {
-     
-     return fees;
-     
+
+  return fees;
+
  }
-
-
 
 }
