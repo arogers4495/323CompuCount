@@ -1,5 +1,7 @@
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collection;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,6 +27,7 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     Transaction tran;
     AccountMember member;
+    double cardfee, uFee, tranAmount;
     
     public ViewAccountListener(Button addButton, Button editButton, AccountMember member) {
         
@@ -36,6 +39,7 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
         
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void handle(ActionEvent event) {
         
@@ -65,16 +69,21 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
             TextField amount = new TextField(); 
             
             ComboBox<String> codeBox = new ComboBox<String>();
-            codeBox.getItems().addAll("MAF654845","KTO987856","HJT12478555");
+            try {
+                codeBox.getItems().addAll(AccountsFile.getExpenseCodes().keySet());
+            } catch (IOException e2) {
+                // TODO Auto-generated catch block
+                e2.printStackTrace();
+            }
             codeBox.setEditable(true);
             
             ComboBox<String> typeBox = new ComboBox<String>();
             typeBox.getItems().addAll("Card","Cash","Check");
-            typeBox.setEditable(true);
+            typeBox.setEditable(false);
             
             ComboBox<String> dwBox = new ComboBox<String>();
             dwBox.getItems().addAll("Withdrawl","Deposit");
-            dwBox.setEditable(true);
+            dwBox.setEditable(false);
             
             HBox hbox = new HBox();
             hbox.setAlignment(Pos.BOTTOM_RIGHT);
@@ -110,15 +119,16 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
                     lPrompt.setFont(Font.font("Verdana", 12));
                     lPrompt.setTextFill(Paint.valueOf("RED"));
                     amount.clear();
+                    
+                }                    
 
-
-                   } else {
+                    else {
 
                     
                             tran = new Transaction(
                       
                       localDate,
-                      codeBox.getSelectionModel().getSelectedItem().toString(),
+                      codeBox.getSelectionModel().getSelectedItem().toString() +  " " + AccountsFile.st.get(codeBox.getSelectionModel().getSelectedItem().toString()),
                       amount.getText(),
                       typeBox.getSelectionModel().getSelectedItem().toString(),
                       dwBox.getSelectionModel().getSelectedItem().toString()
@@ -129,21 +139,32 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
 
                     if (dwBox.getSelectionModel().getSelectedItem() == "Deposit") {
 
-                                           
+                        uFee = tran.getAmount() *.08;
+                        tranAmount = tran.getAmount() - uFee;
+                        member.setFeeAmount(uFee);
+                        
+                        if(typeBox.getSelectionModel().getSelectedItem() == "Card") {
+                            
+                            cardfee = tran.getAmount() *.04;
+                            tranAmount = tran.getAmount() - cardfee;
+                            member.setFeeAmount(cardfee);
+                            
+                        }
                         
                         ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
-                        
+                        ViewAccountScene.labelFee.setText("WH for Fees: " + member.getFeeAmount());
                         try {
                             AccountsFile.deposit(member, tran);
                         } catch (Exception e1) {
                             // TODO Auto-generated catch block
                             e1.printStackTrace();
                         }
-
+                        SceneController.ShowViewAccountScene();
                     } 
                     else {
                         
                         ViewAccountScene.labelTotal.setText("Total: " + member.getTotal());
+                        SceneController.ShowViewAccountScene();
                         
                         try {
                             AccountsFile.withdraw(member, tran);
@@ -154,6 +175,8 @@ public class ViewAccountListener implements EventHandler<ActionEvent>{
 
                     }
 
+                    
+                    
                  popupwindow.close();
 
                 }

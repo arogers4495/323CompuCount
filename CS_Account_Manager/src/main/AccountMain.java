@@ -22,9 +22,18 @@ public class AccountMain extends Application {
   SceneController.setStage(primaryStage);
 
   primaryStage.setTitle("CompuCount");
-  SceneController.ShowHome();
+
+  if (AccountsFile.getAccountHolder() == null) {
+
+   SceneController.ShowCreateHolderScene();
+
+  } else {
+
+   SceneController.ShowLogin();
+
+  }
+
   primaryStage.show();
 
  }
-
 }

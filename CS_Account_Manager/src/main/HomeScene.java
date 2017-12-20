@@ -31,6 +31,7 @@ public class HomeScene {
  private BorderListener bl;
  private HomeSceneListener hsl;
  private AccountMember member;
+ private AccountHolder holder;
  private ArrayList<AccountMember> membersList;
  TableColumn<AccountMember, String> nameCol, totalCol;
  private final TableView<AccountMember> table = new TableView<AccountMember>();
@@ -40,35 +41,37 @@ public class HomeScene {
  public HomeScene() {
 
   membersList = AccountsFile.getMembersList();
+
+  holder = AccountsFile.holder;
+
   memberLabel = new Label("Members");
+
   nameCol = new TableColumn<AccountMember, String>("Name");
   totalCol = new TableColumn<AccountMember, String>("Amount");
-  try {
-   member = membersList.get(0);
-   adminLabel = new Label(member.lastName + ", " + member.firstName);
 
-   data = FXCollections.observableArrayList();
+  data = FXCollections.observableArrayList();
 
-   table.getColumns().addAll(nameCol, totalCol);
+  table.getColumns().addAll(nameCol, totalCol);
 
-  } catch (Exception e) {
-   System.out.println("EXCEPTION");
-   adminLabel = new Label("");
-  }
   viewAccount = new Button("View Account");
   addAccount = new Button("Add Account");
   delAccount = new Button("Delete Account");
   viewButton = new Button("View Report");
+
  }
 
  public Scene getHomeScene() {
+
+  adminLabel = new Label(holder.getLname() + ", " + holder.getFname());
 
   for (int i = 0; i < membersList.size(); i++) {
 
    member = membersList.get(i);
 
    if (data.contains(member)) {
+
     continue;
+
    } else
     data.add(member);
 
